@@ -46,6 +46,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //setting custom public path for entry route
 app.use("/",express.static(path.join(__dirname, "public/main")));
+//setting custom public path for entry route
+app.use("/",express.static(path.join(__dirname, "public/main")));
 
 app.locals = {
     site: {

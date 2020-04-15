@@ -1,6 +1,6 @@
 const express = require('express');
 const route = express.Router();
-
+const path = require("path");
 const app = express();
 
 const paystackPayment = require('../../helpers/paystackPayment');
@@ -8,6 +8,9 @@ const paystackPayment = require('../../helpers/paystackPayment');
 const mainHandler = require("../main/services/mainHandler");
 
 const mainService = require("../main/services/mainService");
+
+//setting custom public path for entry route
+app.use("/online-store/products/",express.static(path.join(__dirname, "public/main")));
 
 route.get("/test", (req, res)=> {
 	console.log(req.session.cart);
@@ -20,10 +23,19 @@ route.get("/test", (req, res)=> {
 route.get("/", mainHandler.Index);
 route.get("/cart", mainHandler.Cart);
 route.get("/checkout", mainHandler.Checkout);
+route.get("/online-store", mainHandler.OnlineStore);
+route.get("/online-store/products/:slug", mainHandler.Product);
+route.get("/online-store/categories/:slug", mainHandler.Category);
+route.get("/online-store/search", mainHandler.Search);
 
 //static routes
 route.get("/contact", mainHandler.Contact);
 
+
+
+route.get('/*' ,(req, res) => {
+	res.render("main/404" ,{pageTitle : "Page not found "});
+});
 
 //service end points
 route.post("/test", (req, res)=> {

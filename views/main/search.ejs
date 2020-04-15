@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en"><!-- Basic -->
+<head>
+   <% include includes/metaMain %>
+</head>
+
+
+
+
+<body>
+	<!-- Start header -->
+    <% include includes/header %>
+	<!-- End header -->
+	
+	<!-- <div class="all-page-title page-breadcrumb">
+		<div class="container text-center">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1>checkout</h1>
+					<div class="bread-crumb white">
+						<a class="" href="index.html">Home</a>
+						<a href="online-store.html">Online Store</a> 
+						<span>Spicy Spagetti with Shrimps and Agbo</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+ -->
+	<div class="checkout">
+	<!-- Start Menu -->
+	<div class="menu-box" id="productList">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="heading-title text-center">
+						<h2>Search Results</h2>
+						<p>Results for <b> <%=query%> </b></p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="special-menu text-center">
+						<div class="button-group filter-button-group">
+
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			
+			<div class="row" align="center" >
+				<div class="col-xs-12 col-md-12  col-lg-7" style="margin: auto;">
+			                    <!-- SEARCH FORM -->
+			                    <% include components/searchForm%> 
+			                    <!-- END SEARCH FORM-->		
+				</div>
+			</div>		
+
+
+
+
+	<% if (products.length > 0) { -%>
+				<div class="row special-list" id="">
+					<!-- PRODUCT LIST -->
+	                     <% include components/productList%>    
+	                                                   
+				</div>	
+	<% } else { -%>
+		<div align="center">
+			<h2>No result found for <b> <%=query%> </b></h2>
+		</div>
+	<% } -%>
+
+		</div>
+
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="heading-title text-center">
+						<h2>Categories</h2>
+						<!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting</p> -->
+					</div>
+				</div>
+			</div>
+			<div class="row special-list" id="">
+				<!-- CATEGORY LIST -->
+                     <% include components/categoryList%>    
+                                                    
+			</div>
+
+
+
+
+	</div>
+	<!-- End Menu -->
+	</div>
+
+
+
+
+ <% include includes/footer %>
+</body>
+</html>
