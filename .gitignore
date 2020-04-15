@@ -1,6 +1,6 @@
 node_modules/
-public/img/products/.gitkeep
-public/img/categories/.gitkeep
+!public/img/products/.gitkeep
+!public/img/categories/.gitkeep
 .env
 vitaFruity.sublime-project
 vitaFruity.sublime-workspace
