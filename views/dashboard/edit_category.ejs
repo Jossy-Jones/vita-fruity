@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include includes/metaMain %>
+</head>
+<body>
+
+
+<!-- header starts here -->
+<% include includes/header %>
+<!-- header ends here -->
+
+
+<style type="text/css">
+    
+    select.category{
+        font-size: 22px !important;
+    }
+
+    .md-form label{
+        color: #83e799;
+    }
+    .md-form input[type="text"]:focus ~ label, .md-form input[type="number"]:focus ~ label, .md-form input[type="text"]:valid ~ label, .md-form input[type="number"]:valid ~ label{
+        position: absolute;
+        transition: .6s;
+        top: -2px;
+        left: 0;
+        font-size: 11px;
+        color: #83e799;
+    }
+    .md-form textarea.md-textarea:focus:not([readonly])+label{
+        color: #83e799;
+    }
+    .btn-outline-info {
+        border: 2px solid #83e799;
+        color: #83e799!important;
+        background-color: transparent;
+    }    
+</style>
+
+
+
+    <div id="card_content"> 
+
+        <div class="row">
+            <div class="col-xs-6 col-sm-7 card" style="margin: auto;">
+              <div class="card-body">
+                <h5 class="card-title">Edit category</h5>
+               <!--  -->
+            
+
+<!-- Material form contact -->
+
+    <!--Card content-->
+                <div class="card-body px-lg-5 pt-0">
+
+                    <!-- Form -->
+                    <form class="text-center" style="color: #757575;" action="#!">
+                        <div class="img-container">
+                            <img src="<%= site.url %>/img/categories/<%=category.main_img %>" width="300" id="thumbnail" class="img-fluid">
+                        </div>
+                        
+                   
+
+                                    <!-- Name -->
+                                    <div class="md-form mt-3">
+                                        <input type="text" id="materialContactFormName" class="form-control" name="name" value="<%= category.name%>" required>
+                                        <label>Name</label>
+                                    </div>
+
+
+
+                                    <!-- Upload input -->
+                                    <br>
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                                      </div>
+                                      <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="img" id="img-input"
+                                          aria-describedby="inputGroupFileAddon01">
+                                        <label class="custom-file-label" for="inputGroupFile01">Choose Image</label>
+                                      </div>
+                                    </div>  
+
+                                    <br><br>                                      
+                                    
+
+                                    <!-- Copy -->
+<!--                                     <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="materialContactFormCopy">
+                                        <label class="form-check-label" for="materialContactFormCopy">A random text</label>
+                                    </div>
+ -->
+                        <!-- Material form contact -->                            
+
+                        <input type="text" name="id"  value="<%=category.id %>" style="display: none;">
+                        <!-- Send button -->
+                        <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" id="#saveBtn" type="button" onclick="edit()">Save changes</button>
+
+                    </form>
+                    <!-- Form -->
+
+                </div>
+
+<!-- Material form contact -->
+
+
+                <!-- <button class="btn btn-primary">Go</button> -->
+              </div>
+             </div>          
+        </div>    
+      </div>
+    </div>
+
+<!-- footer starts here -->
+<% include includes/footer %>
+<!-- footer ends here -->  
+
+<script src="<%= site.adminURL%>/assets/jquery.preview-img.js"></script>
+<script type="text/javascript">
+    $("#thumbnail").previewImageFrom("#img-input");
+
+
+function edit() {
+    let form = $('form')[0]; 
+    let formData = new FormData(form);
+    //console.log(formData.values());
+    for (let value of formData.values()) {
+
+       console.log(value); 
+    }
+   
+    $("#saveBtn").attr("disabled", true);
+
+    if(formData.get('img').size == 0) {
+         $.toast({
+            text: `<h6>Please choose an image</h6>`,
+            showHideTransition: 'fade',
+            icon: 'error',
+            position: "top-right",
+            loader:false
+        });
+         throw new Error("No image uploaded when editing category");
+    }
+
+
+    $.ajax({
+        url : "<%= site.adminURL%>/json/edit-category",
+        type:"POST",
+        data : formData,
+        contentType: false,
+        processData: false,       
+        success : (res)=>{
+            console.log(res);
+
+            if(res.status == false) {
+                 $.toast({
+                    text: `<h6>${res.message}</h6>`,
+                    showHideTransition: 'fade',
+                    icon: 'error',
+                    position: "top-right",
+                    loader:false
+                });
+
+                 setTimeout(()=>{ 
+                     $("#saveBtn").attr("disabled", false);
+                    }, 1500);
+            }
+
+
+
+            if(res.status == true) {
+                $.toast({
+                    text: '<h6>Changes saved</h6>',
+                    showHideTransition: 'slide',
+                    loader:false,
+                    icon: 'success',
+                    position: "top-right"
+                });
+
+
+                    setTimeout(()=>{ 
+
+                     console.log("successful");
+                     window.location.href = "<%= site.adminURL%>/categories";
+
+                    }, 2000);
+
+            } 
+        }
+    });  
+
+}
+   
+</script>  
+</body>
+</html>

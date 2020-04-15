@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <% include includes/metaMain %>
+</head>
+<body>
+
+<!-- header starts here -->
+<% include includes/header %>
+<!-- header ends here -->
+
+<style type="text/css">
+    
+    select.category{
+        font-size: 22px !important;
+    }
+
+    .md-form label{
+        color: #83e799;
+    }
+    .md-form input[type="text"]:focus ~ label, .md-form input[type="number"]:focus ~ label, .md-form input[type="text"]:valid ~ label, .md-form input[type="number"]:valid ~ label{
+        position: absolute;
+        transition: .6s;
+        top: -2px;
+        left: 0;
+        font-size: 11px;
+        color: #83e799;
+    }
+    .md-form textarea.md-textarea:focus:not([readonly])+label{
+        color: #83e799;
+    }
+    .btn-outline-info {
+        border: 2px solid #83e799;
+        color: #83e799!important;
+        background-color: transparent;
+    }
+
+</style>
+
+    <div id="card_content"> 
+
+        <div class="row">
+            <div class="col-xs-6 col-sm-7 card" style="margin: auto;">
+              <div class="card-body">
+                <h5 class="card-title">Edit product</h5>
+            
+
+<!-- Material form contact -->
+
+    <!--Card content-->
+                <div class="card-body px-lg-5 pt-0">
+
+                    <!-- Form -->
+                    <form class="text-center" style="color: #757575;" action="#!">
+
+                        <div class="img-container">
+                            <img src="<%= site.url %>/img/products/<%=product.main_img %>" width="300" id="thumbnail" class="img-fluid">
+                        </div>
+                        
+
+                                    <!-- Name -->
+                                    <div class="md-form mt-3">
+                                        <input type="text" id="materialContactFormName" class="form-control" name="name" value="<%= product.name%>" required>
+                                        <label>Name</label>
+                                    </div>
+
+
+
+                                    <!-- Price -->
+                                    <div class="md-form">
+                                       
+                                            <input type="number" id="materialAmount" value="<%=product.price %>" name="price"  min="1000" max="20000" class="form-control" required>
+                                             <label for="materialAmount">Price (&#8358;)</label>
+                                    
+                                    </div>
+
+
+                                    <!-- Upload input -->
+                                    <br>
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                                      </div>
+                                      <div class="custom-file">
+                                        <input type="file" name="img" class="custom-file-input" id="img-input"
+                                          aria-describedby="inputGroupFileAddon01">
+                                        <label class="custom-file-label" for="inputGroupFile01">Choose Image</label>
+                                      </div>
+                                    </div>  
+
+                                    <br><br>                                      
+                                    
+
+                                      <div>
+                                         <!-- Category -->
+                                       <span style="color: #83e799!important;">Category</span><br>
+                                        <select name="category" class="mdb-select category">
+                                            <option value="" disabled selected>-Choose category-</option>
+                                             <% categories.forEach((category)=> { %>
+                                             <option value="<%=category.id %>" <% if (category.id == product.category_id) { -%>
+                                                 selected
+                                             <% }%>><%=  helpers.ucwords(category.name) %></option>
+                                             <%})%>
+                                        </select>                                        
+                                    </div>
+
+
+
+                                    <!--Description-->
+                                    <div class="md-form">
+                                        <br>
+                                        <textarea id="materialDescription" class="form-control md-textarea" rows="3" name="description"><%=product.description %></textarea>
+                                        <label for="materialDescription">Description</label>
+                                    </div>
+
+                                    <!-- Copy -->
+<!--                                     <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="materialContactFormCopy">
+                                        <label class="form-check-label" for="materialContactFormCopy">A random text</label>
+                                    </div>
+ -->
+                        <!-- Material form contact -->                            
+
+                        <input type="text" name="id" value="<%=product.id%>" style="display: none;">
+
+                        <!-- Send button -->
+                        <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="button" onclick="edit()">Save changes</button>
+
+                    </form>
+                    <!-- Form -->
+
+                </div>
+
+<!-- Material form contact -->
+
+
+                <!-- <button class="btn btn-primary">Go</button> -->
+              </div>
+             </div>          
+        </div>    
+      </div>
+    </div>
+
+<!-- footer starts here -->
+<% include includes/footer %>
+<!-- footer ends here -->
+
+<script src="<%= site.adminURL%>/assets/jquery.preview-img.js"></script>
+<script type="text/javascript">
+    $("#thumbnail").previewImageFrom("#img-input");
+
+
+function edit() {
+    let form = $('form')[0]; 
+    let formData = new FormData(form);
+    //console.log(formData.values());
+    for (let value of formData.values()) {
+
+       console.log(value); 
+    }
+   
+    $("#editBtn").attr("disabled", true);
+
+    if(formData.get('img').size == 0) {
+         $.toast({
+            text: `<h6>Please choose an image</h6>`,
+            showHideTransition: 'fade',
+            icon: 'error',
+            position: "top-right",
+            loader:false
+        });
+         throw new Error("No image uploaded when editing product");
+    }
+
+
+    $.ajax({
+        url : "<%= site.adminURL%>/json/edit-product",
+        type:"POST",
+        data : formData,
+        contentType: false,
+        processData: false,       
+        success : (res)=>{
+            console.log(res);
+
+            if(res.status == false) {
+                 $.toast({
+                    text: `<h6>${res.message}</h6>`,
+                    showHideTransition: 'fade',
+                    icon: 'error',
+                    position: "top-right",
+                    loader:false
+                });
+
+                 setTimeout(()=>{ 
+                     $("#editBtn").attr("disabled", false);
+                    }, 1500);
+            }
+
+
+
+            if(res.status == true) {
+                $.toast({
+                    text: '<h6>Changes saved</h6>',
+                    showHideTransition: 'slide',
+                    loader:false,
+                    icon: 'success',
+                    position: "top-right"
+                });
+
+
+                    setTimeout(()=>{ 
+
+                     console.log("successful");
+                     window.location.href = "<%= site.adminURL%>/products";
+
+                    }, 2000);
+
+            } 
+        }
+    });  
+
+}
+   
+</script>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include includes/metaMain %>
+</head>
+<style type="text/css">
+    div.card-body{
+        overflow-x: auto;
+    }
+</style>
+<body>
+
+
+<!-- header starts here -->
+<% include includes/header %>
+<!-- header ends here -->
+
+<style type="text/css">
+    
+</style>
+
+             <div align="center"><h2>Products</h2></div>
+            <!-- cards view for products  -->
+        <div id="card_content">
+            <div class="card">
+                <div class="card-body">
+
+                    <div>
+                         <button type="button" class="btn btn-outline-warning waves-effect" onclick="window.location.href='add-product'">Add product</button>
+                    </div>
+
+                    <table class="table table-hover">
+                        <thead>
+                            <!-- <th scope="col">NO</th> -->
+                            <th scope="col"></th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Last updated</th>
+                            <th scope="col"><!-- Action --></th>
+                        </thead>
+                        <tbody>
+
+                            <% if (products) { -%>
+                                
+
+                                <% products.forEach(product => {  let i = 1; i++  -%>
+                                    
+                                    <tr>
+                                        <!-- <th scope="row"></th> -->
+                                         <td><img src="<%= site.url %>/img/products/<%=product.main_img %>" width="100"></td>
+                                        <td><%=helpers.ucwords(product.name) %></td>
+                                        <td><%=categories.find(category => category.id == product.category_id).name %></td>
+                                        <td>&#8358;<%=product.price.toLocaleString() %></td>
+                                        <td>
+                                            <% if (product.time_updated) { -%>
+                                            <%=helpers.formatTime(product.time_updated,  "D MMM Y");  %></td>                         
+                                            <% } -%>
+
+                                      <td><button type="button" onclick="window.location.href='edit-product/<%=product.id%>'" class="btn btn-info">Edit</button></td>
+                                    </tr>
+
+
+
+                                <% }); -%>
+
+
+
+                            <% } else { -%>
+                                <div>
+                                    <h3>No product yet</h3>
+                                </div>
+                            <% } -%>
+
+                        </tbody>
+                    </table>    
+                </div>
+            </div>
+
+<!-- footer starts here -->
+<% include includes/footer %>
+<!-- footer ends here -->
+</body>
+</html>

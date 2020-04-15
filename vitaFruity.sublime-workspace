@@ -1,0 +1,1598 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"10",
+				"1000"
+			],
+			[
+				"add",
+				"addClass\t.addClass()"
+			],
+			[
+				"s",
+				"script\tTag"
+			],
+			[
+				"g",
+				"getData〔function〕"
+			],
+			[
+				"to",
+				"totalPrice"
+			],
+			[
+				"val",
+				"value"
+			],
+			[
+				"upd",
+				"updateItemPrice"
+			],
+			[
+				"tot",
+				"totalItemPrice"
+			],
+			[
+				"total",
+				"totalPrice"
+			],
+			[
+				"pos",
+				"position"
+			],
+			[
+				"no",
+				"none\tdisplay"
+			],
+			[
+				"produc",
+				"products"
+			],
+			[
+				"cart",
+				"cart-item"
+			],
+			[
+				"item",
+				"itemArr"
+			],
+			[
+				"get",
+				"getItems〔function〕"
+			],
+			[
+				"for",
+				"for\tfor (…) {…}"
+			],
+			[
+				"dial",
+				"dialog-btn"
+			],
+			[
+				"bt",
+				"btn-sm \tBootstrap 3 Class"
+			],
+			[
+				"remo",
+				"removeDialog"
+			],
+			[
+				"toggle",
+				"toggleRemoveDialog"
+			],
+			[
+				"prod",
+				"products"
+			],
+			[
+				"fun",
+				"function〔keyword〕"
+			],
+			[
+				"modu",
+				"module〔variable〕"
+			],
+			[
+				"cat",
+				"category"
+			],
+			[
+				"ca",
+				"category"
+			],
+			[
+				"ma",
+				"margin-top\tproperty"
+			],
+			[
+				"co",
+				"color\tproperty"
+			],
+			[
+				"time",
+				"time_updated"
+			],
+			[
+				"pro",
+				"product"
+			],
+			[
+				"cate",
+				"categories"
+			],
+			[
+				"reje",
+				"reject"
+			],
+			[
+				"resol",
+				"resolve"
+			],
+			[
+				"const",
+				"const\t? "
+			],
+			[
+				"w",
+				"width"
+			],
+			[
+				"dele",
+				"delete〔keyword〕"
+			],
+			[
+				"ti",
+				"title\tTag"
+			],
+			[
+				"ite",
+				"items〔variable〕"
+			],
+			[
+				"a",
+				"add\t.add()"
+			],
+			[
+				"aja",
+				"ajax\t$.ajax()"
+			],
+			[
+				"font",
+				"font-size\tproperty"
+			],
+			[
+				"i",
+				"i\tTag"
+			],
+			[
+				"fix",
+				"fixed-top \tBootstrap 4 Class"
+			],
+			[
+				"st",
+				"style\tTag"
+			],
+			[
+				"mai",
+				"mainRoute"
+			],
+			[
+				"va",
+				"values"
+			],
+			[
+				"form",
+				"formData〔variable〕"
+			],
+			[
+				"produ",
+				"productId〔variable〕"
+			],
+			[
+				"n",
+				"none\tdisplay"
+			],
+			[
+				"in",
+				"input"
+			],
+			[
+				"di",
+				"div\tTag"
+			],
+			[
+				"mod",
+				"module〔variable〕"
+			],
+			[
+				"if",
+				"if\t<% if () { %> <% } else { %>"
+			],
+			[
+				"is",
+				"isInserted"
+			],
+			[
+				"cta",
+				"category"
+			],
+			[
+				"me",
+				"message"
+			],
+			[
+				"req",
+				"require〔function〕"
+			],
+			[
+				"mar",
+				"margin-bottom\tproperty"
+			],
+			[
+				"bo",
+				"req.body"
+			],
+			[
+				"succ",
+				"successful"
+			],
+			[
+				"na",
+				"name"
+			],
+			[
+				"categ",
+				"categories"
+			],
+			[
+				"d",
+				"div\tTag"
+			],
+			[
+				"und",
+				"undefined〔keyword〕"
+			],
+			[
+				"set",
+				"setInterval〔function〕"
+			],
+			[
+				"img",
+				"imgQuality"
+			],
+			[
+				"ad",
+				"adminUsername"
+			],
+			[
+				"del",
+				"delete〔keyword〕"
+			],
+			[
+				"da",
+				"dashboardService"
+			],
+			[
+				"das",
+				"dashboardHandler〔variable〕"
+			],
+			[
+				"over",
+				"overflow-x\tproperty"
+			],
+			[
+				"redire",
+				"res.redirect([status,] path)"
+			],
+			[
+				"order",
+				"orders"
+			],
+			[
+				"coo",
+				"cookieParser〔variable〕"
+			],
+			[
+				"li",
+				"link\tTag"
+			],
+			[
+				"btn",
+				"btn-danger \tBootstrap 3 Class"
+			],
+			[
+				"al",
+				"alert-danger \tBootstrap 4 Class"
+			],
+			[
+				"err",
+				"error-toast"
+			],
+			[
+				"use",
+				"username"
+			],
+			[
+				"stat",
+				"status〔variable〕"
+			],
+			[
+				"tr",
+				"trim〔function〕"
+			],
+			[
+				"cons",
+				"console.log(\"Password"
+			],
+			[
+				"erro",
+				"error"
+			],
+			[
+				"sal",
+				"saltRounds"
+			],
+			[
+				"auth",
+				"authService〔variable〕"
+			],
+			[
+				"onc",
+				"onclick\tAttr"
+			],
+			[
+				"admi",
+				"adminRoute"
+			],
+			[
+				"fu",
+				"fun\tFunction"
+			],
+			[
+				"cli",
+				"client_pin"
+			],
+			[
+				"pay",
+				"$payment_data〔variable〕"
+			],
+			[
+				"pho",
+				"$phone_number〔variable〕"
+			],
+			[
+				"fi",
+				"$field〔variable〕"
+			],
+			[
+				"priutn",
+				"print_r〔function〕"
+			],
+			[
+				"pa",
+				"$payment〔variable〕"
+			],
+			[
+				"ch",
+				"$channel〔variable〕"
+			],
+			[
+				"getp",
+				"getPaymentData〔function〕"
+			],
+			[
+				"getP",
+				"getPaymentData〔function〕"
+			],
+			[
+				"payme",
+				"$payment_data〔variable〕"
+			],
+			[
+				"san",
+				"sanitize_note〔function〕"
+			],
+			[
+				"_",
+				"$_GET〔variable〕"
+			],
+			[
+				"requ",
+				"require_once〔keyword〕"
+			],
+			[
+				"array_ke",
+				"array_key_exists〔function〕"
+			],
+			[
+				"fo",
+				"foreach\tforeach …"
+			],
+			[
+				"med",
+				"mediums"
+			],
+			[
+				"m",
+				"mediums"
+			],
+			[
+				"mediu",
+				"mediums"
+			],
+			[
+				"cha",
+				"$channels〔variable〕"
+			],
+			[
+				"page",
+				"$page_name〔variable〕"
+			],
+			[
+				"ban",
+				"$bank_code〔variable〕"
+			],
+			[
+				"q",
+				"$query〔variable〕"
+			],
+			[
+				"ac",
+				"$acct_name〔variable〕"
+			],
+			[
+				"acc",
+				"$acct_num〔variable〕"
+			],
+			[
+				"ba",
+				"$bank_code_exists〔variable〕"
+			],
+			[
+				"acco",
+				"account_number"
+			],
+			[
+				"bank",
+				"bank_slug"
+			],
+			[
+				"or",
+				"$org_name〔variable〕"
+			],
+			[
+				"org",
+				"org_name"
+			],
+			[
+				"scr",
+				"src\tAttr"
+			],
+			[
+				"table-",
+				"table-list"
+			],
+			[
+				"print",
+				"printTable"
+			],
+			[
+				"marg",
+				"margin-right\tproperty"
+			],
+			[
+				"th",
+				"$this〔variable〕"
+			],
+			[
+				"chan",
+				"changeFee〔function〕"
+			],
+			[
+				"c_",
+				"$c_key〔variable〕"
+			],
+			[
+				"c",
+				"c_key"
+			],
+			[
+				"medium",
+				"medium_key"
+			],
+			[
+				"payment",
+				"payment_channels"
+			],
+			[
+				"numbe",
+				"number_format〔function〕"
+			],
+			[
+				"am",
+				"amountIsSpecified"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "index.js",
+			"settings":
+			{
+				"buffer_size": 1905,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "services/main/mainRoute.js",
+			"settings":
+			{
+				"buffer_size": 1152,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "services/main/services/mainHandler.js",
+			"settings":
+			{
+				"buffer_size": 1108,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "services/main/services/mainService.js",
+			"settings":
+			{
+				"buffer_size": 1976,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/main/index.ejs",
+			"settings":
+			{
+				"buffer_size": 7249,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/main/cart.ejs",
+			"settings":
+			{
+				"buffer_size": 6576,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/main/includes/header.ejs",
+			"settings":
+			{
+				"buffer_size": 1968,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/main/includes/footer.ejs",
+			"settings":
+			{
+				"buffer_size": 7053,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/main/js/cart.js",
+			"settings":
+			{
+				"buffer_size": 3141,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/main/boilerplate.ejs",
+			"settings":
+			{
+				"buffer_size": 3672,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/main/includes/metaMain.ejs",
+			"settings":
+			{
+				"buffer_size": 1415,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/main/components/productList.ejs",
+			"settings":
+			{
+				"buffer_size": 2656,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/C++/C++ Single File.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 58.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"Terminus: Open Default Shell in Panel"
+			],
+			[
+				"ba",
+				"BackgroundColorEdit: Set Background Color"
+			],
+			[
+				"bac",
+				"BackgroundColorEdit: Set Background Color"
+			],
+			[
+				"back",
+				"BackgroundColorEdit: Set Background Color"
+			],
+			[
+				"Package Control: co",
+				"Package Control: Install Package"
+			],
+			[
+				"Snippet: ",
+				"Snippet: Enumeration"
+			]
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 154.0,
+		"history":
+		[
+			"npm",
+			"cd",
+			"npm",
+			"cd",
+			"npm install"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/NODE/vitaFruity",
+		"/C/NODE/vitaFruity/models",
+		"/C/NODE/vitaFruity/public",
+		"/C/NODE/vitaFruity/public/dashboard",
+		"/C/NODE/vitaFruity/services",
+		"/C/NODE/vitaFruity/services/admin",
+		"/C/NODE/vitaFruity/services/admin/services",
+		"/C/NODE/vitaFruity/services/main",
+		"/C/NODE/vitaFruity/views",
+		"/C/NODE/vitaFruity/views/main",
+		"/C/NODE/vitaFruity/views/main/components",
+		"/C/NODE/vitaFruity/views/main/includes"
+	],
+	"file_history":
+	[
+		"/C/NODE/vitaFruity/models/cart.js",
+		"/C/NODE/vitaFruity/helpers/helpers.js",
+		"/C/NODE/vitaFruity/services/admin/services/dashboardHandler.js",
+		"/C/NODE/vitaFruity/helpers/paystackPayment.js",
+		"/C/NODE/vitaFruity/views/main/contact.ejs",
+		"/C/NODE/vitaFruity/views/dashboard/products.ejs",
+		"/C/NODE/vitaFruity/views/main/components/productList.ejs",
+		"/C/NODE/vitaFruity/public/main/js/cart.js",
+		"/C/NODE/vitaFruity/views/main/includes/metaMain.ejs",
+		"/C/NODE/vitaFruity/views/main/includes/header.ejs",
+		"/C/NODE/vitaFruity/views/main/includes/footer.ejs",
+		"/C/Users/HP-PC/Documents/Templates/vitaFruity/main/checkout.html",
+		"/C/Users/HP-PC/Documents/Templates/vitaFruity/main/contact.html",
+		"/C/NODE/vitaFruity/public/main/css/notyf.min.css",
+		"/C/NODE/vitaFruity/public/main/js/notyf.min.js",
+		"/C/NODE/vitaFruity/views/dashboard/login.ejs",
+		"/C/NODE/vitaFruity/views/main/index.ejs",
+		"/C/NODE/vitaFruity/index.js",
+		"/C/NODE/vitaFruity/views/dashboard/categories.ejs",
+		"/C/NODE/vitaFruity/views/dashboard/includes/header.ejs",
+		"/C/NODE/vitaFruity/views/dashboard/includes/metaMain.ejs",
+		"/C/Users/HP-PC/Documents/Templates/vitaFruity/yamifood/index1.html",
+		"/C/NODE/vitaFruity/views/dashboard/create_product.ejs",
+		"/C/Users/HP-PC/Documents/Templates/vitaFruity/yamifood/index2.html",
+		"/C/NODE/vitaFruity/views/main/cart.ejs",
+		"/C/NODE/vitaFruity/services/main/mainRoute.js",
+		"/C/xampp/htdocs/test/sausage/paystack/example.html",
+		"/C/xampp/htdocs/test/sausage/paystack/app.js",
+		"/C/NODE/vitaFruity/services/main/services/mainHandler.js",
+		"/C/NODE/vitaFruity/services/main/services/mainService.js",
+		"/C/NODE/vitaFruity/services/admin/services/dashboardService.js",
+		"/C/NODE/vitaFruity/.env",
+		"/C/Users/HP-PC/AppData/Roaming/Sublime Text 3/Packages/tern_for_sublime/Tern.sublime-settings",
+		"/C/NODE/vitaFruity/middlewares/adminMiddleware.js",
+		"/C/NODE/vitaFruity/helpers/MySQLStoreOptions.js",
+		"/C/Users/HP-PC/AppData/Roaming/Sublime Text 3/Packages/ColorPicker/ColorPicker.sublime-settings",
+		"/C/NODE/vitaFruity/services/admin/adminRoute.js",
+		"/C/NODE/vitaFruity/views/dashboard/index.ejs",
+		"/C/NODE/vitaFruity/views/dashboard/edit_product.ejs",
+		"/C/NODE/vitaFruity/views/dashboard/edit_category.ejs",
+		"/C/NODE/vitaFruity/services/main/mainRouter.js",
+		"/C/xampp/htdocs/VITAFRUITY/testPHP.php",
+		"/C/NODE/vitaFruity/views/dashboard/create_category.ejs",
+		"/C/NODE/vitaFruity/views/dashboard/404.ejs",
+		"/C/Users/HP-PC/Desktop/izzy.html",
+		"/C/NODE/vitaFruity/views/dashboard/includes/footer.ejs",
+		"/C/NODE/vitaFruity/middlewares/FileUploadMiddleware.js",
+		"/C/NODE/vitaFruity/services/admin/services/authService.js",
+		"/C/NODE/vitaFruity/public/dashboard/assets/jquery.preview-img.js",
+		"/C/NODE/vitaFruity/package.json",
+		"/C/NODE/vitaFruity/helpers/FileUpload.js",
+		"/C/NODE/vitaFruity/views/dashboard/order.ejs",
+		"/C/NODE/vitaFruity/views/dashboard/order_list.ejs",
+		"/C/NODE/vitaFruity/.gitignore",
+		"/C/NODE/vitaFruity/database/config.js",
+		"/C/NODE/vitaFruity/views/dashboard/includes/metaMain",
+		"/C/NODE/vitaFruity/database/session_config.js",
+		"/C/NODE/vitaFruity/package-lock.json",
+		"/C/xampp/htdocs/VITAFRUITY/test.php",
+		"/C/NODE/vitaFruity/services/admin/index.js",
+		"/C/NODE/vitaFruity/views/dashboard/notification.ejs",
+		"/C/NODE/vitaFruity/views/dashboard/news.ejs",
+		"/C/NODE/vitaFruity/views/dashboard/create_order.ejs",
+		"/C/NODE/vitaFruity/views/dashboard/application.ejs",
+		"/C/NODE/vitaFruity/test.js",
+		"/C/Users/HP-PC/Downloads/recifa.sql",
+		"/C/NODE/test-blog/index.js",
+		"/C/NODE/test-blog/public/index.html",
+		"/C/NODE/test-blog/view/car.ejs",
+		"/C/xampp/htdocs/myport/index.php",
+		"/C/xampp/htdocs/test/index.php",
+		"/C/xampp/htdocs/pifopay/Engine/Class/sms.php",
+		"/C/xampp/htdocs/pifopay/Engine/Plugins/Package/PHPMailer/export.php",
+		"/C/xampp/htdocs/pifopay/Engine/Async/create-payment.php",
+		"/C/xampp/htdocs/pifopay/Engine/Controllers/hidden.php",
+		"/C/xampp/htdocs/pifopay/pay.php",
+		"/C/xampp/htdocs/pifopay/index.php",
+		"/C/xampp/htdocs/pifopay/pay-medium.php",
+		"/C/xampp/htdocs/pifopay/vendor-dashboard/channel.php",
+		"/C/xampp/htdocs/pifopay/vendor-dashboard/medium.php",
+		"/C/xampp/htdocs/pifopay/Engine/Class/app.php",
+		"/C/xampp/htdocs/pifopay/Engine/Plugins/Package/PHPMailer/src/PHPMailer.php",
+		"/C/Users/HP-PC/Desktop/ftf.php",
+		"/C/xampp/htdocs/pifopay/vendor-dashboard/includes/meta-main.php",
+		"/C/xampp/htdocs/pifopay/Engine/Controllers/landing.php",
+		"/C/xampp/htdocs/pifopay/Engine/Controllers/dashboard.php",
+		"/C/xampp/htdocs/pifopay/js/main.js",
+		"/C/xampp/htdocs/pifopay/vendor-dashboard/create-medium.php",
+		"/C/xampp/htdocs/pifopay/Engine/Async/create-medium.php",
+		"/C/xampp/htdocs/pifopay/vendor-dashboard/create-channel.php",
+		"/C/xampp/htdocs/pifopay/vendor-dashboard/js/app.js",
+		"/C/xampp/htdocs/pifopay/pay-channel.php",
+		"/C/xampp/htdocs/pifopay/Engine/Async/verify-pay.php",
+		"/C/xampp/htdocs/pifopay/test.php",
+		"/C/xampp/htdocs/pifopay/Engine/Class/payment_factory.php",
+		"/C/xampp/htdocs/pifopay/Engine/Class/medium_singleton.php",
+		"/C/xampp/htdocs/pifopay/Engine/Class/vendor_singleton.php",
+		"/C/xampp/htdocs/pifopay/Engine/Class/payment_channel_singleton.php",
+		"/C/xampp/htdocs/pifopay/Engine/Async/get-acct-num.php",
+		"/C/xampp/htdocs/pifopay/js/pifo.js",
+		"/C/xampp/htdocs/pifopay/vendor-dashboard/index.php",
+		"/C/xampp/htdocs/pifopay/login.php",
+		"/C/xampp/htdocs/pifopay/register.php",
+		"/C/xampp/htdocs/pifopay/vendor-dashboard/create-payment.php",
+		"/C/xampp/htdocs/pifopay/includes/header.php",
+		"/C/xampp/htdocs/pifopay/includes/footer.php",
+		"/C/xampp/htdocs/test.php",
+		"/C/xampp/htdocs/pifopay/Engine/Procedures/init.php",
+		"/C/xampp/htdocs/pifopay/Engine/Class/user_factory.php",
+		"/C/xampp/htdocs/pifopay/Engine/Tests/test.php",
+		"/C/xampp/htdocs/pifopay/vendor-dashboard/includes/header.php",
+		"/C/xampp/htdocs/pifopay/Engine/Env/db.php",
+		"/C/xampp/htdocs/pifopay/select-channels.php",
+		"/C/xampp/htdocs/pifopay/vendor-dashboard/includes/footer.php",
+		"/C/xampp/htdocs/pifopay/Rough/vendor-dashboard/channel.php",
+		"/C/xampp/htdocs/pifopay/Rough/pay.php",
+		"/C/xampp/htdocs/pifopay/Rough/pay-channel.php",
+		"/C/xampp/htdocs/pifopay/frontend/index.php",
+		"/C/xampp/htdocs/pifopay/frontend/select-channels.php",
+		"/C/xampp/htdocs/pifopay/frontend/pay-channel.php",
+		"/C/xampp/htdocs/pifopay/frontend/css/style.css",
+		"/C/xampp/htdocs/pifopay/frontend/includes/header.php",
+		"/C/xampp/htdocs/pifopay/frontend/pay.php",
+		"/C/xampp/htdocs/pifopay/frontend/login.php",
+		"/C/xampp/htdocs/pifopay/frontend/register.php",
+		"/C/xampp/htdocs/pifopay/frontend/generate-pin.php",
+		"/C/xampp/htdocs/pifopay/vendor-dashboard/my-channels.php",
+		"/C/xampp/htdocs/suntrust/ch_pic.php"
+	],
+	"find":
+	{
+		"height": 27.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"              <div align=\"center\">\n                                    <button class=\"btn btn-add-to-cart btn-sm\" onclick=\"addToCart(productId)\">Add to cart</button>\n                       </div>\n                           ",
+			"              <div align=\"center\">\n                                    <button class=\"btn btn-add-to-cart btn-sm\" href=\"#\" onclick=\"addToCart(3)\">Add to cart</button>\n                       </div>\n                           ",
+			"              <div align=\"center\">\n                                    <button class=\"btn-add-to-cart btn-sm\" href=\"#\" onclick=\"addToCart(3)\">Add to cart</button>\n                       </div>\n                           ",
+			"              <div align=\"center\">\n                                    <a class=\"btn-add-to-cart btn-sm\" href=\"#\" onclick=\"addToCart(3)\">Add to cart</a>\n                                </div>\n                           ",
+			"                                <div align=\"center\">\n                                    <a class=\"btn btn-add-to-cart btn-sm\" href=\"#\" onclick=\"addToCart(3)\">Add to cart</a>\n                                </div>",
+			"                                <div align=\"center\">\n                                    <a class=\"btn btn-warning btn-sm\" href=\"#\" onclick=\"addToCart(3)\">Add to cart</a>\n                                </div>",
+			"item col-xs-4 special-grid col-lg-4 drinks",
+			"var",
+			"quantity",
+			"quanity",
+			"editBtN",
+			"addBtn",
+			"function(err, row)",
+			"<div class=\"toast bg-danger\" id=\"error-toast\" role=\"alert\" data-delay=\"2000\" aria-live=\"assertive\" aria-atomic=\"true\">\n  <div class=\"toast-body\">\n    Hello, world! This is a toast message.\n  </div>\n</div>",
+			"img/",
+			"assets/",
+			"img/",
+			"assets/",
+			"img/",
+			"assets/",
+			"img/",
+			"assets/",
+			"img/",
+			"assets/",
+			"img/",
+			"assets/",
+			"img/",
+			"assets/",
+			"assets",
+			"assets/",
+			"ejs"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"              <div align=\"center\">\n                                    <button class=\" btn-add-to-cart btn-sm\" onclick=\"addToCart(productId)\">Add to cart</button>\n                       </div>\n                           ",
+			"              <div align=\"center\">\n                                    <button class=\"btn btn-add-to-cart btn-sm\" onclick=\"addToCart(productId)\">Add to cart</button>\n                       </div>\n                           ",
+			"              <div align=\"center\">\n                                    <button class=\"btn btn-add-to-cart btn-sm\" href=\"#\" onclick=\"addToCart(3)\">Add to cart</button>\n                       </div>\n                           ",
+			"              <div align=\"center\">\n                                    <button class=\"btn-add-to-cart btn-sm\" href=\"#\" onclick=\"addToCart(3)\">Add to cart</button>\n                       </div>\n                           ",
+			"                                <div align=\"center\">\n                                    <a class=\"btn-add-to-cart btn-sm\" href=\"#\" onclick=\"addToCart(3)\">Add to cart</a>\n                                </div>",
+			"                                <div align=\"center\">\n                                    <a class=\"btn btn-add-to-cart btn-sm\" href=\"#\" onclick=\"addToCart(3)\">Add to cart</a>\n                                </div>",
+			"item col-xs-3 special-grid col-lg-3 drinks",
+			"let",
+			"qty",
+			"saveBtn",
+			"editBtn",
+			"(err, row)=>"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "index.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1905,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								767,
+								767
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "services/main/mainRoute.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1152,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								352,
+								352
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 414.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "services/main/services/mainHandler.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1108,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								940,
+								940
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false,
+							"word_wrap": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "services/main/services/mainService.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1976,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								246,
+								246
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false,
+							"word_wrap": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 611.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 7,
+			"sheets":
+			[
+				{
+					"buffer": 4,
+					"file": "views/main/index.ejs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7249,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1454,
+								1454
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/EJS 2/EJS.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 829.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "views/main/cart.ejs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6576,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								602,
+								602
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/EJS 2/EJS.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 588.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "views/main/includes/header.ejs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1968,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/EJS 2/EJS.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "views/main/includes/footer.ejs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7053,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6718,
+								6718
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/EJS 2/EJS.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 369.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "public/main/js/cart.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3141,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3027,
+								3027
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false,
+							"word_wrap": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 257.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "views/main/boilerplate.ejs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3672,
+						"regions":
+						{
+							"col_FFFFFFFF":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										373,
+										378
+									]
+								],
+								"scope": "col_FFFFFFFF"
+							},
+							"col_FFFFFFFF_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_FFFFFFFF_circle.png",
+								"regions":
+								[
+									[
+										344,
+										344
+									]
+								],
+								"scope": "col_gutter"
+							}
+						},
+						"selection":
+						[
+							[
+								520,
+								520
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/EJS 2/EJS.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "views/main/includes/metaMain.ejs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1415,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1156,
+								1156
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/EJS 2/EJS.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 188.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "views/main/components/productList.ejs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2656,
+						"regions":
+						{
+							"col_88335588":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										2154,
+										2159
+									]
+								],
+								"scope": "col_88335588"
+							},
+							"col_88335588_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_88335588_circle.png",
+								"regions":
+								[
+									[
+										2113,
+										2113
+									]
+								],
+								"scope": "col_gutter"
+							},
+							"col_D2740BFF":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										1148,
+										1155
+									]
+								],
+								"scope": "col_D2740BFF"
+							},
+							"col_D2740BFF_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_D2740BFF_circle.png",
+								"regions":
+								[
+									[
+										1132,
+										1132
+									]
+								],
+								"scope": "col_gutter"
+							},
+							"col_F4901FFF":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										1037,
+										1044
+									]
+								],
+								"scope": "col_F4901FFF"
+							},
+							"col_F4901FFF_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_F4901FFF_circle.png",
+								"regions":
+								[
+									[
+										1021,
+										1021
+									]
+								],
+								"scope": "col_gutter"
+							},
+							"col_FEF5EDFF":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										1057,
+										1064
+									]
+								],
+								"scope": "col_FEF5EDFF"
+							},
+							"col_FEF5EDFF_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_FEF5EDFF_circle.png",
+								"regions":
+								[
+									[
+										1046,
+										1046
+									]
+								],
+								"scope": "col_gutter"
+							},
+							"col_FFFFFFFF":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										406,
+										410
+									]
+								],
+								"scope": "col_FFFFFFFF"
+							},
+							"col_FFFFFFFF_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_FFFFFFFF_circle.png",
+								"regions":
+								[
+									[
+										384,
+										384
+									]
+								],
+								"scope": "col_gutter"
+							}
+						},
+						"selection":
+						[
+							[
+								1469,
+								1456
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/EJS 2/EJS.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 787.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 69.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.595048629531,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.Cmder-2":
+	{
+		"height": 137.0
+	},
+	"output.Cmder-3":
+	{
+		"height": 137.0
+	},
+	"output.Terminus":
+	{
+		"height": 95.0
+	},
+	"output.Terminus 2":
+	{
+		"height": 137.0
+	},
+	"output.Terminus 3":
+	{
+		"height": 137.0
+	},
+	"output.Terminus 4":
+	{
+		"height": 137.0
+	},
+	"output.exec":
+	{
+		"height": 42.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 127.0
+	},
+	"pinned_build_system": "Packages/C++/C++ Single File.sublime-build",
+	"project": "vitaFruity.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"Engine\\Controllers\\student\\login_ctrl.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 235.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

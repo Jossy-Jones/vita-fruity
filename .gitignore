@@ -1,0 +1,4 @@
+node_modules/
+public/img/products/*
+public/img/categores/*
+.env
