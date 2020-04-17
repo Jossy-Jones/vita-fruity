@@ -63,11 +63,13 @@ app.locals = {
 };
 
 
+//admin dashboard route
+app.use("/dashboard", adminRoute);
+
 // entry route
 app.use("/", mainRoute);
 
-//admin dashboard route
-app.use("/dashboard", adminRoute);
+
 
 
 app.listen(port, () =>{
