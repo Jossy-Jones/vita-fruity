@@ -1350,6 +1350,10 @@ a.logo {
     justify-content: space-between;
 }
 
+button.navbar-toggler {
+    margin-right: 0 !important;
+}
+
 .cart {
     flex-grow: 1;
     text-align: right;
@@ -1425,6 +1429,24 @@ span.amount_cart {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+a.addCart {
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background: #ed8f20;
+}
+
+.why-text h4 a {
+    color: #f3af13;
+}
+
+.why-text h5 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 50px 0;
 }
 
 /* Check out page */
@@ -1803,8 +1825,7 @@ p.info-extra {
     min-width: 250px;
 }
 
-.your-review {
-}
+
 
 .your-review .form-group {
     width: 100%;
@@ -1839,13 +1860,86 @@ p.info-extra {
 .no-reviews p {
     border: 1px solid #0000004d;
     border-radius: 5px;
-    padding: 5px 10px;
+    padding: 10px;
 }
 
 .other-reviews {
     margin-right: 50px;
 }
 
+
+/* Category List */
+.category-list .text-banner {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    display: block;
+    text-align: center;
+    height: 160px;
+    color: #fff;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+}
+
+.category-list>.row>div:focus .thumb-img>img.img-fluid{
+    transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    -o-transform: scale(1.5);
+}
+
+.thumb-img img.img-fluid {
+    height: 350px;
+    object-fit: cover;
+    position: relative;
+}
+
+.thumb-img::after {
+    content: "";
+    background: rgba(0,0,0, 0.75);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.thumb-img {
+    display: block;
+    overflow: hidden;
+    position: relative;
+}
+
+.category-list .row>div {
+    margin-bottom: 30px;
+}
+
+.text-banner h3.title {
+    color: #fff;
+    font-size: 32px;
+    font-weight: 600;
+    position: relative;
+}
+
+.text-banner span{
+    font-size: 18px;
+}
+
+.text-banner h3.title::after {
+    content: "";
+    width: 50px;
+    height: 1px;
+    background: #fff;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -25px;
+}
 
 
 /* Jossy's Media Queries */

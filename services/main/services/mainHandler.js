@@ -93,7 +93,7 @@ module.exports.Product = (req, res)=> {
 			db.query("SELECT * FROM products WHERE slug = ?" ,req.params.slug, (err, product)=>{
 				res.render("main/product", 
 					{
-						pageTitle : `${product[0].name} - Vita Fruity. Healthy Food, Made Fresh Daily`, 
+						pageTitle : `${product[0].name.toUpperCase()} - Vita Fruity. Healthy Food, Made Fresh Daily`, 
 						products : products,
 						product :  product[0],
 						categories : categories
@@ -113,7 +113,7 @@ module.exports.Category = (req, res)=> {
 
 			res.render("main/categories", 
 				{
-					pageTitle : `${category.name} - Vita Fruity. Healthy Food, Made Fresh Daily`, 
+					pageTitle : `${category.name.toUpperCase()} - Vita Fruity. Healthy Food, Made Fresh Daily`, 
 					products : products,
 					category : category,
 					categories : categories

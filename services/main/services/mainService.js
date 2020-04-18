@@ -82,3 +82,10 @@ module.exports.updateQty = (req, res) => {
 	cart.setQty(req.body.id, req.body.qty);
 	res.json({status: true, message : `updated quantity`}); 
 }
+
+
+
+
+module.exports.orderAndPay = (req, res) => {
+
+}
