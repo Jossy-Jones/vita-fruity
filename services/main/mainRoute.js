@@ -9,14 +9,18 @@ const mainHandler = require("../main/services/mainHandler");
 
 const mainService = require("../main/services/mainService");
 
+const Cart = require('../../models/cart');
+
+
+
 //setting custom public path for entry route
 app.use("/online-store/products/",express.static(path.join(__dirname, "public/main")));
 
 route.get("/test", (req, res)=> {
-	console.log(req.session.cart);
-	 delete req.session.cart;
-	 //req.session.save();
-	res.send(req.session.cart.totalItems); 
+	let cart = new Cart (req.session.cart ? req.session.cart : {});
+	console.log(cart.getItemForOrder('a'));
+	 // delete req.session.cart;
+	 // //req.session.save();
 });
 
 //dynamic routes
@@ -55,6 +59,11 @@ route.post("/json/cart/get", mainService.getCart);
 route.post("/json/cart/get/item", mainService.getItemById);
 route.post("/json/cart/update/qty", mainService.updateQty);
 route.post("/json/cart/delete", mainService.removeCartItem);
+
+
+//order
+route.post("/json/order/init", mainService.initOrder);
+route.post("/json/order/init", mainService.initOrder);
 
 //checkout
 route.post("/json/checkout/pay", mainService.orderAndPay);

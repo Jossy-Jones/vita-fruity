@@ -14,6 +14,19 @@ module.exports.formatTime = (time, format) => {
 }
 
 
+
+module.exports.pickupTimeRangeIsValid = (arg) => {
+ 	let start =  moment.utc("08:00","HH:mm:ss");
+ 	let end = moment.utc("20:00","HH:mm:ss");
+
+    let m = moment.utc(arg, "HH:mm:ss");
+
+    if (m.isAfter(start) && m.isBefore(end)) {
+    	return true
+    }
+    return false;
+}
+
 module.exports.findMinMax = (arr) => {
 	let lowest = Number.POSITIVE_INFINITY;
 	let highest = Number.NEGATIVE_INFINITY;

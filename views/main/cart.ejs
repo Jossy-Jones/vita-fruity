@@ -68,17 +68,19 @@
 <% } else { -%>
 	
 		<div>
-			<h1>You have no item in cart</h1>
+			<h1 style="font-size: 45px">You have no item in cart</h1>
 		</div>
 
 <% } -%>
 
 		<div style="display: none;" id="no-item">
-			<h1>You have no item in cart</h1>
+			<h1 style="font-size: 35px">You have no item in cart</h1>
 		</div>
 
 			</div>
 
+
+<% if (products.length > 0) { -%>
 			<div class="panel payment-form">
 				<div>
 					<h2>*Shipping Method</h2>
@@ -93,10 +95,10 @@
 					<div>
 					
 						<div class="deliver_mode">
-							<input type="radio" value="pickup" name="delivery_mode" id="pickup" checked>
+							<input type="radio" value="pickup" name="shipping_method" id="pickup" checked>
 							<label for="pickup">Pickup</label>
 
-							<input type="radio" value="delivery" name="delivery_mode" id="delivery">
+							<input type="radio" value="delivery" name="shipping_method" id="delivery">
 							<label for="delivery">Delivery</label>
 						</div>
 
@@ -109,7 +111,7 @@
 									</datalist>
 								</div> -->
 								<div class="form-group">
-									<input type="time" name="pickup-time" min="09:45" max="20:00" step="300" required>
+									<input type="time" name="pickup_time" min="09:00" max="20:00" step="300" required>
 								</div>
 								<div class="delivery-price">
 									<h4>Delivery: &#8358;<span>0</span></h4>
@@ -120,10 +122,14 @@
 									
 								</div>
 								<div class="checkout-btn-wrapper">
-									<button type="button" onclick="window.location.href='checkout'"  class="btn btn-checkout">CHECKOUT</button>
+									<button type="button" onclick="proceed()"  class="btn btn-checkout">CHECKOUT</button>
 								</div>
 							</form>
 						</div>
+
+
+<% } -%>
+
 <!-- 
 						<div id="delivery-form">
 							<form>
@@ -152,6 +158,8 @@
 			</div>
 		</div>
 	</div>
+
+
 
 
 <% if (products.length > 0) { -%>
@@ -196,6 +204,9 @@
 
 
  <% include includes/footer %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+<% if (products.length > 0) { -%>
 
  <script type="text/javascript">
  	function toggleRemoveDialog(arg) {
@@ -239,6 +250,69 @@
  		});
 
  	}
+
+
+ 	function timeRangeIsValid(arg) {
+ 		let start =  moment.utc("08:00","HH:mm:ss");
+ 		let end = moment.utc("20:00","HH:mm:ss");
+
+        let m = moment.utc(arg, "HH:mm:ss");
+
+        if (m.isAfter(start) && m.isBefore(end)) {
+        	return true
+        }
+        return false;
+ 	}
+
+ 	function proceed() {
+ 		// submit shipping method and pickup_time
+
+ 		let e = null;
+
+	 	let notyf = new Notyf({
+		 		duration:3000,
+		 		  position: {
+		    		x: 'right',
+		    		y: 'top',
+		  		} 
+		  	}); 		
+
+ 		let shippingMethod = $('input[name=shipping_method]:checked').val();
+ 		let pickupTime = $("input[name=pickup_time]").val();
+
+ 		console.log("=>"+pickupTime);
+
+ 		if (pickupTime.length === 0 || pickupTime === undefined) {
+ 			e = "Please choose pickup time";
+ 		}
+ 		if (!timeRangeIsValid(pickupTime)) {
+ 			e = "Please pick time between 9:00am and  8:00pm";
+ 		}
+ 		console.trace(shippingMethod);
+
+
+ 		if (e) {
+ 			notyf.error(e);
+ 			throw new Error(e);
+ 		}
+
+ 		$.post(
+ 			'/json/order/init', 
+ 			{
+ 				shippingMethod: shippingMethod,
+ 				pickupTime: pickupTime
+ 			},
+ 			 function(res) {
+ 				if (res.status == true) {
+					window.location.href='checkout';
+ 				}
+ 			});
+
+ 		
+ 		
+ 	}
  </script>
+<% } -%>
+
 </body>
 </html>

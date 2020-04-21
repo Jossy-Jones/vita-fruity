@@ -1,7 +1,9 @@
+const moment = require('moment');
+
 const db = require('../../../database/config');
 const Cart = require('../../../models/cart');
-
-
+const utilOrder = require('../util/order')
+const helpers = require('../../../helpers/helpers');
 
 
 
@@ -89,3 +91,38 @@ module.exports.updateQty = (req, res) => {
 module.exports.orderAndPay = (req, res) => {
 
 }
+
+
+
+
+module.exports.initOrder= (req, res) => {
+	let Order = module.exports = function(s, p) {
+	     this.shippingMethod = s;
+	     this.pickupTime = p;
+	}; 
+
+
+	let asm = ['pickup', 'delivery']; // allowed shipping methods
+
+	let shippingMethod = req.body.shippingMethod;
+ 	let pickupTime = req.body.pickupTime;
+
+ 	let e = null; // error
+ 	let status = false;
+
+ 	if (!asm.includes(shippingMethod)) {
+ 		e = "Invalid shipping method";
+ 	}
+ 	if (!helpers.pickupTimeRangeIsValid(pickupTime)) {
+ 		e = "Please pick time between 9:00am & 8:00pm";
+ 	}
+
+
+ 	if (e == null) {
+		req.session.order = new Order(shippingMethod, pickupTime);		
+ 		req.session.save();
+ 		status = true;		
+ 	}
+
+ 	return res.json({status : status, message : e });
+}		

@@ -65,14 +65,14 @@
 			<h2>Customer details</h2>	
 			<h4>All asterisked (*) fields are required.</h4>
 
-			<form>
+			<form id="customerDetails">
 				<div class="row">
 					<div class="form-group col-md-6 col-sm-6 col-xs-12">
-						<input type="text" class="form-control"  name="first_name" placeholder="First Name *">
+						<input type="text" class="form-control"  name="firstName" placeholder="First Name *">
 					</div>
 
 					<div class="form-group col-md-6 col-sm-6 col-xs-12">
-						<input type="text" class="form-control" name="last_name" placeholder="Last Name *">
+						<input type="text" class="form-control" name="lastName" placeholder="Last Name *">
 					</div>
 
 
@@ -90,7 +90,7 @@
 
 				<div class="row">
 					<div class="form-group col-12">
-						<input type="text" class="form-control" name="address" placeholder="Residential Address *">
+						<input type="text" class="form-control" id="address" placeholder="Residential Address *">
 					</div>
 
 					<br><br>
@@ -98,7 +98,8 @@
 
 						<p class="col-4">
 						  <label class="toggleSwitch nolabel" onclick="">
-						        <input type="checkbox"/>
+
+						        <input type="checkbox" name="isNotPip" value="1"/>
 						        <span>
 <!-- 						            <span>OFF</span>
 						            <span>ON</span> -->
@@ -116,8 +117,8 @@
 				<div class="row">
 					<div class="col-12">
 					  <div class="form-group">
-					    <label for="exampleTextarea">Additinoal Information (optional)</label>
-					    <textarea class="form-control" id="exampleTextarea" rows="12"></textarea>
+					    <label for="exampleTextarea">Additional Information (optional)</label>
+					    <textarea class="form-control" name="addInfo" rows="12"></textarea>
 					  </div>
 					</div>
 				</div>					
@@ -173,6 +174,13 @@
  <% include includes/footer %>
  <script src="https://js.paystack.co/v1/inline.js"></script>
  <script type="text/javascript">
+
+ 	function submitOrder(arg) {
+ 		return new Promise((resolve, reject)=>{
+
+ 		});
+ 	}
+
  	function initPayment() {
 	 		/*
 	 		* Place order
@@ -180,6 +188,15 @@
 			* Open Modal
 			* Redirect somewhere safe	
 	 		*/
+	 		let form = $("form#customerDetails")[0];
+	 		let formData = new FormData(form);
+
+			for(var pair of formData.entries()) {
+			   console.log(pair[0]+ ' => '+ pair[1]); 
+			}
+
+			console.log(formData.get('last_name'));
+
  	}
  </script>
 </body>

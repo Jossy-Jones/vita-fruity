@@ -64,4 +64,11 @@ module.exports = function Cart(cart) {
         }
         return item;
     }
+
+
+    this.getItemForOrder = function(order_key) {
+        let arr = [];
+
+        console.log(this.getItems());
+    }
 };
