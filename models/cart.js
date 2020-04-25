@@ -66,9 +66,21 @@ module.exports = function Cart(cart) {
     }
 
 
-    this.getItemForOrder = function(order_key) {
-        let arr = [];
+    this.getItemsForOrder = function(order_key, discount_code = null, discount_percent = null) {
+        let items = this.getItems();
+        let arr  = [];   
+        for (var i = 0; i < items.length; i++) {
+            arr[i] = []
 
-        console.log(this.getItems());
+            arr[i].push(null);
+            arr[i].push(order_key);
+            arr[i].push (items[i].item.id);
+            arr[i].push(Date.now());
+            arr[i].push(items[i].price);
+            arr[i].push(items[i].qty);
+            arr[i].push(discount_code);
+            arr[i].push(discount_percent);
+        }       
+        return arr;
     }
 };

@@ -33,7 +33,8 @@
     "session": "^0.1.0",
     "sharp": "^0.25.2",
     "slug": "^2.1.1",
-    "uuidv4": "^6.0.6"
+    "uuidv4": "^6.0.6",
+    "validator": "^13.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.4"

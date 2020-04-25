@@ -68,11 +68,11 @@
 			<form id="customerDetails">
 				<div class="row">
 					<div class="form-group col-md-6 col-sm-6 col-xs-12">
-						<input type="text" class="form-control"  name="firstName" placeholder="First Name *">
+						<input type="text" class="form-control"  id="firstName" placeholder="First Name *">
 					</div>
 
 					<div class="form-group col-md-6 col-sm-6 col-xs-12">
-						<input type="text" class="form-control" name="lastName" placeholder="Last Name *">
+						<input type="text" class="form-control" id="lastName" placeholder="Last Name *">
 					</div>
 
 
@@ -80,11 +80,11 @@
 
 				<div class="row">
 					<div class="form-group col-md-6 col-sm-6 col-xs-12">
-						<input type="email" class="form-control" name="email" placeholder="Email *">
+						<input type="email" name="email" class="form-control" id="email" placeholder="Email *">
 					</div>
 
 					<div class="form-group col-md-6 col-sm-6 col-xs-12">
-						<input type="text" class="form-control"  name="phone" placeholder="Phone (e.g. 08023456789) *" value="" maxlength="11">
+						<input type="text" class="form-control"  id="phone" placeholder="Phone (e.g. 08023456789) *" value="" maxlength="11">
 					</div>
 				</div>
 
@@ -98,8 +98,7 @@
 
 						<p class="col-4">
 						  <label class="toggleSwitch nolabel" onclick="">
-
-						        <input type="checkbox" name="isNotPip" value="1"/>
+						        <input type="checkbox" name="isNotPip" id="isNotPip" value="1"/>
 						        <span>
 <!-- 						            <span>OFF</span>
 						            <span>ON</span> -->
@@ -118,7 +117,7 @@
 					<div class="col-12">
 					  <div class="form-group">
 					    <label for="exampleTextarea">Additional Information (optional)</label>
-					    <textarea class="form-control" name="addInfo" rows="12"></textarea>
+					    <textarea class="form-control" id="addInfo" rows="12"></textarea>
 					  </div>
 					</div>
 				</div>					
@@ -175,27 +174,138 @@
  <script src="https://js.paystack.co/v1/inline.js"></script>
  <script type="text/javascript">
 
- 	function submitOrder(arg) {
+
+  $.busyLoadSetup({
+    background: "rgba(237, 143, 32, 0.98)",
+    spinner: "circles",
+    animation: "slide",
+    text : "please wait",
+    textPosition:"bottom",
+    textMargin: "3rem"
+  }); 
+ 	function togglePay() {
+
+		 var handler = PaystackPop.setup({ 
+		        key: 'pk_test_d205737ff5330b19ef0ddce378efe7955c15e28f', //put your public key here
+		        email: `${$("#email").val().trim()}`, //put your customer's email here
+		        amount: <%= (totalPrice) %> * 100, //amount the customer is supposed to pay in kobo
+		        metadata: {
+		            custom_fields: [
+		                {
+		                    display_name: `${$("#lastName").val().trim().toUpperCase()} ${$("#firstName").val().trim()}` 
+		                }
+		            ]
+		        },
+		        callback: function (response) {
+		            //after the transaction have been completed
+		            //make post call  to the server with to verify payment 
+		            //using transaction reference as post data
+
+ 		
+		            $.post("/json/checkout/pay", {reference:response.reference}, function(res){
+
+
+				          $.busyLoadFull("show");     
+		                if(res.status == true){
+
+							setTimeout(()=> {
+								$.busyLoadFull("hide");
+							}, 1800);
+
+
+							setTimeout(()=> {
+								Swal.fire(
+								  'Payment received',
+								  'Please click to continue',
+								  'success'
+								).then(()=> {
+									setTimeout(()=> {
+										window.location.href = '/checkout/success';
+									}, 1800);
+								})
+							}, 1900);         	
+
+		                }
+		                else{
+							setTimeout(()=> {
+								$.busyLoadFull("hide");
+								Swal.fire({
+								  icon: 'error',
+								  title: 'Payment failed',
+								  text: 'Something went wrong with your payment'
+								})
+							}, 1800);		                	  	
+		                }
+		            });
+         
+		        },
+		        onClose: function () {
+		            //when the user close the payment modal
+		            alert('Transaction cancelled');
+		            reject('Transaction cancelled'); 
+		            
+		        }
+		    });
+		    handler.openIframe(); //open the paystack's payment modal
+ 		
+
+ 	}
+
+ 	function submitOrder() {
  		return new Promise((resolve, reject)=>{
 
+			let formData = {
+				firstName : $('#firstName').val(),
+				lastName : $('#lastName').val(),
+				email : $('#email').val(),
+				phone : $('#phone').val(),
+				isNotPip :  ($('input[name=isNotPip]:checked').val()) ? 1 : 0 ,
+				address : $('#address').val(),
+				addInfo : $("#addInfo").val()
+			}
+
+			console.log(formData);
+			//console.log($('#input[name=isNotPip] :checked').val());
+
+	 		$.ajax({
+	 			url: '/json/order/submit',
+	 			type: 'POST',
+	 			data: formData
+	 		})
+	 		.done((res) =>{
+	 			if (res.status == true) {
+	 				resolve(res);
+	 			} else {
+	 				reject(res);
+	 			}
+	 		}); 
+ 			
  		});
  	}
 
+
+
  	function initPayment() {
-	 		/*
-	 		* Place order
-			* Pay
-			* Open Modal
-			* Redirect somewhere safe	
-	 		*/
-	 		let form = $("form#customerDetails")[0];
-	 		let formData = new FormData(form);
+ 			
+	 	let notyf = new Notyf({
+	 		duration:3000,
+	 		  position: {
+	    		x: 'right',
+	    		y: 'bottom',
+	  		} 
+	  	});
 
-			for(var pair of formData.entries()) {
-			   console.log(pair[0]+ ' => '+ pair[1]); 
-			}
+ 		submitOrder().then(res => {
+ 			togglePay();
 
-			console.log(formData.get('last_name'));
+ 		}).catch(res =>{
+ 			// CHANGE HERE TO res.message
+ 			console.log(res);
+ 			notyf.error(res.message);
+ 		});
+
+
+ 
 
  	}
  </script>

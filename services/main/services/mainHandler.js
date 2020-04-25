@@ -7,7 +7,7 @@ const Cart = require('../../../models/cart');
 
 
 module.exports.Contact = (req, res)=> {
-	res.render("main/contact", {pageTitle: "Contact us- Vita Fruity."});
+	res.render("main/contact", {pageTitle: "Contact us - Vita Fruity."});
 }
 
 
@@ -55,6 +55,7 @@ module.exports.Checkout = (req, res)=> {
 	let cart = new Cart(req.session.cart ? req.session.cart : {});
 	let products = (req.session.cart) ? cart.getItems() :  [];
 
+	console.trace(req.session.order);
 
 	if (products.length > 0) {
 	 return	res.render("main/checkout", 
@@ -69,6 +70,20 @@ module.exports.Checkout = (req, res)=> {
 
 }
 
+
+module.exports.CheckoutSuccess = (req, res)=> {
+
+	if (req.session.order.key) {
+		return res.render("main/purchase_details", 
+			{
+				pageTitle: `Purchase sucessful- ${req.session.order.key} - Vita Fruity.`,
+				orderKey : req.session.order.key
+			});		
+	} else {
+		return res.status(404).send("Not found.");
+	}
+
+}
 
 
 module.exports.OnlineStore = (req, res)=> {

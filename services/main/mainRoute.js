@@ -18,15 +18,16 @@ app.use("/online-store/products/",express.static(path.join(__dirname, "public/ma
 
 route.get("/test", (req, res)=> {
 	let cart = new Cart (req.session.cart ? req.session.cart : {});
-	console.log(cart.getItemForOrder('a'));
-	 // delete req.session.cart;
-	 // //req.session.save();
+	//console.log(cart.getItemForOrder());
+	 delete req.session.cart;
+	 req.session.save();
 });
 
 //dynamic routes
 route.get("/", mainHandler.Index);
 route.get("/cart", mainHandler.Cart);
 route.get("/checkout", mainHandler.Checkout);
+route.get("/checkout/success", mainHandler.CheckoutSuccess);
 route.get("/online-store", mainHandler.OnlineStore);
 route.get("/online-store/products/:slug", mainHandler.Product);
 route.get("/online-store/categories/:slug", mainHandler.Category);
@@ -43,14 +44,17 @@ route.get('/*' ,(req, res) => {
 
 //service end points
 route.post("/test", (req, res)=> {
-	paystackPayment.init(req.body.reference, process.env.PAYSTACK_SK)
-	.then(resp => {
-		// success
-		console.log(resp.data.status);
+	// paystackPayment.init(req.body.reference, process.env.PAYSTACK_SK)
+	// .then(resp => {
+	// 	// success
+	// 	console.log(resp.data.status);
 
-	}).catch(resp => {
-		console.log("failed");
-	});
+	// }).catch(resp => {
+	// 	console.log("failed");
+	// });
+
+	let cart = new Cart (req.session.cart ? req.session.cart : {});
+	res.json(cart.getItemsForOrder("jnkkf"))
 });
 
 //cart
@@ -63,9 +67,9 @@ route.post("/json/cart/delete", mainService.removeCartItem);
 
 //order
 route.post("/json/order/init", mainService.initOrder);
-route.post("/json/order/init", mainService.initOrder);
+route.post("/json/order/submit", mainService.submitOrder);
 
 //checkout
-route.post("/json/checkout/pay", mainService.orderAndPay);
+route.post("/json/checkout/pay", mainService.pay);
 
 module.exports =  route;

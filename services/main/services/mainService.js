@@ -1,9 +1,12 @@
 const moment = require('moment');
+const validator = require('validator');
+const { uuid } = require('uuidv4');
 
 const db = require('../../../database/config');
 const Cart = require('../../../models/cart');
 const utilOrder = require('../util/order')
 const helpers = require('../../../helpers/helpers');
+const paystackPayment = require('../../../helpers/paystackPayment');
 
 
 
@@ -88,12 +91,6 @@ module.exports.updateQty = (req, res) => {
 
 
 
-module.exports.orderAndPay = (req, res) => {
-
-}
-
-
-
 
 module.exports.initOrder= (req, res) => {
 	let Order = module.exports = function(s, p) {
@@ -126,3 +123,86 @@ module.exports.initOrder= (req, res) => {
 
  	return res.json({status : status, message : e });
 }		
+
+
+module.exports.submitOrder = (req, res) => {
+	let e = null;
+	if (req.body.firstName.trim() == '' || req.body.firstName.length == 0) {
+		e = "Your FIRST NAME should not be empty !";
+	} else if(req.body.lastName.trim() == '' || req.body.lastName.length == 0) {
+		e = "Your LAST NAME should not be empty !";
+	} else if(!validator.isEmail(req.body.email)){
+		e = "Please enter a valid EMAIL !";
+	} else if(req.body.phone.trim() == '' || req.body.phone.trim().length == 0){
+		e = "PHONE NUMBER is required !";
+	}else if (req.body.phone.trim() && req.body.phone.trim().length != 11) {
+		e = "Please enter valid PHONE NUMBER";
+	}else if (req.body.address.trim().length == 0) {
+		e = "You must fill your RESIDENTIAL ADDRESS";
+	}
+
+	console.log(req.body);
+
+	
+	if (e == null) {
+		let cart = new Cart(req.session.cart ? req.session.cart : {});
+
+		let Order = module.exports = function(formData, session) {
+
+			 //storing key
+			 this.key = uuid().toUpperCase().slice(0, 7);
+
+			 // restoring storing initial 
+		     this.shippingMethod = session.order.shippingMethod;
+		     this.pickupTime = session.order.pickupTime;
+
+		     // storing new values
+		     this.customer_name = `${formData.lastName.trim().toUpperCase()} ${formData.firstName.trim()}`;
+		     this.customer_phone = formData.phone.trim();
+		     this.customer_email = formData.email.trim();
+		     this.is_not_pip = (formData.isNotPip == 1) ? 1 : null;
+		     this.add_info  =  (formData.addInfo) ? formData.addInfo.trim() : null;
+
+		}; 
+
+			req.session.order = new Order(req.body, req.session);		
+	 		req.session.save();
+
+	 		console.log(req.session.order);
+
+	 		if (req.session.order) {
+	 			return res.json({status : true, message : "temporarily saved customer details" });	
+	 		}
+
+	}  else {
+		console.log(e);
+		return res.json({status : false, message : e });
+	}
+
+}
+
+
+
+module.exports.pay = (req, res) => {
+	let cart = new Cart(req.session.cart ? req.session.cart : {});
+
+	
+	paystackPayment.init(req.body.reference, process.env.PAYSTACK_SK)
+	.then(resp => {
+		// success
+		utilOrder.saveCustomerDetails(req.session, cart, req.body.reference)
+		.then (()=>{
+			//empty cart
+			req.session.cart = null;
+			req.session.save();
+
+			return res.json({status : true, message : "Transaction successful" });
+		}).catch((r)=>{
+			console.log(r);
+		});
+
+
+	}).catch(resp => {
+		res.json({status: false, message : `payment failed`});
+	});
+}
