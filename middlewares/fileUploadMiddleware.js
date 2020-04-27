@@ -1,3 +1,9 @@
+
+/**
+* @author Clinton Nzedimma
+*/
+
+
 const { uuid } = require('uuidv4');
 const multer = require("multer");
 const sharp = require("sharp");
