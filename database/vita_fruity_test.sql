@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2020 at 03:10 AM
+-- Generation Time: Apr 27, 2020 at 10:09 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.0.27
 
@@ -51,6 +51,7 @@ INSERT INTO `admin` (`id`, `username`, `email`, `password`) VALUES
 CREATE TABLE `all_orders` (
   `id` int(11) NOT NULL,
   `order_key` varchar(255) DEFAULT NULL,
+  `amount` int(11) DEFAULT NULL,
   `time_added` bigint(20) DEFAULT NULL,
   `customer_name` varchar(255) DEFAULT NULL,
   `customer_phone` varchar(255) DEFAULT NULL,
@@ -61,7 +62,9 @@ CREATE TABLE `all_orders` (
   `add_info` varchar(255) DEFAULT NULL,
   `is_not_pip` int(11) DEFAULT NULL,
   `shipping_method` varchar(255) DEFAULT NULL,
-  `pickup_time` varchar(255) DEFAULT NULL
+  `pickup_time` varchar(255) DEFAULT NULL,
+  `is_paid` int(11) DEFAULT NULL,
+  `is_delivered` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -97,16 +100,18 @@ INSERT INTO `categories` (`id`, `name`, `time_added`, `time_updated`, `main_img`
 CREATE TABLE `delivered_orders` (
   `id` int(11) NOT NULL,
   `order_key` varchar(255) DEFAULT NULL,
-  `time_created` bigint(20) DEFAULT NULL,
+  `amount` int(11) DEFAULT NULL,
+  `time_added` bigint(20) DEFAULT NULL,
   `customer_name` varchar(255) DEFAULT NULL,
   `customer_phone` varchar(255) DEFAULT NULL,
   `customer_email` varchar(255) DEFAULT NULL,
-  `price` int(11) DEFAULT NULL,
-  `qty` int(11) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
   `discount_code` varchar(255) DEFAULT NULL,
   `discount_percent` int(11) DEFAULT NULL,
   `add_info` varchar(255) DEFAULT NULL,
-  `is_not_pip` int(11) DEFAULT NULL
+  `is_not_pip` int(11) DEFAULT NULL,
+  `shipping_method` varchar(255) DEFAULT NULL,
+  `pickup_time` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -118,6 +123,7 @@ CREATE TABLE `delivered_orders` (
 CREATE TABLE `paid_orders` (
   `id` int(11) NOT NULL,
   `order_key` varchar(255) DEFAULT NULL,
+  `amount` int(11) DEFAULT NULL,
   `time_added` bigint(20) DEFAULT NULL,
   `customer_name` varchar(255) DEFAULT NULL,
   `customer_phone` varchar(255) DEFAULT NULL,
@@ -199,13 +205,6 @@ CREATE TABLE `sub_products` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `sub_products`
---
-
-INSERT INTO `sub_products` (`id`, `name`, `price`, `description`, `product_id`, `time_added`, `time_updated`, `is_available`, `slug`) VALUES
-(8, '20g', 800, NULL, 1, 1587464018334, NULL, NULL, '20g');
-
---
 -- Indexes for dumped tables
 --
 
@@ -275,7 +274,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `all_orders`
 --
 ALTER TABLE `all_orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -287,13 +286,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `delivered_orders`
 --
 ALTER TABLE `delivered_orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `paid_orders`
 --
 ALTER TABLE `paid_orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -305,7 +304,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `product_orders`
 --
 ALTER TABLE `product_orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `sub_products`

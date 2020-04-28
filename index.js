@@ -4,10 +4,12 @@ const express = require("express");
 const app = express();
 const Router  = require('router');
 const session = require('express-session');
+const minify = require('express-minify');
 const MySQLStore = require('express-mysql-session')(session);
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const ejs = require('ejs');
+const compression = require('compression');
 const port = 7171;
 
 //Routes
@@ -37,17 +39,19 @@ app.use(session({
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 
-
 app.set("views", path.join(__dirname, "views"));
 app.set('view engine', 'ejs');
+
+
+app.use(compression());
+app.use(minify());
 
 //setting general public path for app, dashboard route has no custom path
 app.use(express.static(path.join(__dirname, "public")));
 
 //setting custom public path for entry route
 app.use("/",express.static(path.join(__dirname, "public/main")));
-//setting custom public path for entry route
-app.use("/",express.static(path.join(__dirname, "public/main")));
+
 
 app.locals = {
     site: {
@@ -55,10 +59,12 @@ app.locals = {
         author: 'Clinton Nzedimma',
         description: 'An ecommerce application',
     	url :process.env.SITE_URL,
-    	adminURL :`${process.env.SITE_URL}/dashboard`
+    	adminURL :`${process.env.SITE_URL}/dashboard`,
+    	paystackPK : process.env.PAYSTACK_PK
     },
 
-    helpers : require("./helpers/helpers")
+    helpers : require("./helpers/helpers"),
+    core : require("./helpers/core")
 
 };
 

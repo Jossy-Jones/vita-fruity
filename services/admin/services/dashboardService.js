@@ -246,7 +246,13 @@ module.exports.modifyCategory = (req, res)=> {
 
 	});	
 
+}
 
 
+
+module.exports.setOrderAsDelivered = (req, res) => {
+	// 1) Set is_delivered to 1 in all_orders table
+
+	// 2) insert order data to delivered_orders
 
 }

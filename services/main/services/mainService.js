@@ -162,6 +162,7 @@ module.exports.submitOrder = (req, res) => {
 		     this.customer_email = formData.email.trim();
 		     this.is_not_pip = (formData.isNotPip == 1) ? 1 : null;
 		     this.add_info  =  (formData.addInfo) ? formData.addInfo.trim() : null;
+		     this.address = formData.address.trim();
 
 		}; 
 

@@ -186,7 +186,7 @@
  	function togglePay() {
 
 		 var handler = PaystackPop.setup({ 
-		        key: 'pk_test_d205737ff5330b19ef0ddce378efe7955c15e28f', //put your public key here
+		        key: '<%=site.paystackPK%>', //put your public key here
 		        email: `${$("#email").val().trim()}`, //put your customer's email here
 		        amount: <%= (totalPrice) %> * 100, //amount the customer is supposed to pay in kobo
 		        metadata: {
@@ -200,12 +200,12 @@
 		            //after the transaction have been completed
 		            //make post call  to the server with to verify payment 
 		            //using transaction reference as post data
-
+		               $.busyLoadFull("show");  
  		
 		            $.post("/json/checkout/pay", {reference:response.reference}, function(res){
 
 
-				          $.busyLoadFull("show");     
+				          
 		                if(res.status == true){
 
 							setTimeout(()=> {
@@ -221,7 +221,7 @@
 								).then(()=> {
 									setTimeout(()=> {
 										window.location.href = '/checkout/success';
-									}, 1800);
+									}, 10);
 								})
 							}, 1900);         	
 
@@ -232,7 +232,7 @@
 								Swal.fire({
 								  icon: 'error',
 								  title: 'Payment failed',
-								  text: 'Something went wrong with your payment'
+								  text: 'Something went wrong with your payment.Try again'
 								})
 							}, 1800);		                	  	
 		                }

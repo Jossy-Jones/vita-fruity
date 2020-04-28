@@ -2,10 +2,9 @@
 *This service handles each page route
 */
 
-const slug = require('slug');
+
 
 const db = require('../../../database/config');
-
 
 //Dashboard entry point
 module.exports.Index = (req, res) => {
@@ -21,7 +20,22 @@ module.exports.Index = (req, res) => {
 
 // Home page
 module.exports.Home = (req, res) => {
-	res.render("dashboard/index", {pageTitle:`Home - Dashboard (${req.session.adminUsername}))`});
+
+	let orderIsDelivered = false;
+
+	db.query("SELECT * FROM all_orders WHERE is_delivered IS NULL ORDER BY time_added DESC" , (err, allOrders)=>{	
+		db.query("SELECT * FROM product_orders" , (err, productOrders)=>{
+			if (err) { throw new Error (err);}
+
+			res.render("dashboard/index",
+			 {
+			 	pageTitle:`Home - Dashboard (${req.session.adminUsername}))`,
+			 	orders : (allOrders.length > 0) ? allOrders : null,
+			 	productOrders : productOrders
+			 });
+		});
+				
+	});
 
 }
 
@@ -120,5 +134,21 @@ module.exports.EditCategory = (req, res) => {
 
 // Customer Order page  
 module.exports.CustomerOrder = (req, res) => {
-	res.render("dashboard/order", {pageTitle:`A single order`, key: req.params.order_key});
+	db.query("SELECT * FROM products", (err, products)=> {
+		db.query("SELECT * FROM all_orders WHERE order_key = ?", req.params.order_key, (err, allOrders)=> {
+			db.query("SELECT * FROM product_orders WHERE order_key = ?", req.params.order_key, (err, productOrders)=> {
+
+				let order = allOrders[0];
+
+				res.render("dashboard/order", 
+					{
+						pageTitle : `Order - ${req.params.order_key} -Dashboard`, 
+						order : order,
+						key : req.params.order_key,
+						productOrders : productOrders,
+						products : products
+					});
+			});	
+		})
+	});
 }

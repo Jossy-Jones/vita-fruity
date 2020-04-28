@@ -1,0 +1,70 @@
+<style type="text/css">
+    .order-table tr {
+        cursor: pointer !important;
+    }
+</style>
+
+
+<section>
+
+        <div align="center" style="margin-top: 5vh"><h2>New orders</h2></div>
+        <div class="" style="padding: 15px; width: 90%; margin: auto;">
+            <div class="card display">
+                <div class="card-body" style="overflow: auto;">
+                    <table class="table table-hover order-table">
+                        <thead>
+                            <th scope="col">NO</th>
+                            <th scope="col">Buyer</th>
+                            <th scope="col">Code</th>
+                            <th scope="col">Paid</th>
+                            <th scope="col">Date Ship</th>
+                            <th scope="col">Created at</th>
+                            <th scope="col">Status</th>
+                        </thead>
+                        <tbody>
+                            <tr onclick="window.location.href='<%= site.adminURL%>/customer-order/key1'">
+                                <th scope="row">1</th>
+                                <td>Ahmed Kamal Madani</td>
+                                <td>SG93166MF</td>
+                                <td>&#8358;6,500</td>
+                                <td>28 Jan 19</td>
+                                <td>28 Jan 19</td>
+                                <td>WAITING</td>
+                            </tr>
+
+
+                            <tr onclick="window.location.href='<%= site.adminURL%>/customer-order/key2'">
+                                <th scope="row">2</th>
+                                <td>Ibrahim Khalil Abdulmalik</td>
+                                <td>SG45746ME</td>
+                                <td>&#8358;3,900</td>
+                                <td>28 Jan 19</td>
+                                <td>28 Jan 19</td>
+                                <td>WAITING</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+
+                    <!-- Pagination -->
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination pg-blue">
+                        <li class="page-item ">
+                          <a class="page-link" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link">1</a></li>
+                        <li class="page-item active">
+                          <a class="page-link">2 <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="page-item"><a class="page-link">3</a></li>
+                        <li class="page-item ">
+                          <a class="page-link">Next</a>
+                        </li>
+                      </ul>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+
+</section>

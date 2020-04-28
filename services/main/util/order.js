@@ -10,13 +10,15 @@ module.exports.saveCustomerDetails = (session, cart, txn_ref = null) => {
 		let details =  {
 			id : null,
 			order_key : session.order.key,
+			amount : cart.totalPrice,
 			customer_name : `${session.order.customer_name}`,
 			customer_phone : `${session.order.customer_phone}`,
 			customer_email : `${session.order.customer_email}`,
+			address : session.order.address,
 			is_not_pip : (session.order.isNotPip == 1) ? 1 : null,
 			add_info : (session.order.addInfo) ? session.order.addInfo : null,
 			shipping_method : (session.order.shippingMethod) ? session.order.shippingMethod : null,
-			pickup_time : (session.order.pickup_time) ? session.order.pickupTime : null,
+			pickup_time : session.order.pickupTime,
 			time_added : Date.now() 
 		}
 
@@ -36,14 +38,14 @@ module.exports.saveCustomerDetails = (session, cart, txn_ref = null) => {
 							details.txn_ref = txn_ref;
 							details.payment_type = "online";
 
-
 							db.query("INSERT INTO paid_orders SET ?", details, (err, paidOrderInsert)=>{
 								console.log(err);
 								if (err) {
 									reject("Couldnt insert customer details into paid orders")
 								} else {
-									// success
-									resolve(session.order.key);
+									db.query("UPDATE all_orders SET is_paid = 1 WHERE order_key = ?", details.order_key, (err, paidOrderInsert)=>{
+										resolve(session.order.key);
+									});	
 								}
 							});
 						}

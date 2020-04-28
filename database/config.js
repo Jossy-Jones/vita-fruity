@@ -10,6 +10,11 @@ const pool = mysql.createPool({
   database : process.env.DB_NAME
 })
 
+
+const time = new Date();
+
+              
+
 pool.getConnection((err, connection) => {
     if (err) {
         if (err.code === 'PROTOCOL_CONNECTION_LOST') {
@@ -23,7 +28,7 @@ pool.getConnection((err, connection) => {
         }
     }    
     if (connection)  {
-        console.log('DB connected :)');
+        console.log(`DB connected :) @ ${time}`);
         connection.release()  
       }  
        
