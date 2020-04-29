@@ -64,7 +64,7 @@ app.locals = {
     },
 
 	helpers : require("./helpers/helpers")
-	//  I commented here
+	//  I commented here and here
 
 };
 
