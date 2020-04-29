@@ -63,8 +63,8 @@ app.locals = {
     	paystackPK : process.env.PAYSTACK_PK
     },
 
-	helpers : require("./helpers/helpers")
-	//  I commented here and here
+    helpers : require("./helpers/helpers"),
+    // I just removed the core module
 
 };
 
