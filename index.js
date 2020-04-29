@@ -64,7 +64,7 @@ app.locals = {
     },
 
     helpers : require("./helpers/helpers"),
-    core : require("./helpers/core")
+    // I just removed the core module
 
 };
 
