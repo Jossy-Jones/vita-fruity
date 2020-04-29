@@ -76,7 +76,7 @@ module.exports.CheckoutSuccess = (req, res)=> {
 	if (req.session.order.key) {
 		return res.render("main/purchase_details", 
 			{
-				pageTitle: `Purchase sucessful- ${req.session.order.key} - Vita Fruity.`,
+				pageTitle: `Purchase sucessful - ${req.session.order.key} - Vita Fruity.`,
 				orderKey : req.session.order.key
 			});		
 	} else {

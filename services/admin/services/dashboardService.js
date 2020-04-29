@@ -102,12 +102,13 @@ module.exports.createProduct = async (req, res) => {
 
   		//failed
   		if (status == false) {
-  			try {
-  				fs.unlinkSync(`public/img/products/${imgName}`);
-  			} catch (e) {
-  				console.log(e);
+  			if (req.body.chkImg !== 'IMAGE_CHANGED') {
+	  			try {
+	  				fs.unlinkSync(`public/img/products/${imgName}`);
+	  			} catch (e) {
+	  				console.log(e);
+	  			}
   			}
-  			
   			res.json({message: message,  status: status});
   		} else {
   			// success
@@ -130,7 +131,7 @@ module.exports.createProduct = async (req, res) => {
 
 module.exports.modifyProduct = async (req, res) => {
 	let productId = req.body.id;
-	let imgName = req.body.images;
+	let imgName =   (req.body.chkImg === 'IMAGE_CHANGED') ? req.body.images : req.body.chkImg;
 	let productName = req.body.name;
 	let categoryId = parseInt(req.body.category);
 	let price = parseInt(req.body.price);
@@ -170,28 +171,31 @@ module.exports.modifyProduct = async (req, res) => {
 
   		//failed
   		if (status == false) {
-  			try {
-  				fs.unlinkSync(`public/img/products/${imgName}`);
-  			} catch (e) {
-  				console.log(e);
+  			// deleting temporary image is not changed
+  			if (req.body.chkImg !== 'IMAGE_CHANGED') {
+	  			try {
+	  				fs.unlinkSync(`public/img/products/${imgName}`);
+	  			} catch (e) {
+	  				console.log(e);
+	  			}
   			}
   			
   			res.json({message: message,  status: status});
   		} else {
   			// success
 	  		db.query('UPDATE products SET ? WHERE id = ?', [product, productId], (err, isUpdated)=> {
-	  			if (isUpdated) {
-	  				
-		  			try {
-		  				console.log("deleted old product image");
-		  				fs.unlinkSync(`public/img/products/${oldImg}`);
-		  			} catch (e) {
-		  				console.log(e);
-		  			}
+	  			if (err) throw new Error(err);
 
-
-
-	  				res.json({message:  message, status: status});
+	  			if (isUpdated) {	
+		  			if (req.body.chkImg === 'IMAGE_CHANGED') {
+				  			try {
+				  				console.log("deleted old product image");
+				  				fs.unlinkSync(`public/img/products/${oldImg}`);
+				  			} catch (e) {
+				  				console.log(e);
+				  			}
+					}
+					res.json({message:  message, status: status});			
 	  			}
 			});	  		
 	  	}
@@ -202,13 +206,14 @@ module.exports.modifyProduct = async (req, res) => {
 }
 
 module.exports.modifyCategory = (req, res)=> {
-	let imgName = req.body.images;
+	let imgName =   (req.body.chkImg === 'IMAGE_CHANGED') ? req.body.images : req.body.chkImg;
 	let categoryName = req.body.name;
 	let categoryId = req.body.id;
 
 	let category = {
 		name : categoryName,
-		main_img : imgName
+		main_img : imgName,
+		time_updated : Date.now()
 	}
 
 	 db.query("SELECT * FROM categories WHERE id = ?", [categoryId], (err, row)=> {
@@ -224,22 +229,32 @@ module.exports.modifyCategory = (req, res)=> {
 
   		//failed
   		if (status == false) {
-  			try {
-  				fs.unlinkSync(`public/img/categories/${imgName}`);
-  			} catch (e) {
-  				console.log(e);
+  			// deleting temporary image
+
+  			if (req.body.chkImg !== 'IMAGE_CHANGED') {
+	  			try {
+	  				fs.unlinkSync(`public/img/categories/${imgName}`);
+	  			} catch (e) {
+	  				console.log(e);
+	  			}
   			}
   			
   			res.json({message: message,  status: status});
   		} else {
   			// success
 	  		db.query('UPDATE categories SET ?  WHERE id = ?', [category, categoryId], (err, isUpdated)=> {
-	  			if (err) {
-	  				throw new Error(err);
-	  			}
-	  			if (isUpdated) {
-	  				res.json({message:  message, status: status});
-	  			}
+	  			if (err) throw new Error(err);
+	  			
+		  			if (req.body.chkImg === 'IMAGE_CHANGED') {
+				  			try {
+				  				console.log("deleted old product image");
+				  				fs.unlinkSync(`public/img/categories/${oldImg}`);
+				  			} catch (e) {
+				  				console.log(e);
+				  			}
+				  			
+					}
+					res.json({message:  message, status: status});
 			});	  		
 	  	}
 

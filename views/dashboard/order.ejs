@@ -114,6 +114,35 @@
                                 </div>
                             </div>
 
+                            <hr />
+                            <div class="row">
+                                <div class="col-sm-3 col-md-2 col-5">
+                                    <label style="font-weight:bold;">Additional info</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    <%=order.add_info%>
+                                </div>
+                            </div>
+
+                            <hr />
+                            <div class="row">
+                                <div class="col-sm-3 col-md-2 col-5">
+                                    <label style="font-weight:bold;">Is someone else picking up?</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                   <% if (order.is_not_pip) { -%>
+                                       YES
+                                   <% } else { -%>
+                                       NO
+                                   <% } -%>
+                                </div>
+                            </div>
+
+                            <!-- <hr/> -->
+
+
+
+                            <!-- Payment info -->
                            <br><br> <div align="center"><h4>Payment Information<br></h4></div>
 
                             <div class="row">
@@ -192,9 +221,22 @@
 <!-- footer ends here -->
 
 <script type="text/javascript">
+
+ <% if (order.is_not_pip  && !order.is_delivered) { -%>
+Swal.fire(
+  'Hey there',
+  'It seems someone else will be picking up this order',
+  'info'
+)
+
+ <% } else -%>  
+
+
    function markAsDelivered(arg) {
     alert ("implement markAsDelivered");
   }
+
+  
 </script>
 
 </body>

@@ -15,7 +15,7 @@ module.exports.saveCustomerDetails = (session, cart, txn_ref = null) => {
 			customer_phone : `${session.order.customer_phone}`,
 			customer_email : `${session.order.customer_email}`,
 			address : session.order.address,
-			is_not_pip : (session.order.isNotPip == 1) ? 1 : null,
+			is_not_pip : session.order.is_not_pip,
 			add_info : (session.order.addInfo) ? session.order.addInfo : null,
 			shipping_method : (session.order.shippingMethod) ? session.order.shippingMethod : null,
 			pickup_time : session.order.pickupTime,

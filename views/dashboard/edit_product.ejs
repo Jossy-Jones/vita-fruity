@@ -126,6 +126,9 @@
                         <!-- Send button -->
                         <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="button" onclick="edit()">Save changes</button>
 
+
+                        <input type="text" name="chkImg" style="display: none;" value="<%=product.main_img %>">
+
                     </form>
                     <!-- Form -->
 
@@ -147,7 +150,11 @@
 
 <script src="<%= site.adminURL%>/assets/jquery.preview-img.js"></script>
 <script type="text/javascript">
-    $("#thumbnail").previewImageFrom("#img-input");
+$("#thumbnail").previewImageFrom("#img-input");
+
+$("#img-input").change(function () {
+    $("input[name=chkImg]").val("IMAGE_CHANGED");
+});
 
 
 function edit() {
@@ -158,19 +165,9 @@ function edit() {
 
        console.log(value); 
     }
+
    
     $("#editBtn").attr("disabled", true);
-
-    if(formData.get('img').size == 0) {
-         $.toast({
-            text: `<h6>Please choose an image</h6>`,
-            showHideTransition: 'fade',
-            icon: 'error',
-            position: "top-right",
-            loader:false
-        });
-         throw new Error("No image uploaded when editing product");
-    }
 
 
     $.ajax({

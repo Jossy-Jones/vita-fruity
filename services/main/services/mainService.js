@@ -160,11 +160,13 @@ module.exports.submitOrder = (req, res) => {
 		     this.customer_name = `${formData.lastName.trim().toUpperCase()} ${formData.firstName.trim()}`;
 		     this.customer_phone = formData.phone.trim();
 		     this.customer_email = formData.email.trim();
-		     this.is_not_pip = (formData.isNotPip == 1) ? 1 : null;
+		     this.is_not_pip = (parseInt(formData.isNotPip) === 1) ? 1 : null;
 		     this.add_info  =  (formData.addInfo) ? formData.addInfo.trim() : null;
 		     this.address = formData.address.trim();
 
 		}; 
+
+		console.log(Order);
 
 			req.session.order = new Order(req.body, req.session);		
 	 		req.session.save();
