@@ -1,0 +1,29 @@
+
+
+<style type="text/css">
+	.item {
+		margin-bottom: 4vh;
+	}
+</style>
+
+
+<% products.forEach (product=> { -%>
+<div class="row item">
+<!-- <img src="http://placehold.it/50x50"> -->
+	<div class="col-2">
+		<img src="img/products/<%=product.item.main_img %>" width="65">	
+	</div>
+
+	<div class="col-6" style="margin-left: auto;">
+		<%=product.item.name%> <br>(x<%=product.qty %>)
+	</div>
+
+
+	<div class="col-3">
+		<span style="color: green"><b>&#8358;<%=product.item.price.toLocaleString() %></b></span>
+	</div>
+
+
+</div>
+
+<% })%>

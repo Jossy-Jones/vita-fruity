@@ -1,0 +1,86 @@
+<style type="text/css">
+    /*siderbar*/
+
+    #sidebar {
+        background-image: url("/dashboard/img/siderbar-bg2.jpg");
+       /* background-position: 0% 70%;*/
+    }
+    .sidedar-header {
+        background: unset !important;
+    }
+
+    .nav-cards {
+
+    }
+
+    .nav-cards .icon {
+        color: #e48a17;
+        font-size: 60px
+    }
+
+    .nav-cards .card-link {
+        font-weight: 300;
+    }
+
+    .navCardWrapper{
+        margin-top: 3vh;
+    }
+</style>
+
+<div class="wrapper">
+        <nav id="sidebar">
+            <div class="sidebar-header" align="center">
+                 <img src="/dashboard/img/logo.png" width="100">
+            </div>
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="<%= site.adminURL%>/home"><i class="material-icons fit">dashboard</i>DASHBOARD</a>
+                </li>
+                <li>
+                    <a href="<%= site.adminURL%>/orders"><i class="material-icons fit">event_note</i>ORDERS</a>
+                </li>
+                <li>
+                    <a href="<%= site.adminURL%>/products"><i class="material-icons fit">store</i>PRODUCTS</a>
+                </li>
+                <li>
+                    <a href="<%= site.adminURL%>/categories"><i class="material-icons fit">dns</i>CATEGORIES</a>
+                </li>
+<!--                 <li>
+                    <a href="news.html"><i class="material-icons fit">subject</i>NEWS INFO</a>
+                </li>
+                <li>
+                    <a href="application.html"><i class="material-icons fit">adb</i>APP</a>
+                </li>
+                <li>
+                    <a href="notification.html"><i class="material-icons fit">notifications</i>NOTIFICATION</a>
+                </li> -->
+                <li>
+                    <a href="#"><i class="material-icons fit">settings</i>SETTING</a>
+                </li>
+                <li>
+                    <a href="#"><i class="material-icons fit">error</i>ABOUT </a>
+                </li>
+            </ul>
+        </nav>
+
+	   <div id="content">
+         <!-- top navigation -->
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                           <li class="nav-item">
+                                <button class="nav-button"><i class="material-icons down">more_vert</i></button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>

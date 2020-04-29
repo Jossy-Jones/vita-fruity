@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en"><!-- Basic -->
+<head>
+   <% include includes/metaMain %>
+</head>
+
+
+
+<style type="text/css">
+.dialog-btn {
+	border: 0px;
+}	
+
+.btn-checkout {
+	background: #d2740b;
+	color: #fff;
+}
+
+.btn-checkout:hover {
+	background: #985307
+}
+
+</style>
+
+
+<body>
+	<!-- Start header -->
+    <% include includes/header %>
+	<!-- End header -->
+	
+	<div class="all-page-title page-breadcrumb">
+		<div class="container text-center">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1>cart</h1>
+					<div class="bread-crumb white">
+						<a class="" href="/">Home</a>
+						<a href="online-store">Online Store</a>
+						<span>Cart</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container checkout">
+		<div class="row">
+			<div class="panel cart-list">
+
+
+
+<% if (products.length > 0) { -%>
+	
+
+				<% products.forEach (product=> { -%>
+				<div class="item-pane" id="cart-item-<%=product.item.id %>">
+					<div class="item-img"><img src="img/products/<%=product.item.main_img %>"></div>
+					<div class="item-detail">
+						<h2 class="item-name"><%=helpers.ucwords(product.item.name) %></h2>
+						<p class="price-tag">Price: <span class="price">&#8358;<%=product.item.price.toLocaleString() %></span></p>
+						<input type="number" min="1" onblur="updateItemPrice(this.value,<%=product.item.id %>)" class="quantity" value="<%=product.qty %>">
+					</div>
+					<h2 class="total-price">&#8358;<span class="totalItem" id="totalItemPrice-<%=product.item.id %>"><%=product.price.toLocaleString() %></span></h2>
+					<span class="remove" onclick="toggleRemoveDialog(<%=product.item.id %>)" style="cursor: pointer;">Remove from cart</span>
+				</div>
+				<% }); -%>
+
+<% } else { -%>
+	
+		<div>
+			<h1 style="font-size: 45px">You have no item in cart</h1>
+		</div>
+
+<% } -%>
+
+		<div style="display: none;" id="no-item">
+			<h1 style="font-size: 35px">You have no item in cart</h1>
+		</div>
+
+			</div>
+
+
+<% if (products.length > 0) { -%>
+			<div class="panel payment-form">
+				<div>
+					<h2>*Shipping Method</h2>
+					<ul>
+						<li>Extras include the cost of pack for &#8358;100</li>
+						<li>Top-up yoghurt includes the cost of extra up for &#8358;100</li>
+						<li>Delivery only applies to orders above &#8358;1500</li>
+						<li>
+							<a href="#">View Delivery Prices here</a>
+						</li>
+					</ul>
+					<div>
+					
+						<div class="deliver_mode">
+							<input type="radio" value="pickup" name="shipping_method" id="pickup" checked>
+							<label for="pickup">Pickup</label>
+
+							<input type="radio" value="delivery" name="shipping_method" id="delivery">
+							<label for="delivery">Delivery</label>
+						</div>
+
+						<div id="pickup-form">
+							<form>
+<!-- 								<div class="form-group">
+									<input type="text" name="store" placeholder="Select Store" onfocus="this.placeholder=''" onblur="this.placeholder='Select Store'" required list="store-list">
+									<datalist id="store-list">
+										<option>Delta Mall</option>
+									</datalist>
+								</div> -->
+								<div class="form-group">
+									<input type="time" name="pickup_time" min="09:00" max="20:00" step="300" required>
+								</div>
+								<div class="delivery-price">
+									<h4>Delivery: &#8358;<span>0</span></h4>
+									<input type="hidden" value="0" id="pickup-deliveryPrice">
+								</div>
+								<div class="total-price">
+									<h3>Total: &#8358;<span id="totalPrice"><%= (totalPrice) ? totalPrice.toLocaleString()  : 0%></h3>
+									
+								</div>
+								<div class="checkout-btn-wrapper">
+									<button type="button" onclick="proceed()"  class="btn btn-checkout">CHECKOUT</button>
+								</div>
+							</form>
+						</div>
+
+
+<% } -%>
+
+<!-- 
+						<div id="delivery-form">
+							<form>
+								<div class="form-group">
+									<input type="text" name="street" placeholder="Type your street number and street name" required>
+								</div>
+								<div class="help">
+									<p><a href="">Having issues with your address? Click here</a></p>
+								</div>
+								<div class="delivery-price">
+									<h4>Delivery: &#8358;<span>0</span></h4>
+									<input type="hidden" value="0" id="delivery-deliveryPrice">
+								</div>
+								<div class="total-price">
+									<h3>Total: &#8358;</span></h3>
+									<input type="hidden" value="2000" id="delivery-total">
+								</div>
+								<div class="form-submit">
+									<input type="submit" value="CHECKOUT">
+								</div>
+							</form>
+						</div> -->
+				
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+<% if (products.length > 0) { -%>
+	
+
+
+	<% products.forEach (product=> { -%>
+
+	<!-- remove dialog modal -->
+	<div class="modal fade" id="removeDialog-<%=product.item.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	<!--       <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div> -->
+	      <div class="modal-body">
+	      	<p>
+	      	 <h4>Do you want to remove <b id="dialogProductName"><%=product.item.name %></b> from the cart? </h4>
+	        </p>
+
+	        <p align="right">
+	        	<button type="button" class="dialog-btn btn-success btn-sm" onclick="removeItem(<%=product.item.id %>)">Yes</button>
+
+	        	<button type="button" class="dialog-btn btn-danger btn-sm" data-dismiss="modal">No</button>
+	        </p>	
+
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<% }); -%>
+
+
+<% } -%>
+
+
+
+
+
+ <% include includes/footer %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+<% if (products.length > 0) { -%>
+
+ <script type="text/javascript">
+ 	function toggleRemoveDialog(arg) {
+ 		$(`#removeDialog-${arg}`).modal("show");
+ 	}
+
+
+ 	function removeItem(arg) {
+ 		Cart.removeItem(arg).then((res) => {
+ 			$(`#removeDialog-${arg}`).modal("hide");
+ 			$(`#cart-item-${arg}`).hide();
+
+ 			if (res.totalItems == 0) {
+ 				$("#no-item").show();	
+ 			}
+
+ 			updateTotalPrice();
+ 		});
+ 	}
+
+
+ 	function updateTotalPrice () {
+ 		Cart.get().then(res=> {
+ 			let totalPrice = res.cart.totalPrice;
+ 			console.log(`updateTotalPrice() =>price => ${totalPrice}`);
+ 			$("#totalPrice").html(totalPrice.toLocaleString());
+ 			console.log(`updateTotalPrice() => ${res}`);
+ 		});
+ 	}
+
+
+ 	function updateItemPrice(qty, id) {
+ 		console.trace(qty);
+ 		Cart.getItemById(id).then(res=> {
+ 			let price = qty * res.data.item.price;
+ 			$(`#totalItemPrice-${id}`).html(price.toLocaleString());
+
+ 			Cart.updateQtyById(id, qty).then(res => {
+ 				updateTotalPrice();
+ 			});
+ 		});
+
+ 	}
+
+
+ 	function timeRangeIsValid(arg) {
+ 		let start =  moment.utc("08:00","HH:mm:ss");
+ 		let end = moment.utc("20:00","HH:mm:ss");
+
+        let m = moment.utc(arg, "HH:mm:ss");
+
+        if (m.isAfter(start) && m.isBefore(end)) {
+        	return true
+        }
+        return false;
+ 	}
+
+ 	function proceed() {
+ 		// submit shipping method and pickup_time
+
+ 		let e = null;
+
+	 	let notyf = new Notyf({
+		 		duration:3000,
+		 		  position: {
+		    		x: 'right',
+		    		y: 'top',
+		  		} 
+		  	}); 		
+
+ 		let shippingMethod = $('input[name=shipping_method]:checked').val();
+ 		let pickupTime = $("input[name=pickup_time]").val();
+
+ 		console.log("=>"+pickupTime);
+
+ 		if (pickupTime.length === 0 || pickupTime === undefined) {
+ 			e = "Please choose pickup time";
+ 		}
+ 		if (!timeRangeIsValid(pickupTime)) {
+ 			e = "Please pick time between 9:00am and  8:00pm";
+ 		}
+ 		console.trace(shippingMethod);
+
+
+ 		if (e) {
+ 			notyf.error(e);
+ 			throw new Error(e);
+ 		}
+
+ 		$.post(
+ 			'/json/order/init', 
+ 			{
+ 				shippingMethod: shippingMethod,
+ 				pickupTime: pickupTime
+ 			},
+ 			 function(res) {
+ 				if (res.status == true) {
+					window.location.href='checkout';
+ 				}
+ 			});
+
+ 		
+ 		
+ 	}
+ </script>
+<% } -%>
+
+</body>
+</html>

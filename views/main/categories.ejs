@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en"><!-- Basic -->
+<head>
+   <% include includes/metaMain %>
+</head>
+
+
+
+
+<body>
+	<!-- Start header -->
+    <% include includes/header %>
+	<!-- End header -->
+	
+	<!-- <div class="all-page-title page-breadcrumb">
+		<div class="container text-center">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1>checkout</h1>
+					<div class="bread-crumb white">
+						<a class="" href="index.html">Home</a>
+						<a href="online-store.html">Online Store</a> 
+						<span>Spicy Spagetti with Shrimps and Agbo</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+ -->
+	<div class="checkout">
+	<!-- Start Menu -->
+	<div class="menu-box" id="productList">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="heading-title text-center">
+						<h2><%=helpers.ucwords(category.name)%></h2>
+						<!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting</p> -->
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="special-menu text-center">
+						<div class="button-group filter-button-group">
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+			<div class="row special-list" id="">
+				<!-- PRODUCT LIST -->
+                     <% include components/productList%>    
+                                                    
+			</div>
+
+
+
+		</div>
+	</div>
+	<!-- End Menu -->
+	</div>
+
+
+	<!-- CATEGORY LIST -->
+                     <% include components/categoryList%>    
+
+
+
+
+ <% include includes/footer %>
+</body>
+</html>

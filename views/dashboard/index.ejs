@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<% include includes/metaMain %>
+</head>
+<body>
+
+
+
+
+
+<!-- header starts here -->
+<% include includes/header %>
+<!-- header ends here -->
+
+            <!-- cards view for dashboard to explain main info  -->
+            <div align="center"><h2>Welcome Admin</h2></div>
+        <div class="row nav-cards" align="center" style="width: 90%; margin:auto;">
+            <!-- <div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+            <div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+            <div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div> -->
+
+
+
+
+
+            <a href="<%= site.adminURL%>/orders">
+                <div class="col-xs-6 col-sm-4 hvr-bob navCardWrapper">
+                    <div class="card card-body">
+                          <div align="center" style="margin:auto;">
+                              <h1><i class="material-icons icon">event_note</i></h1>
+                          </div>
+                          <!-- <p class="card-text"> </p> -->
+                          <div class="flex-row">
+                            <a class="card-link">Orders</a>
+                          </div>
+                    </div>
+                </div>                
+            </a>
+
+
+
+            <a href="<%= site.adminURL%>/products">
+                <div class="col-xs-6 col-sm-4 hvr-bob navCardWrapper">
+                    <div class="card card-body">
+                          <div align="center" style="margin:auto;">
+                              <h1><i class="material-icons icon">store</i></h1>
+                          </div>
+                          <!-- <p class="card-text"> </p> -->
+                          <div class="flex-row">
+                            <a class="card-link">Products</a>
+                          </div>
+                    </div>
+                </div>
+            </a>
+
+
+            <a href="<%= site.adminURL%>/categories">
+                <div class="col-xs-6 col-sm-4 hvr-bob navCardWrapper">
+                    <div class="card card-body">
+                          <div align="center" style="margin:auto;">
+                              <h1><i class="material-icons icon">dns</i></h1>
+                          </div>
+                          <!-- <p class="card-text"> </p> -->
+                          <div class="flex-row">
+                            <a class="card-link">Categories</a>
+                          </div>
+                    </div>
+                </div>                
+            </a>            
+        </div>
+
+
+
+        <div></div>
+
+
+
+<% include components/newOrdersPreview %>
+
+
+
+<!-- footer starts here -->
+<% include includes/footer %>
+<!-- footer ends here -->
+
+</body>
+</html>

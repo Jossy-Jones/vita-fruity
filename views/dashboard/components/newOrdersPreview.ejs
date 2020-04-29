@@ -1,0 +1,55 @@
+<style type="text/css">
+    .order-table tr {
+        cursor: pointer !important;
+    }
+</style>
+
+   
+<section>
+         <div align="center" style="margin-top: 5vh"><h2>New orders</h2></div>
+        <div class="" style="padding: 15px; width: 90%; margin: auto;">
+            <div class="card display">
+                <div class="card-body" style="overflow: auto;">
+                    <table class="table table-hover order-table">
+                        <% if (orders) { -%>
+
+                        <thead>
+                            <th scope="col">Order Number</th>
+                            <th scope="col">Buyer name</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Order Time</th>
+                        </thead>
+                        <%}%>
+                        <tbody>
+<% if (orders) { -%>
+
+<% orders.forEach(order => { -%>
+
+                            <tr onclick="window.location.href='http://localhost:7171/dashboard/customer-order/<%=order.order_key%>'">
+                                <td><%=order.order_key%></td>
+                                <td><%=order.customer_name%></td>
+                                
+                                <td>&#8358;<%=order.amount.toLocaleString()%></td>
+                                <td> <%=helpers.formatTime(order.time_added, "DD-MMM-YYYY hh:mm A")%></td>
+            
+                            </tr>
+    
+<% }) -%>
+
+    
+<% } else { -%>
+    <div align="center">
+        <p><h1>No new orders</h1></p>
+    </div>
+<% } -%>
+                            </tbody>
+                    </table>
+
+                   <% if (orders) { -%> 
+                    <div align="center"> <button class="bttn-bordered bttn-sm bttn-warning">View more</button></div>
+                   <%}%> 
+
+                </div>
+            </div>
+        </div>   
+</section>        
