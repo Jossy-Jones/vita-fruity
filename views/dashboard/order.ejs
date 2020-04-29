@@ -114,17 +114,8 @@
                                 </div>
                             </div>
 
-                            <hr />
-                            <div class="row">
-                                <div class="col-sm-3 col-md-2 col-5">
-                                    <label style="font-weight:bold;">Additional info</label>
-                                </div>
-                                <div class="col-md-8 col-6">
-                                    <%=order.add_info%>
-                                </div>
-                            </div>
+                             <hr />
 
-                            <hr />
                             <div class="row">
                                 <div class="col-sm-3 col-md-2 col-5">
                                     <label style="font-weight:bold;">Is someone else picking up?</label>
@@ -136,7 +127,30 @@
                                        NO
                                    <% } -%>
                                 </div>
+                            </div>                            
+
+
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-3 col-md-2 col-5">
+                                    <label style="font-weight:bold;">Shipping method</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    <%=order.shipping_method.toUpperCase()%>
+                                </div>
                             </div>
+                         
+
+                            <hr />
+                            <div class="row">
+                                <div class="col-sm-3 col-md-2 col-5">
+                                    <label style="font-weight:bold;">Additional info</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    <%=order.add_info%>
+                                </div>
+                            </div>
+
 
                             <!-- <hr/> -->
 
@@ -228,7 +242,6 @@ Swal.fire(
   'It seems someone else will be picking up this order',
   'info'
 )
-
  <% } else -%>  
 
 
