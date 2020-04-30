@@ -53,10 +53,14 @@ route.get('/edit-category/:key', adminMiddleware.isLoggedIn, dashboardHandler.Ed
 
 route.get('/customer-order/:order_key', adminMiddleware.isLoggedIn, dashboardHandler.CustomerOrder);
 
+route.get('/orders/new', adminMiddleware.isLoggedIn, dashboardHandler.NewOrders);
 
-route.get("/*", adminMiddleware.isLoggedIn , (req, res) =>{ res.render("dashboard/404") });
 
 route.get("/logout", adminMiddleware.logout);
+
+//error 404
+route.get("/*", adminMiddleware.isLoggedIn , (req, res) =>{ res.render("dashboard/404") });
+
 
 //Authentication route point
 route.post('/json/auth', authService);
@@ -64,6 +68,7 @@ route.post('/json/auth', authService);
 
 //Dashboard service api route point
 route.post('/json/test',  dashboardService.test);
+route.post('/json/order/add/delivered',  dashboardService.setOrderAsDelivered);
 
 route.post('/json/add-category', 
 	adminMiddleware.protectEndpoint,

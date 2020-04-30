@@ -23,7 +23,7 @@ module.exports.Home = (req, res) => {
 
 	let orderIsDelivered = false;
 
-	db.query("SELECT * FROM all_orders WHERE is_delivered IS NULL ORDER BY time_added DESC" , (err, allOrders)=>{	
+	db.query("SELECT * FROM all_orders WHERE is_delivered IS NULL ORDER BY time_added DESC LIMIT 7" , (err, allOrders)=>{	
 		db.query("SELECT * FROM product_orders" , (err, productOrders)=>{
 			if (err) { throw new Error (err);}
 
@@ -151,4 +151,28 @@ module.exports.CustomerOrder = (req, res) => {
 			});	
 		})
 	});
+}
+
+
+
+
+// New orders
+module.exports.NewOrders = (req, res) => {
+
+	let orderIsDelivered = false;
+
+	db.query("SELECT * FROM all_orders WHERE is_delivered IS NULL ORDER BY time_added DESC" , (err, allOrders)=>{	
+		db.query("SELECT * FROM product_orders" , (err, productOrders)=>{
+			if (err) { throw new Error (err);}
+
+			res.render("dashboard/new_orders_list",
+			 {
+			 	pageTitle:`New orders`,
+			 	orders : (allOrders.length > 0) ? allOrders : null,
+			 	productOrders : productOrders
+			 });
+		});
+				
+	});
+
 }
