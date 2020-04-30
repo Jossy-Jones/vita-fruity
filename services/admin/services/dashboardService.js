@@ -270,4 +270,20 @@ module.exports.setOrderAsDelivered = (req, res) => {
 
 	// 2) insert order data to delivered_orders
 
+	let order = {
+		id : null,
+		order_key : req.body.order_key,
+		time_added : Date.now()
+	}
+
+	db.query("INSERT INTO delivered_orders SET ?", order, (err, isInserted)=>{
+		if (err) throw new Error(err);
+
+			db.query("UPDATE all_orders SET is_delivered = 1 WHERE order_key =  ?",[req.body.order_key], (err, isUpdated)=>{
+					if (err) throw new Error(err);
+
+					return	res.json({message:  `Order ${req.body.order_key} marked as delivered`, status: true});
+			});
+
+	});		
 }

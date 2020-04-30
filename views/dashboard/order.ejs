@@ -169,7 +169,18 @@
                             </div>
 
                             <br>
-                            <div><button class="btn btn-success" onclick="markAsDelivered(<%=order.order_key%>)"><i class="material-icons fit">check</i>Mark as delivered</button></div>
+                            <% if (order.is_delivered) { -%>
+                              <div class="alert alert-warning">
+                                This order was marked as delivered on {{date}}
+                              </div>
+                            <% } else { -%>
+                                  <div id="deliveredBtn"><button class="btn btn-success" onclick="markAsDelivered('<%=order.order_key%>')"><i class="material-icons fit">check</i>Mark as delivered</button></div>
+
+                              <div id="deliveredAlert" class="alert alert-warning" style="display: none;">
+                                This order is marked as delivered
+                              </div>
+                            <% } -%>
+                        
 
                           </div>
                         </div>
@@ -242,11 +253,31 @@ Swal.fire(
   'It seems someone else will be picking up this order',
   'info'
 )
- <% } else -%>  
+ <% }  -%>  
 
 
    function markAsDelivered(arg) {
-    alert ("implement markAsDelivered");
+    let deliveredBtn = $("#deliveredBtn");
+    let deliveredAlert = $("#deliveredAlert");
+
+    $.post(
+      '/dashboard/json/order/add/delivered',
+       {order_key: arg}, 
+       (res)=> {
+        console.log(res);
+        if (res.status === true) {
+          $.toast({
+              text: '<h6>Order set as delivered</h6>',
+              showHideTransition: 'slide',
+              loader:false,
+              icon: 'success',
+              position: "top-right"
+          });
+
+          deliveredBtn.hide();
+          deliveredAlert.show();
+        }
+    });
   }
 
   
