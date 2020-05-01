@@ -1669,7 +1669,7 @@ transition: .5s ease-in;
 }
 
 .search-bar form:focus-within {
-    border-color: #82a355;
+    border: 2px solid #82a355;
 }
 
 .search-bar input[type="text"] {
