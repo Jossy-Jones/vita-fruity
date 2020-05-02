@@ -7,9 +7,24 @@ const Cart = require('../../../models/cart');
 
 
 module.exports.Contact = (req, res)=> {
-	res.render("main/contact", {pageTitle: "Contact us - Vita Fruity."});
+	res.render("main/contact", {pageTitle: "Contact Us - Vita Fruity."});
 }
 
+module.exports.AboutPage = (req, res)=> {
+	res.render("main/about_page", {pageTitle: "About Us - Vita Fruity."});
+}
+
+module.exports.ServicePage = (req, res)=> {
+	res.render("main/service_page", {pageTitle: "Our Services - Vita Fruity."});
+}
+
+module.exports.PrivacyPolicy = (req, res)=> {
+	res.render("main/privacy_policy", {pageTitle: "Privacy Policy - Vita Fruity."});
+}
+
+module.exports.ReturnPolicy = (req, res)=> {
+	res.render("main/return_policy", {pageTitle: "Return Policy - Vita Fruity."});
+}
 
 
 /*

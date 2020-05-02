@@ -35,7 +35,10 @@ route.get("/online-store/search", mainHandler.Search);
 
 //static routes
 route.get("/contact", mainHandler.Contact);
-
+route.get("/about-us", mainHandler.AboutPage);
+route.get("/services", mainHandler.ServicePage);
+route.get("/return-policy", mainHandler.ReturnPolicy);
+route.get("/privacy-policy", mainHandler.PrivacyPolicy);
 
 
 route.get('/*' ,(req, res) => {
