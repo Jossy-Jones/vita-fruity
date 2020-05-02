@@ -15,7 +15,7 @@ module.exports.AboutPage = (req, res)=> {
 }
 
 module.exports.ServicePage = (req, res)=> {
-	res.render("main/service_page", {pageTitle: "Our Services - Vita Fruity."});
+	res.render("main/services_page", {pageTitle: "Our Services - Vita Fruity."});
 }
 
 module.exports.PrivacyPolicy = (req, res)=> {
