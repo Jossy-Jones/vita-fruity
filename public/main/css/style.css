@@ -1454,7 +1454,7 @@ a.addCart {
     width: 150px;
 }
 
-.checkout {
+.checkout, .about {
     padding: 50px;
     min-height: 70vh;
 }
@@ -1960,6 +1960,45 @@ p.info-extra {
     bottom: 0;
     left: 50%;
     margin-left: -25px;
+}
+
+/* About */
+.about{
+    padding: 0;
+    width: 100%;
+    max-width: initial;
+}
+
+.about div {
+    text-align: center;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.5;
+    padding: 30px 10px;
+}
+
+.about > div > * {
+    max-width: 1140px;
+    margin: auto;
+}
+
+.about h2, .about h1{
+    font-size: 30px;
+    font-weight: 700;
+    color: #83a456;
+    text-transform: uppercase;
+}
+
+.fact {
+    background: #ed8f20;
+    color: #fff;
+}
+
+ul.values {}
+
+ul.values li {
+    display: inline;
+    white-space: nowrap;
 }
 
 
