@@ -163,7 +163,7 @@ button:focus{
 }
 
 .top-navbar .navbar{
-	padding: 15px 0px;
+	padding: 5px 0px;
 	position: fixed;
 	width: 100%;
 	transition: height .3s ease-out, background .3s ease-out, box-shadow .3s ease-out;
@@ -1333,7 +1333,7 @@ blockquote {
 
 /* Jossy's Edited CSS */
 .navbar .container{
-    padding: 0 15px;
+    padding: 0 15px 0 10px;
 }
 .navbar-nav{
     margin: auto !important;
@@ -1351,6 +1351,8 @@ a.logo {
 }
 
 button.navbar-toggler {
+    height: 50px;
+    margin: auto 0;
     margin-right: 0 !important;
 }
 
@@ -1387,7 +1389,7 @@ span.amount_cart {
 }
 
 .logo img {
-    width: 50px;
+    width: 70px;
 }
 .logo span.hideonmobile {
     color: #82a356;
@@ -1990,7 +1992,7 @@ p.info-extra {
 }
 
 .fact {
-    background: #ed8f20;
+    background: #7c9b4a;
     color: #fff;
 }
 
