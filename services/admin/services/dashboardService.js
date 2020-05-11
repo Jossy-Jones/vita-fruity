@@ -67,7 +67,6 @@ module.exports.createProduct = async (req, res) => {
 	let imgName = req.body.images;
 	let productName = req.body.name;
 	let categoryId = parseInt(req.body.category);
-	let price = parseInt(req.body.price);
 	let description = req.body.description;
 
 
@@ -75,12 +74,13 @@ module.exports.createProduct = async (req, res) => {
 		id: null, 
 		name: productName,
 		main_img: imgName,
-		price :  price,
 		category_id : categoryId, 
 		slug : slug(productName.toLowerCase()),
 		description : description,
 		time_added : Date.now()
 	}
+
+	console.log(product);
 
 	let status = false;
 	let message = null;
@@ -93,8 +93,6 @@ module.exports.createProduct = async (req, res) => {
   			message = "Please your product name cannot be empty";
   		} else if (description.length == 0) {
   			message = "Please your product description cannot be empty";
-  		} else if (price < 500){
-  			message = "Price should not be less than 500";
   		} else {
   			status = true;
   			message = "Product added";
@@ -286,4 +284,51 @@ module.exports.setOrderAsDelivered = (req, res) => {
 			});
 
 	});		
+}
+
+
+module.exports.createSubProduct = (req, res) => {
+	let subProduct  = {
+		id: null, 
+		name: req.body.name,
+		price: req.body.price,
+		product_id : req.body.productId,
+		time_added : Date.now()
+	};
+
+	db.query('INSERT INTO sub_products SET ?', subProduct, (err, isCreated)=> {
+	  if (err) throw new Error(err);
+
+	  if (isCreated) {
+	  	res.json({message:"Sub product added", status:true});
+	  }
+
+	});
+}
+
+
+module.exports.modifySubProduct = (req, res) => {
+	let subProduct  = {
+		name: req.body.name,
+		price: req.body.price,
+		time_updated : Date.now()
+	};
+
+	db.query('UPDATE sub_products SET ? WHERE id =?', [subProduct, req.body.subId], (err, isModified)=> {
+	  if (err) throw new Error(err);
+
+	  if (isModified) {
+	  	res.json({message:"Sub product modified", status:true});
+	  }
+	});
+}
+
+module.exports.deleteSubProduct = (req, res) => {
+	db.query('DELETE FROM `sub_products` WHERE id = ? ', [req.body.id], (err, isDeleted)=> {
+	  if (err) throw new Error(err);
+
+	  if (isDeleted) {
+	  	res.json({message:"Sub product deleted", status:true});
+	  }
+	});
 }

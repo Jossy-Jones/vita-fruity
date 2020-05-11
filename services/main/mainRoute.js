@@ -57,7 +57,8 @@ route.post("/test", (req, res)=> {
 	// });
 
 	let cart = new Cart (req.session.cart ? req.session.cart : {});
-	res.json(cart.getItemsForOrder("jnkkf"))
+	console.log(cart);
+	res.json(cart.getExtraOrders())
 });
 
 //cart

@@ -35,7 +35,7 @@
                             <th scope="col"></th>
                             <th scope="col">Name</th>
                             <th scope="col">Category</th>
-                            <th scope="col">Price</th>
+                          <!--   <th scope="col">Price</th> -->
                             <th scope="col">Last updated</th>
                             <th scope="col"><!-- Action --></th>
                         </thead>
@@ -51,7 +51,6 @@
                                          <td><img src="<%= site.url %>/img/products/<%=product.main_img %>" width="100"></td>
                                         <td><%=helpers.ucwords(product.name) %></td>
                                         <td><%=categories.find(category => category.id == product.category_id).name %></td>
-                                        <td>&#8358;<%=product.price.toLocaleString() %></td>
                                         <td>
                                             <% if (product.time_updated) { -%>
                                             <%=helpers.formatTime(product.time_updated,  "D MMM Y");  %></td>                         

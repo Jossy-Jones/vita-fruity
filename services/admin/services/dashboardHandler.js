@@ -79,15 +79,21 @@ module.exports.EditProduct = (req, res) => {
 		if (product.length > 0) {
 			
 			db.query('SELECT * FROM categories ORDER BY id ASC', (err, categories)=> {
+					db.query('SELECT * FROM sub_products WHERE product_id = ?', [id], (err, subProducts)=> {
 
-				if (categories.length > 0) {
-					res.render("dashboard/edit_product", 
-						{
-							pageTitle:`Edit products - ${product[0].name}`, 
-							product: product[0],
-							categories : categories 
-					});
-				}
+
+						if (categories.length > 0) {
+							res.render("dashboard/edit_product", 
+								{
+									pageTitle:`Edit products - ${product[0].name}`, 
+									product: product[0],
+									categories : categories,
+									subProducts : (subProducts.length > 0) ? subProducts : []
+							});
+						}
+
+					});				
+
 
 				
 			});
@@ -97,6 +103,49 @@ module.exports.EditProduct = (req, res) => {
 	});
 
 }
+
+
+//Add sub product or variety
+module.exports.AddSubProduct = (req, res) => {
+	db.query('SELECT * FROM products WHERE id = ?', [req.params.id], (err, row)=> {
+		if (err) throw new Error(err);
+		if (!row) res.status(400).send("Not found");
+
+
+	  	res.render("dashboard/add_sub_product", 
+	  		{
+	  			pageTitle:`Add variety - ${row[0].name}`,
+	  			product : row[0]
+	  		});
+	});
+}
+
+
+//Add sub product or variety
+module.exports.EditSubProduct = (req, res) => {
+	db.query('SELECT * FROM sub_products WHERE id = ?', [req.params.id], (err, row)=> {
+		if (err) throw new Error(err);
+		if (!row) res.status(400).send("Not found");
+
+		let sp = row[0];
+
+
+		db.query("SELECT * FROM products WHERE id = ?", [sp.product_id], (err, row)=>{
+			if (err) throw new Error(err);
+
+			let p = row[0];
+
+
+			res.render("dashboard/edit_sub_product", 
+				{
+					pageTitle : `Edit variety - ${p.name} - ${sp.name}`,
+					subProduct : sp,
+					product : p
+				});
+		});
+	});
+}
+
 
 
 

@@ -98,18 +98,82 @@
                                   
                               </h4>
                            
-                                <div align="center">
+ <!--                                <div align="center">
                                     <p class="lead text-success" style="font-weight: 700">
-                                        &#8358;<%= product.price.toLocaleString() %>
+                                        &#8358;
+                                </div> -->
+
+                                 <div align="center">
+                                    <p class="lead text-success" style="font-weight: 700">
+                                        &#8358;<%= subProducts.find(x => x.product_id === product.id).price %>
+                                        
+                              
                                     </p>
-                                </div>
+                                </div> 
+
                                 <br>
 
                                 <div align="center">
-                                    <button class=" btn-add-to-cart btn-sm" onclick="Cart.add(<%= product.id %>)">Add to cart</button>
-                       </div>
+
+                                    <!-- <button class=" btn-add-to-cart btn-sm" onclick="Cart.add(<%= product.id %>)">Add to cart</button> -->
+
+                                   <!--  <%=subProducts.filter(x => x.product_id === product.id).length %> -->
+
+                                    <% if (subProducts.filter(x => x.product_id === product.id).length === 1) { -%>
+
+                                            <% subProducts.filter(x => x.product_id === product.id).forEach(sp=>{ %>
+                                                <button class=" btn-add-to-cart btn-sm" onclick="Cart.add(<%= sp.id %>)">Add to cart</button> 
+                                            <%})  %> 
+
+                                        
+                                    <% } else if(subProducts.filter(x => x.product_id === product.id).length > 1)  { -%>
+                                        <button class=" btn-add-to-cart btn-sm" onclick="Cart.popSubModal(<%= product.id %>)">Add to cart</button>
+                                    <% } -%>
+
+                                    <!-- pop sub modal -->
+                                    <!-- <button class=" btn-add-to-cart btn-sm" onclick="Cart.popSubModal(<%= product.id %>)">Add to cart</button>
+ -->                                </div>
                            
                         </div>
                     </div>
                 </div> 
+
+
+                <!-- modal here -->
+                <div>
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="sub-modal-<%=product.id  %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-body">
+                           <!-- <h1><%=product.id  %></h1> -->
+                           <h1>Total: &#8358;<span id="sp-total-price-<%=product.id %>"><%= subProducts.find(x => x.product_id === product.id).price %></span></h1>
+
+                           <div class="sp">
+                                <div class="input-group mb-3">
+                                    <select onchange="Cart.updateSubPrice(this, <%=product.id %>)" class="custom-select" name="sp-<%=product.id %>" id="inputGroupSelect01">
+                                            <option selected>Select <%=product.name  %> </option>
+                                            <% subProducts.filter(x => x.product_id === product.id).forEach(sp=>{ %>
+
+                                                    <option price="<%=sp.price %>" value="<%=sp.id %>"><%=sp.name %></option>     
+                                            <%})  %> 
+                                    </div>                          
+                                </select>
+
+                           </div> </div>
+
+
+                           <!-- extras -->
+                           <div></div>
+
+                           <div align="right">
+                               <button class="btn btn-success" id="sp-btn-add-<%=product.id %>">Add to Cart</button>
+                           </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>                    
+                </div>
    <% } )-%>

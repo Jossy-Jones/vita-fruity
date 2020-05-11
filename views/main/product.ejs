@@ -11,16 +11,23 @@
 	<!-- Start header -->
     <% include includes/header %>
 	<!-- End header -->
+
+    <style type="text/css">
+        input[type=checkbox],
+        input[type=radio]{
+          transform:scale(1.5);
+        }            
+    </style>
 	
 	<div class="all-page-title page-breadcrumb">
 		<div class="container text-center">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1>checkout</h1>
+					<h1>Online store</h1>
 					<div class="bread-crumb white">
-						<a class="" href="index.html">Home</a>
-						<a href="online-store.html">Online Store</a> 
-						<span>Spicy Spagetti with Shrimps and Agbo</span>
+						<a class="" href="index">Home</a>
+						<a href="/online-store">Online Store</a> 
+						<span><%=product.name %></span>
 					</div>
 				</div>
 			</div>
@@ -60,7 +67,7 @@
                                      <a href="/online-store/products/<%=data.slug %>">
                                         <h3 class="product-title"><%=data.name %></h3>
                                     </a>
-                                    <span class="product-price">&#8358;<%=data.price.toLocaleString() %></span>
+                                    <span class="product-price">&#8358;<%= subProducts.find(x => x.product_id === product.id).price %></span>
                                 </div>
                             </div>
                            <%})%>
@@ -74,18 +81,58 @@
                     <div class="detail-img">
                         <img src="/img/products/<%= product.main_img %>" id="productImg-<%=product.id %>">
                     </div>
+                    <br>
                     <div class="detail-info">
                         <h2 class="detail-title"><%=product.name %></h2>
-                        <div class="menu-label">
-                            <span class="product-label">Fresh Pocket</span>
-                            <span class="product-price">&#8358;<%=product.price.toLocaleString() %></span>
-                        </div>
-                        <input type="number" class="quantity" min="1" value="1" onblur="updateItemPrice(this.value,<%=product.id %>)">
-                        <div class="total-price">
-                            <button onclick="Cart.add(<%= product.id %>)">Add to Cart</button>
-                            <h2 id="totalItemPrice-<%=product.id %>">&#8358;<%=product.price.toLocaleString() %></h2>
-                        </div>
+                     <% if (subProducts.filter(x => x.product_id === product.id).length === 1) { -%>
+
+                            <% subProducts.filter(x => x.product_id === product.id).forEach(sp=>{ %>
+                                <div class="menu-label">
+                                    <!-- <span class="product-label">Fresh Pocket</span> -->
+                                    <span class="product-price">&#8358;<%= sp.price.toLocaleString() %></span>
+                                </div>
+                                <input type="number" class="quantity" min="1" value="1" onblur="updateItemPrice(this.value,<%=sp.id %>)">
+
+
+                                <div class="total-price">
+                                    <button onclick="addToCart(<%= sp.id %>)">Add to Cart</button>
+                                    <h2 id="totalItemPrice-<%=sp.id %>">&#8358;<%= sp.price.toLocaleString() %></h2>
+                                </div>
+                            <%})  %> 
+
+                        
+                    <% } else if(subProducts.filter(x => x.product_id === product.id).length > 1)  { -%>
+                                <div class="menu-label">
+                                    <!-- <span class="product-label">Fresh Pocket</span> -->
+                                    <span class="product-price" id="productPrice">&#8358;<%=subProducts.find(x => x.product_id === product.id).price.toLocaleString() %></span>
+
+
+                                </div>
+                               <!--  <input type="number" class="quantity" min="1" value="1" name="qtyBtn"  onblur="updateItemPrice(this.value,<%=subProducts.find(x => x.product_id === product.id).id %>)">   -->
+                                <br> <br>                
+                            <% subProducts.filter(x => x.product_id === product.id).forEach(sp=>{ %>
+
+
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" name="spChoice" type="radio" id="checkbox-sp-<%=sp.id %>" price="<%=sp.price %>" value="<%=sp.id %>" onchange="handleChange(this, <%=sp.id %>)">
+                              <label class="form-check-label" for="checkbox-sp-<%=sp.id %>"><%=sp.name %></label>
+                            </div>
+
+                            <%})  %> 
+
+                            <div class="total-price">
+                            <button id="cartAddBtn" onclick="addToCart(<%=subProducts.find(x => x.product_id === product.id).id%>)" >Add to Cart
+                            </button>
+                            <!-- <h2 id="totalItemPrice-<%=subProducts.find(x => x.product_id === product.id).id %>">&#8358;<%= subProducts.find(x => x.product_id === product.id).price.toLocaleString() %></h2> -->
+
+                                  
+                            </div>  
+                    <% } -%>
+
+
                         <p class="info-extra">Category: <span class="entry"><a href="/online-store/categories/<%=categories.find(category => category.id == product.category_id).slug %>"> <%=helpers.ucwords(categories.find(category => category.id == product.category_id).name) %></a></span></p>
+
+
                         <p class="info-extra">Share: <span><a href="" class="fa fa-facebook"></a> <a href="" class="fa fa-twitter"></a> <a href="" class="fa fa-linkedin"></a></span></p>
                     </div>
                 </div>
@@ -119,6 +166,19 @@
                         </div>
                     </div>
                 </div> -->
+                <% if (extras.length > 0) { -%>
+                  <h3>Extras</h3>
+                    <% extras.forEach(extra => { -%>
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input" onchange="addExtras(this.value)" name="extras" type="checkbox" id="inlineCheckbox1" value="<%=extra.id%>" price="<%=extra.price%>">
+                          <label class="form-check-label" for="inlineCheckbox1"><%=extra.name%></label>
+                        </div>  
+                    <% }) -%>
+                <% } -%>
+                    
+ 
+                            
+
             </div>
         </div>
     </div>
@@ -129,6 +189,14 @@
 
 
  <script type="text/javascript">
+
+     var extras = [];   
+
+     function addToCart (id) {
+        Cart.add(id, extras);
+        console.trace(extras);
+     }
+
     function toggleRemoveDialog(arg) {
         $(`#removeDialog-${arg}`).modal("show");
     }
@@ -170,6 +238,43 @@
         });
 
     }
+
+
+
+    // multiple sp
+   function handleChange(el, id) {
+        // default sp id
+        let initId = <%=subProducts.find(x => x.product_id === product.id).id%>;
+
+       let cartAddBtn = $("#cartAddBtn");
+       let productPrice = $("#productPrice");
+       let elPrice = parseInt(el.getAttribute("price"));
+       
+       console.log(elPrice);
+
+
+       //if id is not initial id, change button attribute
+     
+            cartAddBtn.attr("onclick", `addToCart(${id})`);
+            productPrice.html(`&#8358;${elPrice.toLocaleString()}`);
+   }
+
+    function onlyUnique(value, index, self) { 
+        return self.indexOf(value) === index;
+    }   
+
+   function addExtras (val) {
+        let arr = [];
+
+        $("input:checkbox[name=extras]:checked").each(function(){
+             arr.push($(this).val()); 
+        }); 
+
+        extras = arr.filter(onlyUnique);
+        console.log(extras);   
+   }
+
+
  </script>
 
 </body>

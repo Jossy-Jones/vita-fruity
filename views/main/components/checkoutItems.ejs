@@ -11,11 +11,11 @@
 <div class="row item">
 <!-- <img src="http://placehold.it/50x50"> -->
 	<div class="col-2">
-		<img src="img/products/<%=product.item.main_img %>" width="65">	
+		<img src="img/products/<%=product.superItem.main_img %>" width="65">	
 	</div>
 
 	<div class="col-6" style="margin-left: auto;">
-		<%=product.item.name%> <br>(x<%=product.qty %>)
+		(<%=product.superItem.name%>) (<%=product.item.name%>) <br>(x<%=product.qty %>)
 	</div>
 
 

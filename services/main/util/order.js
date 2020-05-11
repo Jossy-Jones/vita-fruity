@@ -23,12 +23,13 @@ module.exports.saveCustomerDetails = (session, cart, txn_ref = null) => {
 		}
 
 		let cartProducts = cart.getItemsForOrder(session.order.key);
+		let cartExtras  = (cart.getExtraOrders().length > 0) ? cart.getExtraOrders() : null;
 
 		db.query("INSERT INTO all_orders SET ?", details, (err, orderInsert)=>{
 			if (err) {
 				reject("Couldnt insert customer details");
 			}else {
-				db.query("INSERT INTO product_orders (id, order_key, product_id, time_added, price, qty, discount_code, discount_percent) VALUES ? ", [cartProducts],(err, productOrderInsert)=> {
+				db.query("INSERT INTO product_orders (id, order_key, product_order_key, product_id, sub_product_id, time_added, price, qty, discount_code, discount_percent) VALUES ? ", [cartProducts],(err, productOrderInsert)=> {
 					if (err) {
 						reject("Couldnt insert products orders from cart");
 					} else {
@@ -43,9 +44,29 @@ module.exports.saveCustomerDetails = (session, cart, txn_ref = null) => {
 								if (err) {
 									reject("Couldnt insert customer details into paid orders")
 								} else {
-									db.query("UPDATE all_orders SET is_paid = 1 WHERE order_key = ?", details.order_key, (err, paidOrderInsert)=>{
+
+									console.log("Paid orders Inserted");
+
+									console.log("Extras length=>"+cartExtras.length);
+									console.log(cartExtras);
+
+
+									if (cartExtras.length == 0) {
+										console.log("Outside extras worked");
 										resolve(session.order.key);
-									});	
+									} else if (cartExtras.length > 0) {
+										console.log("Inside extras worked");
+										db.query("INSERT INTO extra_orders (id, product_order_key, price, time_added,  name) VALUES ?", [cartExtras], (err, extraInsert)=>{
+
+											if (extraInsert) {
+												console.log(" Insert Inside extras worked");
+												 resolve(session.order.key);	
+											}			
+										});
+									}
+
+										
+										
 								}
 							});
 						}

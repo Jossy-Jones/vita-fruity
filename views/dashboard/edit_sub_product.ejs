@@ -2,6 +2,7 @@
 <html>
 <head>
      <% include includes/metaMain %>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 </head>
 <body>
 
@@ -33,6 +34,10 @@
         border: 2px solid #83e799;
         color: #83e799!important;
         background-color: transparent;
+    }
+    .modal {
+        padding: 0px !important;
+        height: 40%;
     }
 
 
@@ -89,7 +94,17 @@ autofocus<% }  -%> >
                         <input type="text" name="id" value="<%=product.id%>" style="display: none;">
 
                         <!-- Send button -->
-                        <button id="edit-btn" class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="button" onclick="modify()">Edit</button>
+                        <button id="edit-btn" class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="button" onclick="modify()">Save changes</button>
+
+                        <br><br>
+
+                        <p>
+                            No longer need this ?<br>
+
+                             <button id="del-btn" class="btn btn-outline-danger btn-rounded btn-block z-depth-0 my-4 waves-effect" type="button" onclick="toggleDeletePopup()">Remove</button>   
+                        </p>
+              
+
 
                     </form>
                     <!-- Form -->
@@ -106,14 +121,46 @@ autofocus<% }  -%> >
       </div>
     </div>
 
+
+
+
+<div id="delModal" class="modal">
+
+
+      <div class="modal-body">
+        <br>
+        <p>Are you sure you want to remove this sub product?</p>
+      </div>
+
+      <div align="center">
+        <a  class="btn btn-success" onclick="deleteSub(<%=subProduct.id%>)">Yes</a>
+
+        <a href="#modal" rel="modal:close" class="btn btn-danger">No</a> 
+      </div>
+
+
+</div>
+   
+
 <!-- footer starts here -->
 <% include includes/footer %>
 <!-- footer ends here -->
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <script src="<%= site.adminURL%>/assets/jquery.preview-img.js"></script>
 <script type="text/javascript">
     $("#thumbnail").previewImageFrom("#img-input");
 
+   function toggleDeletePopup() {
+        $("#delModal").modal("show");
+    }
+
+    function hideDelModal() {
+       $("#delModal").modal("hide");
+    }
+
+   
 
 function modify() {
 
@@ -173,7 +220,62 @@ function modify() {
     });  
 
 }
-   
+
+
+
+ function deleteSub(arg) {
+    $("#delete-btn").attr("disabled", true);
+
+    $.ajax({
+        url : "<%= site.adminURL%>/json/product/sub/delete",
+        type:"POST",
+        data : {id : arg},      
+        success : (res)=>{
+            console.log(res);
+
+            if(res.status == false) {
+                 $.toast({
+                    text: `<h6>${res.message}</h6>`,
+                    showHideTransition: 'fade',
+                    icon: 'error',
+                    position: "top-right",
+                    loader:false
+                });
+
+                 setTimeout(()=>{ 
+                     $("#delete-btn").attr("disabled", false);
+                    }, 1500);
+            }
+
+
+
+            if(res.status == true) {
+                $.toast({
+                    text: `<h6>${res.message}</h6>`,
+                    showHideTransition: 'slide',
+                    loader:false,
+                    icon: 'success',
+                    position: "top-right"
+                });
+
+
+                    setTimeout(()=>{ 
+
+                     console.log("successful");
+                     window.location.href = "<%= site.adminURL%>/edit-product/<%=product.id%>";
+
+                    }, 2000);
+
+            } 
+        
+        }
+    })
+}
+
+
+
+
+
 </script>
 
 </body>

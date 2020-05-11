@@ -54,10 +54,31 @@
 
 				<% products.forEach (product=> { -%>
 				<div class="item-pane" id="cart-item-<%=product.item.id %>">
-					<div class="item-img"><img src="img/products/<%=product.item.main_img %>"></div>
+					<div class="item-img"><img src="img/products/<%=product.superItem.main_img %>"></div>
 					<div class="item-detail">
-						<h2 class="item-name"><%=helpers.ucwords(product.item.name) %></h2>
+						<h2 class="item-name"><%=helpers.ucwords(product.superItem.name) %> 
+							<!-- (<%=helpers.ucwords(product.item.product_order_key) %>)) -->
+							<% if (product.item.name === "*") { -%>
+								<!-- nothing to show -->
+							<% } else { -%>
+								(<%=helpers.ucwords(product.item.name) %>) 
+							<% } -%>
+							
+						</h2>
 						<p class="price-tag">Price: <span class="price">&#8358;<%=product.item.price.toLocaleString() %></span></p>
+						<% if (product.extras) { -%>
+
+								<p>
+									<b>Extras </b>: <br>
+									<% product.extras.forEach(extra=> { -%>
+										<%=extra.name%> - <span>&#8358;<%=extra.price.toLocaleString() %></span> 
+										<br>
+									<% }) -%>
+									
+								</p>
+
+						<% } %>
+					
 						<input type="number" min="1" onblur="updateItemPrice(this.value,<%=product.item.id %>)" class="quantity" value="<%=product.qty %>">
 					</div>
 					<h2 class="total-price">&#8358;<span class="totalItem" id="totalItemPrice-<%=product.item.id %>"><%=product.price.toLocaleString() %></span></h2>
@@ -240,14 +261,33 @@
 
  	function updateItemPrice(qty, id) {
  		console.trace(qty);
- 		Cart.getItemById(id).then(res=> {
- 			let price = qty * res.data.item.price;
- 			$(`#totalItemPrice-${id}`).html(price.toLocaleString());
+ /*		Cart.getItemById(id).then(res=> {
+ 			console.log(res.data.price);
+ 			
 
  			Cart.updateQtyById(id, qty).then(res => {
  				updateTotalPrice();
+
  			});
+
+ 			$(`#totalItemPrice-${id}`).html(res.data.price.toLocaleString());
  		});
+
+*/
+ 
+
+ 			Cart.updateQtyById(id, qty).then(res => {
+ 				updateTotalPrice();
+
+
+		 		Cart.getItemById(id).then(res=> {
+		 			console.log(res.data.price);
+		 			
+		 			$(`#totalItemPrice-${id}`).html(res.data.price.toLocaleString());
+		 		});
+
+
+ 			});		
 
  	}
 

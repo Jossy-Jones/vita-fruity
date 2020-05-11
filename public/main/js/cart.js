@@ -5,7 +5,7 @@
  function Cart(el) {				
 
  	
-	this.add = (arg) => {
+	this.add = (spId, extras = []) => {
 	 	let notyf = new Notyf({
 	 		duration:3000,
 	 		  position: {
@@ -16,13 +16,13 @@
 
 		$.post(
 			'/json/cart/add', 
-			{id: arg}, 
+			{id: spId, extras: extras}, 
 			(res)=> {
 			console.log(res);
 			if (res.status == true) {
 				notyf.success(res.message);
 				$(el).html(res.cart.totalItems);
-				this.flyToBasket(arg);
+				this.flyToBasket(spId);
 			}
 		});
 	} 
@@ -82,6 +82,25 @@
 
 		});
 	}
+
+	this.getItemTotalPrice = (arg) =>  {
+		return new Promise((resolve, reject)=> {
+			$.post(
+				'/json/cart/get/item/total-price',
+				{id : arg}, 
+				(res)=> {
+				if (res.status == true) {
+					this.updateEl(); 
+					resolve(res);
+				}else {
+					resolve(reject);
+				}
+			});
+
+		});
+	}
+
+
 
 
 	this.get = (arg) =>  {
@@ -157,9 +176,25 @@
                 //$(`#img-container-${id}`).detach()
             });
         }
-    
+	}
+
+
+
+	this.popSubModal = (id) => {
+		$(`#sub-modal-${id}`).modal("show");
+	}
+
+	this.updateSubPrice = (el, pID) => {
+		let price = parseInt($("option[value="+el.value+"]:selected").attr("price"));
+		$(`#sp-total-price-${pID}`).html(price.toLocaleString());
+
+		//add Cart.add event to button
+
+		$(`#sp-btn-add-${pID}`).attr("onclick", `Cart.add(${el.value})`);
 
 	}
+
+
 
 	//Init
 	this.updateEl();            

@@ -39,13 +39,19 @@ module.exports.Index = (req, res)=> {
 
 	db.query("SELECT * FROM categories", (err, categories)=>{
 		db.query("SELECT * FROM products", (err, products)=>{
-			console.log(categories);
-			res.render("main/index", 
-				{
-					pageTitle : "Vita Fruity. Healthy Food, Made Fresh Daily", 
-					products :  products,
-					categories : categories
-				});
+			db.query("SELECT * FROM sub_products ",  (err, sp)=> {
+
+				
+				res.render("main/index", 
+					{
+						pageTitle : "Vita Fruity. Healthy Food, Made Fresh Daily", 
+						products :  products,
+						categories : categories,
+						subProducts : sp
+					});
+
+			});
+
 		});
 	});	
 }
@@ -56,6 +62,8 @@ module.exports.Index = (req, res)=> {
 module.exports.Cart = (req, res)=> {
 	let cart = new Cart(req.session.cart ? req.session.cart : {});
 	let products = (req.session.cart) ? cart.getItems() :  [];
+
+	console.log(products);
 	
 	res.render("main/cart", 
 		{
@@ -121,13 +129,19 @@ module.exports.Product = (req, res)=> {
 
 		db.query("SELECT * FROM categories", (err, categories)=>{
 			db.query("SELECT * FROM products WHERE slug = ?" ,req.params.slug, (err, product)=>{
-				res.render("main/product", 
-					{
-						pageTitle : `${product[0].name.toUpperCase()} - Vita Fruity. Healthy Food, Made Fresh Daily`, 
-						products : products,
-						product :  product[0],
-						categories : categories
+				db.query("SELECT * FROM extras WHERE category_id = ?", product[0].category_id, (err, extras)=> {
+					db.query("SELECT * FROM sub_products", (err, sp)=> {
+						res.render("main/product", 
+							{
+								pageTitle : `${product[0].name.toUpperCase()} - Vita Fruity. Healthy Food, Made Fresh Daily`, 
+								products : products,
+								product :  product[0],
+								categories : categories,
+								subProducts : sp,
+								extras : extras
+							});					
 					});
+				});	
 			});
 		});
 	});	

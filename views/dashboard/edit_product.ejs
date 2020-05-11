@@ -2,6 +2,7 @@
 <html>
 <head>
      <% include includes/metaMain %>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 </head>
 <body>
 
@@ -35,6 +36,10 @@
         background-color: transparent;
     }
 
+    .modal {
+        padding: 0px !important;
+    }
+
 </style>
 
     <div id="card_content"> 
@@ -43,6 +48,16 @@
             <div class="col-xs-6 col-sm-7 card" style="margin: auto;">
               <div class="card-body">
                 <h5 class="card-title">Edit product</h5>
+
+                    <div class="row" align="center">       
+                         <div class="col-6">
+                             <button type="button" class="btn btn-outline-warning waves-effect" onclick="window.location.href='/dashboard/add-sub-product/<%=product.id%>' ">Add sub product</button>
+                         </div>
+
+                         <div class="col-6">
+                             <button type="button" class="btn btn-outline-warning waves-effect" onclick="popupSubProductsModal()">View sub products</button>
+                         </div>
+                    </div>                
             
 
 <!-- Material form contact -->
@@ -65,14 +80,6 @@
                                     </div>
 
 
-
-                                    <!-- Price -->
-                                    <div class="md-form">
-                                       
-                                            <input type="number" id="materialAmount" value="<%=product.price %>" name="price"  min="1000" max="20000" class="form-control" required>
-                                             <label for="materialAmount">Price (&#8358;)</label>
-                                    
-                                    </div>
 
 
                                     <!-- Upload input -->
@@ -144,10 +151,42 @@
       </div>
     </div>
 
+<div id="spModal" class="modal">
+  <div align="center">
+    <p><h4>Sub products for <i><%=product.name %></i></h4> </p>
+
+    <% if (subProducts.length > 0) { -%>
+    <ul class="list-group">
+    <% subProducts.forEach(sp => { -%>
+          <li class="list-group-item">
+             <div class="row">
+                 <div class="col-5"><%=sp.name %></div>
+                  <div class="col-4">&#8358;<%=sp.price.toLocaleString() %></div>
+                 <div class="col-2"><a href="/dashboard/edit-sub-product/<%=sp.id %>">Edit</a></div>
+             </div> 
+          </li>
+    <% }) -%>
+
+     </ul> 
+        
+    <% } else { -%>
+
+    <div><h3>Empty</h3></div>
+    <br>
+    <div>
+         <button type="button" class="btn btn-outline-warning waves-effect" onclick="window.location.href='/dashboard/add-sub-product/<%=product.id%>'">Add sub product</button>
+     </div>  
+          
+    <% } -%>
+  </div>
+</div>
+
 <!-- footer starts here -->
 <% include includes/footer %>
 <!-- footer ends here -->
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <script src="<%= site.adminURL%>/assets/jquery.preview-img.js"></script>
 <script type="text/javascript">
 $("#thumbnail").previewImageFrom("#img-input");
@@ -157,11 +196,17 @@ $("#img-input").change(function () {
 });
 
 
+
+function popupSubProductsModal(){
+    $("#spModal").modal("show");
+}
+
+
 function edit() {
     let form = $('form')[0]; 
     let formData = new FormData(form);
     //console.log(formData.values());
-    for (let value of formData.values()) {
+    for (let value of formData.values()) {-
 
        console.log(value); 
     }

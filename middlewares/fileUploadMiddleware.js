@@ -30,6 +30,8 @@ const uploadFiles = upload.array(formDataName, 10); // limit to 10 images
 
 
 module.exports.uploadImages = (req, res, next) => {
+  if (req.body.chkImg === 'IMAGE_CHANGED') return next();
+
   uploadFiles(req, res, err => {
     if (err instanceof multer.MulterError) { // A Multer error occurred when uploading.
       if (err.code === "LIMIT_UNEXPECTED_FILE") { // Too many images exceeding the allowed limit
@@ -48,6 +50,7 @@ module.exports.uploadImages = (req, res, next) => {
 
 module.exports.resizeImages = async (req, res, next) => {
   if (!req.files) return next();
+   if (req.body.chkImg === 'IMAGE_CHANGED') return next();
 
 
   let publicSubPath = req.session.uploadPath; // desired public path

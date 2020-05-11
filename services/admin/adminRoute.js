@@ -1,8 +1,10 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const route = express.Router();
-const db = require('../../database/config');
 const  {uuid}  = require('uuidv4');
+
+
+const db = require('../../database/config');
 
 //handler
 const dashboardHandler = require("../admin/services/dashboardHandler");
@@ -43,6 +45,13 @@ route.get('/add-product', adminMiddleware.isLoggedIn, dashboardHandler.AddProduc
 
 route.get('/edit-product/:key', adminMiddleware.isLoggedIn, dashboardHandler.EditProduct);
 
+
+route.get('/add-sub-product/:id', adminMiddleware.isLoggedIn, dashboardHandler.AddSubProduct);
+
+
+route.get('/edit-sub-product/:id', adminMiddleware.isLoggedIn, dashboardHandler.EditSubProduct);
+
+
 route.get('/categories', adminMiddleware.isLoggedIn, dashboardHandler.Categories);
 
 
@@ -69,6 +78,9 @@ route.post('/json/auth', authService);
 //Dashboard service api route point
 route.post('/json/test',  dashboardService.test);
 route.post('/json/order/add/delivered',  dashboardService.setOrderAsDelivered);
+route.post('/json/product/sub/create',  dashboardService.createSubProduct);
+route.post('/json/product/sub/modify',  dashboardService.modifySubProduct);
+route.post('/json/product/sub/delete',  dashboardService.deleteSubProduct);
 
 route.post('/json/add-category', 
 	adminMiddleware.protectEndpoint,

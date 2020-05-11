@@ -48,3 +48,15 @@ module.exports.validateEmail  = (email) => {
     return re.test(String(email).toLowerCase());
 }
 
+
+
+module.exports.countSubArrays= (arr) => {
+	let sum = 0;
+	for (var i = 0; i < arr.length; i++) {
+		arr[i];
+
+		for (var j = 0; i < arr[i].length; j++) {
+			sum = 0;
+		}
+	}
+}

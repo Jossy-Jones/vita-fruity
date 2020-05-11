@@ -14,22 +14,70 @@ module.exports.addToCart = (req, res)=> {
 
 	let cart = new Cart(req.session.cart ? req.session.cart : {});	
 
-	db.query("SELECT * FROM products WHERE id = ?", req.body.id, (err, product)=> {
-		if (product.length > 0 ) {
-			cart.add(product[0], product[0].id);
-			req.session.cart = cart;
-			res.json({
-				status: true, 
-				message: `${product[0].name} has been added to cart`, 
-				product : product,
-				cart : cart.getData()
-			});
-			console.log(req.session.cart);
-		}else { 
-			res.json({status: false, product :  [] }); 
-		}
+	let ordereredExtras = [];
 
-	})
+	let extrasId = [];
+
+
+	if (req.body.extras) {
+		//parsing extras  to integer
+		extrasId = req.body.extras.join().split(',').map((item)=> {
+	  	  return parseInt(item, 10);
+		});	
+	}
+
+
+
+
+
+
+	db.query("SELECT * FROM sub_products WHERE id = ?", req.body.id, (err, sp)=> {
+		
+		db.query("SELECT * FROM products WHERE id = ?", sp[0].product_id, (err, product)=> {
+
+			let spName = (sp[0].name === "*") ? "" : `(${sp[0].name})`;
+
+
+			db.query("SELECT * FROM extras WHERE id IN (?)", [extrasId], (err, extras)=>{
+
+				if (req.body.extras) {
+					ordereredExtras = extras;
+					if (product.length > 0 ) {
+						cart.add(sp[0], sp[0].id, product[0], ordereredExtras);
+						req.session.cart = cart;
+						return res.json({
+							status: true, 
+							message: `${product[0].name} ${spName}  has been added to cart`, 
+							product : product,
+							cart : cart.getData()
+						});
+					}else { 
+						res.json({status: false, product :  [] }); 
+					}	
+				}
+
+
+				if (!req.body.extras) {
+					if (product.length > 0 ) {
+						cart.add(sp[0], sp[0].id, product[0]);
+						req.session.cart = cart;
+						return res.json({
+							status: true, 
+							message: `${product[0].name} ${spName}  has been added to cart`, 
+							product : product,
+							cart : cart.getData()
+						});
+					}else { 
+						res.json({status: false, product :  [] }); 
+					}						
+				}
+
+
+			});							
+		});
+
+
+	});
 	
 }
 
@@ -54,6 +102,22 @@ module.exports.getItemById = (req, res) => {
 		cart = new Cart(req.session.cart ? req.session.cart : {});
 		data = cart.getItemById(req.body.id);
 	}
+
+	res.json({status: true, data: data}); 
+}
+
+
+module.exports.getItemTotalPrice = (req, res) => {	
+	let cart  = null;
+	let data = null;
+
+	if (req.session.cart) {
+		cart = new Cart(req.session.cart ? req.session.cart : {});
+		data = cart.getItemTotalPrice(req.body.id);
+	}
+
+	console.trace("a=>"+data.item.price);
+
 	res.json({status: true, data: data}); 
 }
 
@@ -65,9 +129,11 @@ module.exports.removeCartItem = (req, res) => {
 
 	if (req.session.cart) {
 		cart = new Cart(req.session.cart ? req.session.cart : {});
+		let productName = cart.getItemById(id).superItem.name;
+		let spName = (cart.getItemById(id).item.name === "*") ? "" : `(${cart.getItemById(id).item.name})`;
 		 res.json({
 		 	status : true, 
-		 	message : `${cart.getItemById(id).item.name} has been removed from cart`,
+		 	message : `${productName} - ${spName}  has been removed from cart`,
 		 	totalItems :  cart.totalItems - cart.getItemById(id).qty,
 		 	totalPrice :  cart.totalItems - cart.getItemById(id).price
 		 });	
@@ -166,12 +232,12 @@ module.exports.submitOrder = (req, res) => {
 
 		}; 
 
-		console.log(Order);
+		/*console.log(Order);*/
 
 			req.session.order = new Order(req.body, req.session);		
 	 		req.session.save();
 
-	 		console.log(req.session.order);
+	 		/*console.log(req.session.order);*/
 
 	 		if (req.session.order) {
 	 			return res.json({status : true, message : "temporarily saved customer details" });	
