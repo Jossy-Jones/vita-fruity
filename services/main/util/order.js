@@ -19,11 +19,13 @@ module.exports.saveCustomerDetails = (session, cart, txn_ref = null) => {
 			add_info : (session.order.addInfo) ? session.order.addInfo : null,
 			shipping_method : (session.order.shippingMethod) ? session.order.shippingMethod : null,
 			pickup_time : session.order.pickupTime,
-			time_added : Date.now() 
+			time_added : Date.now(),
+			zone_name : session.order.zone_name ,
+			zone_desc :  session.order.zone_desc ,
+			zone_price :  session.order.zone_price 			
 		}
-
 		let cartProducts = cart.getItemsForOrder(session.order.key);
-		let cartExtras  = (cart.getExtraOrders().length > 0) ? cart.getExtraOrders() : null;
+		let cartExtras  = (cart.getExtraOrders().length > 0) ? cart.getExtraOrders() : [];
 
 		db.query("INSERT INTO all_orders SET ?", details, (err, orderInsert)=>{
 			if (err) {
@@ -47,7 +49,6 @@ module.exports.saveCustomerDetails = (session, cart, txn_ref = null) => {
 
 									console.log("Paid orders Inserted");
 
-									console.log("Extras length=>"+cartExtras.length);
 									console.log(cartExtras);
 
 

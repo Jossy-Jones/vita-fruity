@@ -151,11 +151,17 @@
 									</datalist>
 								</div> -->
 								<div class="delivery-price">
-									<h4>Delivery: &#8358;<span>0</span></h4>
+									<h4>Delivery: &#8358;<span><%=order.zone_price.toLocaleString() %>
+
+									<% if (order.zone_desc != null) { -%>
+										<small><%=order.zone_desc %></small></span>
+									<% } %> 
+
+										</h4>
 									<input type="hidden" value="0" id="pickup-deliveryPrice">
 								</div>
 								<div class="total-price">
-									<h3>Total: &#8358;<span id="totalPrice"><%= (totalPrice) ? totalPrice.toLocaleString()  : 0%></h3>
+									<h3>Total: &#8358;<span id="totalPrice"><%= (totalPrice) ? (totalPrice + order.zone_price).toLocaleString()  : 0%></h3>
 									
 								</div>
 								<div class="checkout-btn-wrapper">
@@ -188,7 +194,7 @@
 		 var handler = PaystackPop.setup({ 
 		        key: '<%=site.paystackPK%>', //put your public key here
 		        email: `${$("#email").val().trim()}`, //put your customer's email here
-		        amount: <%= (totalPrice) %> * 100, //amount the customer is supposed to pay in kobo
+		        amount: <%= (totalPrice + order.zone_price) %> * 100, //amount the customer is supposed to pay in kobo
 		        metadata: {
 		            custom_fields: [
 		                {

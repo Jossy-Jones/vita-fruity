@@ -20,6 +20,10 @@
 	background: #985307
 }
 
+#deliveryConcern, 
+#deliveryConcernInfo {
+	display: none;
+}
 </style>
 
 
@@ -106,20 +110,20 @@
 				<div>
 					<h2>*Shipping Method</h2>
 					<ul>
-						<li>Extras include the cost of pack for &#8358;100</li>
+<!-- 						<li>Extras include the cost of pack for &#8358;100</li>
 						<li>Top-up yoghurt includes the cost of extra up for &#8358;100</li>
-						<li>Delivery only applies to orders above &#8358;1500</li>
+						<li>Delivery only applies to orders above &#8358;1500</li> -->
 						<li>
-							<a href="#">View Delivery Prices here</a>
+							<a href="#" onclick="showDeliveryPrices();">View Delivery Prices here</a>
 						</li>
 					</ul>
 					<div>
 					
 						<div class="deliver_mode">
-							<input type="radio" value="pickup" name="shipping_method" id="pickup" checked>
+							<input type="radio" value="pickup" name="shipping_method" id="pickup" onchange="shippingMethodContext(this.value)" checked>
 							<label for="pickup">Pickup</label>
 
-							<input type="radio" value="delivery" name="shipping_method" id="delivery">
+							<input type="radio" value="delivery" name="shipping_method" id="delivery" onchange="shippingMethodContext(this.value)">
 							<label for="delivery">Delivery</label>
 						</div>
 
@@ -134,12 +138,26 @@
 								<div class="form-group">
 									<input type="time" name="pickup_time" min="09:00" max="20:00" step="300" required>
 								</div>
-								<div class="delivery-price">
-									<h4>Delivery: &#8358;<span>0</span></h4>
+
+								  <div class="form-group" id="deliveryConcern">
+								    <label for="zones">Delivery zones</label>
+								    <select class="form-control" id="zones" name="zone" onchange="zoneChange(this)">
+								    	<option price="0" value="null">--Select delivery zone--</option>
+								    <% zones.forEach(zone => { -%>
+								    	 <option id="zone-<%=zone.id %>" price="<%=zone.price %>" value="<%=zone.id %>" ><%=zone.description %></option>
+								    	
+								    <% }) -%>
+								    </select>
+								  </div>								
+
+
+
+								<div class="delivery-price" id="deliveryConcernInfo">
+									<h4>Delivery: &#8358;<span id="deliveryPrice">0</span></h4>
 									<input type="hidden" value="0" id="pickup-deliveryPrice">
 								</div>
 								<div class="total-price">
-									<h3>Total: &#8358;<span id="totalPrice"><%= (totalPrice) ? totalPrice.toLocaleString()  : 0%></h3>
+									<h3>Total Items: &#8358;<span id="totalPrice"><%= (totalPrice) ? totalPrice.toLocaleString()  : 0%></h3>
 									
 								</div>
 								<div class="checkout-btn-wrapper">
@@ -230,6 +248,12 @@
 <% if (products.length > 0) { -%>
 
  <script type="text/javascript">
+
+
+ 	function showDeliveryPrices(){
+ 		$("#deliveryPriceModal").modal("show");
+ 	}
+
  	function toggleRemoveDialog(arg) {
  		$(`#removeDialog-${arg}`).modal("show");
  	}
@@ -261,21 +285,6 @@
 
  	function updateItemPrice(qty, id) {
  		console.trace(qty);
- /*		Cart.getItemById(id).then(res=> {
- 			console.log(res.data.price);
- 			
-
- 			Cart.updateQtyById(id, qty).then(res => {
- 				updateTotalPrice();
-
- 			});
-
- 			$(`#totalItemPrice-${id}`).html(res.data.price.toLocaleString());
- 		});
-
-*/
- 
-
  			Cart.updateQtyById(id, qty).then(res => {
  				updateTotalPrice();
 
@@ -319,6 +328,7 @@
 
  		let shippingMethod = $('input[name=shipping_method]:checked').val();
  		let pickupTime = $("input[name=pickup_time]").val();
+ 		let zone = $("select[name=zone]").find(":selected").val();
 
  		console.log("=>"+pickupTime);
 
@@ -328,7 +338,19 @@
  		if (!timeRangeIsValid(pickupTime)) {
  			e = "Please pick time between 9:00am and  8:00pm";
  		}
+ 		if (shippingMethod === "delivery") {
+ 			console.log(zone);
+ 			if (!zone || zone == "null") {
+ 				e = "Please select delivery zone";
+ 			}
+ 		}
+
+ 		if (shippingMethod == "pickup") {
+ 			zone = 0;
+ 		}
+
  		console.trace(shippingMethod);
+ 		console.log(zone);
 
 
  		if (e) {
@@ -340,16 +362,45 @@
  			'/json/order/init', 
  			{
  				shippingMethod: shippingMethod,
- 				pickupTime: pickupTime
+ 				pickupTime: pickupTime,
+ 				zone : zone
  			},
  			 function(res) {
  				if (res.status == true) {
 					window.location.href='checkout';
  				}
  			});
+ 		
+ 	}
 
+ 	function shippingMethodContext(val) {
+ 		let deliveryConcern = $("#deliveryConcern");
+ 		let deliveryConcernInfo = $("#deliveryConcernInfo");
  		
- 		
+ 		if (val === "delivery") {
+ 			deliveryConcern.show();
+ 			deliveryConcernInfo.show();
+ 		}
+ 		if (val === "pickup") {
+ 			deliveryConcern.hide();
+ 			deliveryConcernInfo.hide();
+
+ 			//reset delivery price
+ 			$("#deliveryPrice").html(0);
+
+ 			//reset zone form
+ 			$("#zones").val("null");
+
+
+ 		}
+ 	}
+
+ 	function zoneChange(el) {
+ 		let val = el.value;
+ 		let price = parseInt($(`#zone-${val}`).attr("price"));
+
+ 		// update delivery price
+ 		$("#deliveryPrice").html(price.toLocaleString());
  	}
  </script>
 <% } -%>

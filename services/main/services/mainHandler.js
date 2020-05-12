@@ -64,13 +64,18 @@ module.exports.Cart = (req, res)=> {
 	let products = (req.session.cart) ? cart.getItems() :  [];
 
 	console.log(products);
-	
-	res.render("main/cart", 
-		{
-			pageTitle : "Cart - Vita Fruity. Healthy Food, Made Fresh Daily", 
-			products : products,
-			totalPrice : cart.totalPrice
-		});
+
+
+	db.query("SELECT * FROM zones", (err, zones) => {
+		res.render("main/cart", 
+			{
+				pageTitle : "Cart - Vita Fruity. Healthy Food, Made Fresh Daily", 
+				products : products,
+				totalPrice : cart.totalPrice,
+				zones : zones
+			});
+	});
+
 }
 
 
@@ -78,14 +83,14 @@ module.exports.Checkout = (req, res)=> {
 	let cart = new Cart(req.session.cart ? req.session.cart : {});
 	let products = (req.session.cart) ? cart.getItems() :  [];
 
-	console.trace(req.session.order);
 
 	if (products.length > 0) {
 	 return	res.render("main/checkout", 
 		{
-			pageTitle: "Checkout - Vita Fruity. Healthy Food, Made Fresh Daily",
+			pageTitle : "Checkout - Vita Fruity. Healthy Food, Made Fresh Daily",
 			products : products,
-			totalPrice : cart.totalPrice
+			totalPrice : cart.totalPrice,
+			order :req.session.order 
 		});		
 	} else {
 		return res.redirect("/cart");
@@ -111,7 +116,7 @@ module.exports.CheckoutSuccess = (req, res)=> {
 
 module.exports.OnlineStore = (req, res)=> {
 	db.query("SELECT * FROM categories", (err, categories)=>{
-		db.query("SELECT * FROM products", (err, products)=>{
+		db.query("SELECT * FROM products ORDER BY RAND()", (err, products)=>{
 			db.query("SELECT * FROM sub_products ",  (err, sp)=> {
 				console.log(categories);
 				res.render("main/store", 
@@ -128,7 +133,7 @@ module.exports.OnlineStore = (req, res)=> {
 
 
 module.exports.Product = (req, res)=> {
-	db.query("SELECT * FROM products WHERE NOT slug =  ? ORDER BY RAND() LIMIT 3", req.params.slug, (err, products)=>{
+	db.query("SELECT * FROM products WHERE NOT slug = ? ORDER BY RAND() LIMIT 3", req.params.slug, (err, products)=>{
 
 		db.query("SELECT * FROM categories", (err, categories)=>{
 			db.query("SELECT * FROM products WHERE slug = ?" ,req.params.slug, (err, product)=>{

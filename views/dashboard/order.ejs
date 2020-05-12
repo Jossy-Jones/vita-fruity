@@ -136,7 +136,12 @@
                                     <label style="font-weight:bold;">Shipping method</label>
                                 </div>
                                 <div class="col-md-8 col-6">
-                                    <%=order.shipping_method.toUpperCase()%>
+                                    <%=order.shipping_method.toUpperCase()%> 
+                                    <% if (order.zone_desc) { -%>
+                                      @ <%=order.zone_name %> (<%=order.zone_desc %>)
+                                    <% } -%>
+                                      
+                                   
                                 </div>
                             </div>
                          
@@ -165,6 +170,12 @@
                                 </div>
                                 <div class="col-md-8 col-6">
                                    &#8358;  <%=order.amount.toLocaleString()%>
+                                    <% if (order.zone_desc) { -%>
+                                      for items & &#8358;<%=order.zone_price %> for delivery <br>
+                                      Total: &#8358;<%=(order.amount + order.zone_price).toLocaleString()%>
+                                    <% } -%>
+                                      
+                                   
                                 </div>
                             </div>
 
@@ -202,7 +213,7 @@
                                             <!-- Product image -->
                                             <img class="card-img-top" src="/img/products/<%=products.find(obj => obj.id === p.product_id).main_img%>" alt="Card image cap">
                                             <div class="card-body">
-                                                <h4 class="card-title"><a href="#" title="View Product"><%=products.find(obj => obj.id === p.product_id).name%></a></h4>
+                                                <h5 class="card-title"><a href="#" title="View Product"><%=products.find(obj => obj.id === p.product_id).name%></a></h5>
                                                 <p class="card-text">Quantity ordered: <b><%=p.qty%> </b></p>
 
                                                 <% if (p.product_order_key) { -%>

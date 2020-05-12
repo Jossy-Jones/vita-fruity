@@ -159,9 +159,25 @@ module.exports.updateQty = (req, res) => {
 
 
 module.exports.initOrder= (req, res) => {
-	let Order = module.exports = function(s, p) {
+	let Order = module.exports = function(s, p, z = 0) {
 	     this.shippingMethod = s;
 	     this.pickupTime = p;
+
+
+	     //initializing zones
+	     this.zone_name = null;
+	     this.zone_desc = null;
+	     this.zone_price = 0;
+
+	     if (z > 0 ) {
+	     	console.log("Zone Condition met");
+	     	db.query("SELECT * FROM zones WHERE id = ?", z, (err, zones)=> {
+	     		console.log(zones[0]);
+	     		this.zone_name = zones[0].name;
+	     		this.zone_desc = zones[0].description;
+	    		this.zone_price = zones[0].price;
+	     	});
+	     }
 	}; 
 
 
@@ -169,6 +185,9 @@ module.exports.initOrder= (req, res) => {
 
 	let shippingMethod = req.body.shippingMethod;
  	let pickupTime = req.body.pickupTime;
+ 	let zoneId = parseInt(req.body.zone);
+
+ 	console.log("zoneId=>"+ zoneId);
 
  	let e = null; // error
  	let status = false;
@@ -182,10 +201,12 @@ module.exports.initOrder= (req, res) => {
 
 
  	if (e == null) {
-		req.session.order = new Order(shippingMethod, pickupTime);		
+		req.session.order = new Order(shippingMethod, pickupTime, zoneId);		
  		req.session.save();
  		status = true;		
  	}
+
+ 	console.log(req.session.order);
 
  	return res.json({status : status, message : e });
 }		
@@ -218,9 +239,12 @@ module.exports.submitOrder = (req, res) => {
 			 //storing key
 			 this.key = uuid().toUpperCase().slice(0, 7);
 
-			 // restoring storing initial 
+			 // restoring values from old Order model in initOrder() 
 		     this.shippingMethod = session.order.shippingMethod;
 		     this.pickupTime = session.order.pickupTime;
+		     this.zone_name = session.order.zone_name;
+		     this.zone_desc = session.order.zone_desc;
+		     this.zone_price = session.order.zone_price;
 
 		     // storing new values
 		     this.customer_name = `${formData.lastName.trim().toUpperCase()} ${formData.firstName.trim()}`;
