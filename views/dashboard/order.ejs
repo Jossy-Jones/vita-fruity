@@ -204,6 +204,24 @@
                                             <div class="card-body">
                                                 <h4 class="card-title"><a href="#" title="View Product"><%=products.find(obj => obj.id === p.product_id).name%></a></h4>
                                                 <p class="card-text">Quantity ordered: <b><%=p.qty%> </b></p>
+
+                                                <% if (p.product_order_key) { -%>
+                                                <small>Extras</small>: 
+
+                                                  <% extras.forEach(extra=> { -%>
+                                                      <% if (extra.product_order_key == p.product_order_key) { -%>
+
+                                                      <small style="color: #595959"><%=extra.name %></small>
+                                                      <b style="color: #2bbbad">. </b>
+                                                        
+                                                      <% }  -%>
+                                                        
+                                                      
+                                                  <% }) -%>
+                                                <% } -%>
+                                                  
+                                        
+                                                
                                                 <div class="row">
                                                     <div class="col">
                                                         <p class="btn btn-default btn-rounded btn-block">

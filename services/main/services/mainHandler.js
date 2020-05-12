@@ -38,7 +38,7 @@ module.exports.Index = (req, res)=> {
 	let cartTotalItems = (req.session.cart) ? cart.getData().totalItems :  null;
 
 	db.query("SELECT * FROM categories", (err, categories)=>{
-		db.query("SELECT * FROM products", (err, products)=>{
+		db.query("SELECT * FROM products ORDER BY RAND()", (err, products)=>{
 			db.query("SELECT * FROM sub_products ",  (err, sp)=> {
 
 				
@@ -112,13 +112,16 @@ module.exports.CheckoutSuccess = (req, res)=> {
 module.exports.OnlineStore = (req, res)=> {
 	db.query("SELECT * FROM categories", (err, categories)=>{
 		db.query("SELECT * FROM products", (err, products)=>{
-			console.log(categories);
-			res.render("main/store", 
-				{
-					pageTitle : "Vita Fruity. Healthy Food, Made Fresh Daily", 
-					products :  products,
-					categories : categories
-				});
+			db.query("SELECT * FROM sub_products ",  (err, sp)=> {
+				console.log(categories);
+				res.render("main/store", 
+					{
+						pageTitle : "Vita Fruity. Healthy Food, Made Fresh Daily", 
+						products :  products,
+						categories : categories,
+						subProducts : sp
+					});
+			});
 		});
 	});	
 }
@@ -154,14 +157,17 @@ module.exports.Category = (req, res)=> {
 		let category = categories.find(c => c.slug === req.params.slug); // find category by slug
 
 		db.query("SELECT * FROM products WHERE category_id = ?", category.id , (err, products)=>{
+			db.query("SELECT * FROM sub_products ",  (err, sp)=> {
 
-			res.render("main/categories", 
-				{
-					pageTitle : `${category.name.toUpperCase()} - Vita Fruity. Healthy Food, Made Fresh Daily`, 
-					products : products,
-					category : category,
-					categories : categories
-				});
+				res.render("main/categories", 
+					{
+						pageTitle : `${category.name.toUpperCase()} - Vita Fruity. Healthy Food, Made Fresh Daily`, 
+						products : products,
+						category : category,
+						categories : categories,
+						subProducts : sp
+					});
+			});
 		});	
 	});	
 }
@@ -170,14 +176,16 @@ module.exports.Category = (req, res)=> {
 module.exports.Search = (req, res)=> {	
 	db.query("SELECT * FROM categories" , (err, categories)=>{
 		db.query("SELECT * FROM products WHERE name LIKE N? " , ['%'+req.query.s+'%'], (err, products)=>{
-			console.log(products);
+			db.query("SELECT * FROM sub_products ",  (err, sp)=> {
 				res.render("main/search", 
 					{
 						pageTitle : `${req.query.s} - Search - Vita Fruity. Healthy Food, Made Fresh Daily`,
 						products : products,
 						categories : categories,
-						query : req.query.s
+						query : req.query.s,
+						subProducts : sp
 					});
+			});	
 
 		});	
 	});	

@@ -49,6 +49,9 @@ module.exports = function Cart(cart) {
         cartItem.price = (cartItem.item.price *  cartItem.qty) + this.sumOfExtrasPrice;
         this.totalItems++;
         this.totalPrice += cartItem.price;
+
+        console.log(cartItem.price);
+        console.log(this.totalPrice);
     };
 
     this.remove = function(id) {
@@ -164,6 +167,7 @@ module.exports = function Cart(cart) {
 
         let val = [];
         let temp_array = [];
+
         for (var a =  arr.length -1; a>=0; a--) {
             for (var i =  arr[a].length - 1; i >=0; i--) {
                 temp_array=[
