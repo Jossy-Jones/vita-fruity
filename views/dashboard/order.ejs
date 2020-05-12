@@ -206,16 +206,16 @@
                                                 <p class="card-text">Quantity ordered: <b><%=p.qty%> </b></p>
 
                                                 <% if (p.product_order_key) { -%>
+                                                <!-- Extras here -->
                                                 <small>Extras</small>: 
 
                                                   <% extras.forEach(extra=> { -%>
                                                       <% if (extra.product_order_key == p.product_order_key) { -%>
 
                                                       <small style="color: #595959"><%=extra.name %></small>
-                                                      <b style="color: #2bbbad">. </b>
+                                                      <b style="color: #2bbbad">.</b>
                                                         
-                                                      <% }  -%>
-                                                        
+                                                      <% }  -%>        
                                                       
                                                   <% }) -%>
                                                 <% } -%>
