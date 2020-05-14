@@ -15,7 +15,13 @@
 	</div>
 
 	<div class="col-6" style="margin-left: auto;">
-		(<%=product.superItem.name%>) (<%=product.item.name%>) <br>(x<%=product.qty %>)
+		(<%=product.superItem.name%>) 
+
+		<% if (product.item.name !== "*") { -%>
+			(<%=product.item.name%>) 
+		<% } -%>
+					
+		<br>(x<%=product.qty %>)
 	</div>
 
 
