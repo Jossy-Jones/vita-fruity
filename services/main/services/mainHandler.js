@@ -37,11 +37,26 @@ module.exports.Index = (req, res)=> {
 
 	let cartTotalItems = (req.session.cart) ? cart.getData().totalItems :  null;
 
+
+
 	db.query("SELECT * FROM categories", (err, categories)=>{
+
+			categories = [
+				categories[0],
+				categories[1],
+				categories[2],
+				categories[3],
+				categories[4],
+				categories[6],
+				categories[7],
+				categories[8],
+				categories[5] //others
+			];
+
 		db.query("SELECT * FROM products ORDER BY RAND()", (err, products)=>{
 			db.query("SELECT * FROM sub_products ",  (err, sp)=> {
 
-				
+								
 				res.render("main/index", 
 					{
 						pageTitle : "Vita Fruity. Healthy Food, Made Fresh Daily", 
@@ -116,6 +131,20 @@ module.exports.CheckoutSuccess = (req, res)=> {
 
 module.exports.OnlineStore = (req, res)=> {
 	db.query("SELECT * FROM categories", (err, categories)=>{
+
+			categories = [
+				categories[0],
+				categories[1],
+				categories[2],
+				categories[3],
+				categories[4],
+				categories[6],
+				categories[7],
+				categories[8],
+				categories[5] //others
+			];
+
+
 		db.query("SELECT * FROM products ORDER BY RAND()", (err, products)=>{
 			db.query("SELECT * FROM sub_products ",  (err, sp)=> {
 				console.log(categories);
@@ -136,6 +165,19 @@ module.exports.Product = (req, res)=> {
 	db.query("SELECT * FROM products WHERE NOT slug = ? ORDER BY RAND() LIMIT 3", req.params.slug, (err, products)=>{
 
 		db.query("SELECT * FROM categories", (err, categories)=>{
+
+			categories = [
+				categories[0],
+				categories[1],
+				categories[2],
+				categories[3],
+				categories[4],
+				categories[6],
+				categories[7],
+				categories[8],
+				categories[5] //others
+			];
+
 			db.query("SELECT * FROM products WHERE slug = ?" ,req.params.slug, (err, product)=>{
 				db.query("SELECT * FROM extras WHERE category_id = ?", product[0].category_id, (err, extras)=> {
 					db.query("SELECT * FROM sub_products", (err, sp)=> {
@@ -159,6 +201,19 @@ module.exports.Product = (req, res)=> {
 module.exports.Category = (req, res)=> {	
 	db.query("SELECT * FROM categories" , (err, categories)=>{
 
+			categories = [
+				categories[0],
+				categories[1],
+				categories[2],
+				categories[3],
+				categories[4],
+				categories[6],
+				categories[7],
+				categories[8],
+				categories[5] //others
+			];
+
+
 		let category = categories.find(c => c.slug === req.params.slug); // find category by slug
 
 		db.query("SELECT * FROM products WHERE category_id = ?", category.id , (err, products)=>{
@@ -180,6 +235,19 @@ module.exports.Category = (req, res)=> {
 
 module.exports.Search = (req, res)=> {	
 	db.query("SELECT * FROM categories" , (err, categories)=>{
+			categories = [
+				categories[0],
+				categories[1],
+				categories[2],
+				categories[3],
+				categories[4],
+				categories[6],
+				categories[7],
+				categories[8],
+				categories[5] //others
+			];
+
+
 		db.query("SELECT * FROM products WHERE name LIKE N? " , ['%'+req.query.s+'%'], (err, products)=>{
 			db.query("SELECT * FROM sub_products ",  (err, sp)=> {
 				res.render("main/search", 
