@@ -154,7 +154,7 @@ module.exports.OnlineStore = (req, res)=> {
 				console.log(categories);
 				res.render("main/store", 
 					{
-						pageTitle : "Vita Fruity. Healthy Food, Made Fresh Daily", 
+						pageTitle : "Online store -  Vita Fruity. Healthy Food, Made Fresh Daily", 
 						products :  products,
 						categories : categories,
 						subProducts : sp
