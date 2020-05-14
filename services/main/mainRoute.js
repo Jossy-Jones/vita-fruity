@@ -42,6 +42,7 @@ route.get("/about-us", mainHandler.AboutPage);
 route.get("/services", mainHandler.ServicePage);
 route.get("/return-policy", mainHandler.ReturnPolicy);
 route.get("/privacy-policy", mainHandler.PrivacyPolicy);
+route.get("/meal-plan/detox", mainHandler.DetoxMealPlan);
 
 
 route.get('/*' ,(req, res) => {

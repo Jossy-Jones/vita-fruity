@@ -26,6 +26,10 @@ module.exports.ReturnPolicy = (req, res)=> {
 	res.render("main/return_policy", {pageTitle: "Return Policy - Vita Fruity."});
 }
 
+module.exports.DetoxMealPlan = (req, res)=> {
+	res.render("main/detox_meal_plan", {pageTitle: "Detox Meal Plan - Vita Fruity."});
+}
+
 
 /*
 * Dynamic handlers below
