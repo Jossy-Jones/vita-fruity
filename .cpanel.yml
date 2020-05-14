@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/pifopayc/fruity_app_prod
+    - /bin/cp -R * $DEPLOYPATH

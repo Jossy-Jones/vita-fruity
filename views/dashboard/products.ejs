@@ -19,8 +19,25 @@
     
 </style>
 
-             <div align="center"><h2>Products</h2></div>
+             <div align="center">
+                <h2>Products</h2>
+               <div class="col-12 col-md-10 col-lg-8">
+                    <form class="card card-sm">
+                        <div class="card-body row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <i class="fas fa-search h4 text-body"></i>
+                            </div>
+                            <!--end of col-->
+                            <div class="col">
+                                <input class="form-control form-control-lg form-control-borderless" type="search" placeholder="Search products" id="search" autocomplete="off">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <!-- cards view for products  -->
+
+            
         <div id="card_content">
             <div class="card">
                 <div class="card-body">
@@ -29,7 +46,7 @@
                          <button type="button" class="btn btn-outline-warning waves-effect" onclick="window.location.href='add-product'">Add product</button>
                     </div>
 
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="products">
                         <thead>
                             <!-- <th scope="col">NO</th> -->
                             <th scope="col"></th>
@@ -63,7 +80,9 @@
 
                                 <% }); -%>
 
-
+                               <div align="center" id="noResult" style="display: none;">
+                                    <p><h1>No order found for <b id="searchTerm"></b> </h1></p>
+                                </div>
 
                             <% } else { -%>
                                 <div>
@@ -79,5 +98,28 @@
 <!-- footer starts here -->
 <% include includes/footer %>
 <!-- footer ends here -->
+
+<script src="http://rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js"></script>
+
+<script type="text/javascript">
+
+var noResultAlert = $("#noResult");
+var noResultAlertSearchTerm = $("#noResult #searchTerm");    
+$(function () {
+    $( '#products' ).searchable({
+        searchField: '#search',
+        striped: true,
+        oddRow: { 'background-color': '#f5f5f5' },
+        evenRow: { 'background-color': '#fff' },
+        searchType: 'fuzzy',
+        onSearchActive : function( noResultAlert , noResultAlertSearchTerm ) {
+            noResultAlert.hide();
+        },
+        onSearchEmpty: function( noResultAlert ) {
+            noResultAlert.show();
+        }        
+    });
+});      
+</script>
 </body>
 </html>

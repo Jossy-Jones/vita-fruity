@@ -1,3 +1,8 @@
+/**
+* @author Clinton Nzedimma
+* Admin/Dashboard Middleware
+*/
+
 module.exports.isLoggedIn = (req, res, next) => {
 	if (req.session.adminUsername) {
 		console.log(`Admin Middleware : Logged in as ${req.session.adminUsername}`);

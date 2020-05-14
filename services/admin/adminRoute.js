@@ -38,6 +38,8 @@ route.get('/home', adminMiddleware.isLoggedIn,  dashboardHandler.Home);
 
 route.get('/orders', adminMiddleware.isLoggedIn, dashboardHandler.OrderList);
 
+route.get('/order-menu', adminMiddleware.isLoggedIn, dashboardHandler.OrderMenu);
+
 
 route.get('/products', adminMiddleware.isLoggedIn, dashboardHandler.ProductList);
 
@@ -64,6 +66,7 @@ route.get('/customer-order/:order_key', adminMiddleware.isLoggedIn, dashboardHan
 
 route.get('/orders/new', adminMiddleware.isLoggedIn, dashboardHandler.NewOrders);
 
+route.get('/orders/delivered', adminMiddleware.isLoggedIn, dashboardHandler.DeliveredOrders);
 
 route.get("/logout", adminMiddleware.logout);
 

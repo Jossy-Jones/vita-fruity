@@ -46,6 +46,11 @@ module.exports.OrderList = (req, res) => {
 	res.render("dashboard/order_list", {pageTitle:`Orders`});
 }
 
+module.exports.OrderMenu = (req, res) => {
+	res.render("dashboard/order_menu", {pageTitle:`Order menu`});
+}
+
+
 
 // Products page  
 module.exports.ProductList = (req, res) => {
@@ -213,7 +218,6 @@ module.exports.CustomerOrder = (req, res) => {
 // New orders
 module.exports.NewOrders = (req, res) => {
 
-	let orderIsDelivered = false;
 
 	db.query("SELECT * FROM all_orders WHERE is_delivered IS NULL ORDER BY time_added DESC" , (err, allOrders)=>{	
 		db.query("SELECT * FROM product_orders" , (err, productOrders)=>{
@@ -224,6 +228,29 @@ module.exports.NewOrders = (req, res) => {
 			 	pageTitle:`New orders`,
 			 	orders : (allOrders.length > 0) ? allOrders : null,
 			 	productOrders : productOrders
+			 });
+		});
+				
+	});
+
+}
+
+
+
+// Delivered orders
+module.exports.DeliveredOrders = (req, res) => {
+
+	let orderIsDelivered = false;
+
+	db.query("SELECT * FROM all_orders WHERE is_delivered = 1 ORDER BY time_added DESC" , (err, allOrders)=>{	
+		db.query("SELECT * FROM delivered_orders" , (err, deliveredOrders)=>{
+			if (err) { throw new Error (err);}
+
+			res.render("dashboard/delivered_order_list",
+			 {
+			 	pageTitle:`Delivered orders`,
+			 	orders : (allOrders.length > 0) ? allOrders : null,
+			 	deliveredOrders : deliveredOrders
 			 });
 		});
 				
