@@ -10,10 +10,15 @@ module.exports = function Cart(cart) {
     this.sumOfExtrasPrice = 0;
     this.productOrderKey = null;
 
-    this.add = function(item, id, superItem, extras = []) {
+    this.add = function(item, superItem, extras = []) {
 
+        // `id` is a random generated string used to identify an item added to the cart
+        //  The`id` does not represent the product, sub product or extra id in the database
+        let id = uuid().toUpperCase().slice(0, 8);
 
         let productOrderKey = null;
+
+        console.trace("superItems=>"+superItem);
 
         if (extras.length > 0) {
             this.sumOfExtrasPrice = extras.reduce((a, {price}) => a + price, 0);
@@ -34,7 +39,8 @@ module.exports = function Cart(cart) {
                 superItem: superItem, 
                 extras: extras, 
                 qty: 0, 
-                price: 0
+                price: 0,
+                id : id
             };
         }
 
@@ -122,7 +128,7 @@ module.exports = function Cart(cart) {
         let arrayOfItems = this.getItems();
         let item = null;
         for (let i = 0; i < arrayOfItems.length; i++) {
-          if (arrayOfItems[i].item.id == id) {
+          if (arrayOfItems[i].id == id) {
             item = arrayOfItems[i];
 
             console.trace("DODO=>"+item.price);

@@ -1,6 +1,9 @@
+require('dotenv').config();
 const moment = require('moment');
 const validator = require('validator');
 const { uuid } = require('uuidv4');
+const Cryptr = require('cryptr');
+
 
 const db = require('../../../database/config');
 const Cart = require('../../../models/cart');
@@ -9,8 +12,12 @@ const helpers = require('../../../helpers/helpers');
 const paystackPayment = require('../../../helpers/paystackPayment');
 
 
+const cryptr = new Cryptr(process.env.SESSION_SECRET);
+
 
 module.exports.addToCart = (req, res)=> {
+
+	// This module item to cart with the id of the product in the database
 
 	let cart = new Cart(req.session.cart ? req.session.cart : {});	
 
@@ -28,9 +35,6 @@ module.exports.addToCart = (req, res)=> {
 
 
 
-
-
-
 	db.query("SELECT * FROM sub_products WHERE id = ?", req.body.id, (err, sp)=> {
 		
 		db.query("SELECT * FROM products WHERE id = ?", sp[0].product_id, (err, product)=> {
@@ -40,10 +44,11 @@ module.exports.addToCart = (req, res)=> {
 
 			db.query("SELECT * FROM extras WHERE id IN (?)", [extrasId], (err, extras)=>{
 
+				//if extras exists
 				if (req.body.extras) {
 					ordereredExtras = extras;
 					if (product.length > 0 ) {
-						cart.add(sp[0], sp[0].id, product[0], ordereredExtras);
+						cart.add(sp[0], product[0], ordereredExtras);
 						req.session.cart = cart;
 						return res.json({
 							status: true, 
@@ -56,10 +61,10 @@ module.exports.addToCart = (req, res)=> {
 					}	
 				}
 
-
+				//if no extras
 				if (!req.body.extras) {
 					if (product.length > 0 ) {
-						cart.add(sp[0], sp[0].id, product[0]);
+						cart.add(sp[0], product[0]);
 						req.session.cart = cart;
 						return res.json({
 							status: true, 
@@ -159,7 +164,7 @@ module.exports.updateQty = (req, res) => {
 
 
 module.exports.initOrder= (req, res) => {
-	let Order = module.exports = function(s, p, z = 0) {
+	let Order = module.exports = function(s, p, z) {
 	     this.shippingMethod = s;
 	     this.pickupTime = p;
 
@@ -169,14 +174,19 @@ module.exports.initOrder= (req, res) => {
 	     this.zone_desc = null;
 	     this.zone_price = 0;
 
-	     if (z > 0 ) {
+
+	     if (z.length > 0 ) {
 	     	console.log("Zone Condition met");
-	     	db.query("SELECT * FROM zones WHERE id = ?", z, (err, zones)=> {
-	     		console.log(zones[0]);
-	     		this.zone_name = zones[0].name;
-	     		this.zone_desc = zones[0].description;
-	    		this.zone_price = zones[0].price;
-	     	});
+
+	     	 z =  cryptr.decrypt(z);
+
+	     	 z = z.split(",");
+
+	     	 console.log("=>zone"+z);
+
+		     this.zone_name = z[0];
+		     this.zone_desc = z[1];
+		     this.zone_price = parseInt(z[2]);
 	     }
 	}; 
 
@@ -185,9 +195,7 @@ module.exports.initOrder= (req, res) => {
 
 	let shippingMethod = req.body.shippingMethod;
  	let pickupTime = req.body.pickupTime;
- 	let zoneId = parseInt(req.body.zone);
-
- 	console.log("zoneId=>"+ zoneId);
+ 	let zoneData= req.body.zone;
 
  	let e = null; // error
  	let status = false;
@@ -201,7 +209,7 @@ module.exports.initOrder= (req, res) => {
 
 
  	if (e == null) {
-		req.session.order = new Order(shippingMethod, pickupTime, zoneId);		
+		req.session.order = new Order(shippingMethod, pickupTime, zoneData);		
  		req.session.save();
  		status = true;		
  	}

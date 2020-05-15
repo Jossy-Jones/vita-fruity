@@ -1,4 +1,8 @@
 const moment = require('moment');
+const Cryptr = require('cryptr');
+
+const cryptr = new Cryptr(process.env.SESSION_SECRET);
+
 
 module.exports.ucwords = (str) => {
  return (str + '')
@@ -50,13 +54,10 @@ module.exports.validateEmail  = (email) => {
 
 
 
-module.exports.countSubArrays= (arr) => {
-	let sum = 0;
-	for (var i = 0; i < arr.length; i++) {
-		arr[i];
+module.exports.encrypt = (arg) => {
+	return cryptr.encrypt(arg);
+}
 
-		for (var j = 0; i < arr[i].length; j++) {
-			sum = 0;
-		}
-	}
+module.exports.decrypt = (arg) => {
+	return cryptr.decrypt(arg);
 }

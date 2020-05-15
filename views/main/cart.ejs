@@ -57,7 +57,7 @@
 	
 
 				<% products.forEach (product=> { -%>
-				<div class="item-pane" id="cart-item-<%=product.item.id %>">
+				<div class="item-pane" id="cart-item-<%=product.id %>">
 					<div class="item-img"><img src="img/products/<%=product.superItem.main_img %>"></div>
 					<div class="item-detail">
 						<h2 class="item-name"><%=helpers.ucwords(product.superItem.name) %> 
@@ -70,7 +70,7 @@
 							
 						</h2>
 						<p class="price-tag">Price: <span class="price">&#8358;<%=product.item.price.toLocaleString() %></span></p>
-						<% if (product.extras) { -%>
+						<% if (product.extras.length > 0) { -%>
 
 								<p>
 									<b>Extras </b>: <br>
@@ -83,9 +83,9 @@
 
 						<% } %>
 					
-						<input type="number" min="1" onblur="updateItemPrice(this.value,<%=product.item.id %>)" class="quantity" value="<%=product.qty %>">
+						<input type="number" min="1" onblur="updateItemPrice(this.value,'<%=product.id %>')" class="quantity" value="<%=product.qty %>">
 					</div>
-					<h2 class="total-price">&#8358;<span class="totalItem" id="totalItemPrice-<%=product.item.id %>"><%=product.price.toLocaleString() %></span></h2>
+					<h2 class="total-price">&#8358;<span class="totalItem" id="totalItemPrice-<%=product.id %>"><%=product.price.toLocaleString() %></span></h2>
 					<span class="remove" onclick="toggleRemoveDialog(<%=product.item.id %>)" style="cursor: pointer;">Remove from cart</span>
 				</div>
 				<% }); -%>
@@ -144,7 +144,8 @@
 								    <select class="form-control" id="zones" name="zone" onchange="zoneChange(this)">
 								    	<option price="0" value="null">--Select delivery zone--</option>
 								    <% zones.forEach(zone => { -%>
-								    	 <option id="zone-<%=zone.id %>" price="<%=zone.price %>" value="<%=zone.id %>" ><%=zone.description %></option>
+								    <% let z = helpers.encrypt([zone.name, zone.description,zone.price]);  %>
+								    	 <option zone-id="<%=zone.id %>" id="zone-<%=z%>" price="<%=zone.price %>" value="<%=z %>" ><%=zone.description %></option>
 								    	
 								    <% }) -%>
 								    </select>
@@ -219,11 +220,19 @@
 	      </div> -->
 	      <div class="modal-body">
 	      	<p>
-	      	 <h4>Do you want to remove <b id="dialogProductName"><%=product.item.name %></b> from the cart? </h4>
+	      	 <h4>Do you want to remove <b id="dialogProductName">
+	      	 	<% if (product.item.name == "*") { -%>
+	      	 		<%=product.superItem.name %>
+	      	 	<% } else { -%>
+	      	 		<%=product.superItem.name %> (<%=product.item.name %>)
+	      	 	<% } -%>
+	      	 	
+	      	 		
+	      	 	</b> from the cart? </h4>
 	        </p>
 
 	        <p align="right">
-	        	<button type="button" class="dialog-btn btn-success btn-sm" onclick="removeItem(<%=product.item.id %>)">Yes</button>
+	        	<button type="button" class="dialog-btn btn-success btn-sm" onclick="removeItem('<%=product.id %>')">Yes</button>
 
 	        	<button type="button" class="dialog-btn btn-danger btn-sm" data-dismiss="modal">No</button>
 	        </p>	

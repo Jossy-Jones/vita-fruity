@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const ejs = require('ejs');
 const compression = require('compression');
+
 const port = 7171;
 
 //Routes

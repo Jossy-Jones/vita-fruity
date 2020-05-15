@@ -19,8 +19,8 @@ app.use("/online-store/products/",express.static(path.join(__dirname, "public/ma
 route.get("/test", (req, res)=> {
 	let cart = new Cart (req.session.cart ? req.session.cart : {});
 	//console.log(cart.getItemForOrder());
-	/* delete req.session.cart;
-	 req.session.save();*/
+	 delete req.session.cart;
+	 req.session.save();
 
 	 res.json(cart.getItems());	
 
