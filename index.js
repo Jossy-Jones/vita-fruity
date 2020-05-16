@@ -33,7 +33,7 @@ app.use(session({
 	store: new MySQLStore(MySQLStoreOptions),
 	cookie: { 
 		 secure: process.env.NODE_ENV == "production" ? true : false ,
-		 maxAge: 24 * 60 * 60 * 1000,  // 1000 days
+		 maxAge: 24 * 60 * 60 * 1000,  // 1 day
 		 sameSite: false
 	}
 }));
@@ -48,7 +48,7 @@ app.use(compression());
 app.use(minify());
 
 const staticCacheOptions = {
-	maxAge: 24 * 60 * 60 * 14 // 14 days
+	maxAge: 24 * 60 * 60 * 1000 // 1 day
 };
 
 //setting general public path for app, dashboard route has no custom path
