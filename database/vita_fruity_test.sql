@@ -471,10 +471,36 @@ CREATE TABLE `zones` (
 -- Dumping data for table `zones`
 --
 
+
 INSERT INTO `zones` (`id`, `name`, `description`, `price`, `time_added`, `time_updated`) VALUES
-(1, 'Zone 1', 'PTI Road | Jakpa Junction', 500, 1589282433175, NULL),
-(2, 'Zone 2', 'Airport Road | Estate Roundabout', 700, 1589282433175, NULL),
-(3, 'Zone 3', 'Udu Road', 800, 1589282433175, NULL);
+(1, 'Zone 1', 'Aka Avenue', 300, 1589382921462, NULL),
+(2, 'Zone 1', 'GRA Effurun', 300, 1589382921462, NULL),
+(3, 'Zone 2', 'PTI Road', 500, 1589382921462, NULL),
+(4, 'Zone 2', 'UTI Street', 500, 1589382921462, NULL),
+(5, 'Zone 2', 'New Layout', 500, 1589382921462, NULL),
+(6, 'Zone 2', 'Ekpan', 500, 1589382921462, NULL),
+(7, 'Zone 2', 'Okumagba Avenue', 500, 1589382921462, NULL),
+(8, 'Zone 2', 'Estate Road', 500, 1589382921462, NULL),
+(9, 'Zone 2', 'Refinery Road', 500, 1589382921462, NULL),
+(10, 'Zone 2', 'Sokoh Estate', 500, 1589382921462, NULL),
+(11, 'Zone 2', 'Ovie Palace Road', 500, 1589382921462, NULL),
+(12, 'Zone 2', 'Jakpa Road', 500, 1589382921462, NULL),
+(13, 'Zone 2', 'Okoloba', 500, 1589382921462, NULL),
+(14, 'Zone 2', 'Airport Road', 500, 1589382921462, NULL),
+(15, 'Zone 2', 'Ebrumede', 500, 1589382921462, NULL),
+(16, 'Zone 2', 'Alegbo', 500, 1589382921462, NULL),
+(17, 'Zone 2', 'Edjeba', 500, 1589382921462, NULL),
+(18, 'Zone 2', 'Osubi', 500, 1589382921462, NULL),
+(19, 'Zone 2', 'Ogunu', 500, 1589382921462, NULL),
+(20, 'Zone 2', 'Ogbolokposo', 500, 1589382921462, NULL),
+(21, 'Zone 3', 'Agbarho', 700, 1589382921462, NULL),
+(22, 'Zone 3', 'Niger cat', 700, 1589382921462, NULL),
+(23, 'Zone 3', 'NPA', 700, 1589382921462, NULL),
+(24, 'Zone 3', 'Ugbuwangwe', 700, 1589382921462, NULL),
+(25, 'Zone 4', 'Otokutu', 1000, 1589382921462, NULL),
+(26, 'Zone 4', 'Udu Road', 1000, 1589382921462, NULL),
+(27, 'Zone 4', 'Ifie', 1000, 1589382921462, NULL),
+(28, 'Zone 4', 'Jeddo', 1000, 1589382921462, NULL);
 
 --
 -- Indexes for dumped tables
