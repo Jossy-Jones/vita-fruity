@@ -33,7 +33,7 @@ app.use(session({
 	store: new MySQLStore(MySQLStoreOptions),
 	cookie: { 
 		 secure: process.env.NODE_ENV == "production" ? true : false ,
-		 maxAge: 24 * 60 * 60 * 1000,
+		 maxAge: 24 * 60 * 60 * 1000,  // 1000 days
 		 sameSite: false
 	}
 }));
@@ -47,11 +47,15 @@ app.set('view engine', 'ejs');
 app.use(compression());
 app.use(minify());
 
+const staticCacheOptions = {
+	maxAge: 24 * 60 * 60 * 14 // 14 days
+};
+
 //setting general public path for app, dashboard route has no custom path
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public"), staticCacheOptions));
 
 //setting custom public path for entry route
-app.use("/",express.static(path.join(__dirname, "public/main")));
+app.use("/",express.static(path.join(__dirname, "public/main"), staticCacheOptions));
 
 
 app.locals = {
