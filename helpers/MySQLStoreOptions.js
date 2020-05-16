@@ -5,7 +5,7 @@ const options = {
   user     : process.env.DB_USER,
   password : process.env.DB_PW,
   database : process.env.SESSION_DB,
-  connectionLimit: 10,
+
   clearExpired: true
 }
 
