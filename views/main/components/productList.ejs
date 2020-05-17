@@ -122,7 +122,7 @@
                                     <% if (subProducts.filter(x => x.product_id === product.id).length === 1) { -%>
 
                                             <% subProducts.filter(x => x.product_id === product.id).forEach(sp=>{ %>
-                                                <button class=" btn-add-to-cart btn-sm" onclick="Cart.add(<%= sp.id %>)">Add to cart</button> 
+                                                <button class=" btn-add-to-cart btn-sm" onclick="addToCart(<%= sp.id %>)">Add to cart</button> 
                                             <%})  %> 
 
                                         
@@ -154,7 +154,7 @@
                            <div class="sp">
                                 <div class="input-group mb-3">
                                     <select onchange="Cart.updateSubPrice(this, <%=product.id %>)" class="custom-select" name="sp-<%=product.id %>" id="inputGroupSelect01">
-                                            <option selected>Select <%=product.name  %> </option>
+                                            <option selected>- Select <%=product.name  %>-</option>
                                             <% subProducts.filter(x => x.product_id === product.id).forEach(sp=>{ %>
 
                                                     <option price="<%=sp.price %>" value="<%=sp.id %>"><%=sp.name %></option>     
@@ -166,7 +166,20 @@
 
 
                            <!-- extras -->
-                           <div></div>
+                           <div>
+                            <% let productExtras = extras.filter(obj=> obj.category_id == product.category_id) || [] %>
+
+                               <% if (productExtras.length > 0) { -%>
+                              <h3>Extras</h3>
+                                <% productExtras.forEach(extra => { -%>
+                                  <div class="form-check form-check-inline">
+                                      <input class="form-check-input" onchange="addExtras(this.value)" name="extras" type="checkbox" id="extras-<%=product.id %>" value="<%=extra.id%>" price="<%=extra.price%>">
+                                      <label class="form-check-label" for="inlineCheckbox1"><%=extra.name%></label>
+                                    </div>  
+                                <% }) -%>
+                            <% } -%>                            
+
+                           </div>
 
                            <div align="right">
                                <button class="btn btn-success" id="sp-btn-add-<%=product.id %>">Add to Cart</button>

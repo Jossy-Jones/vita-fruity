@@ -86,7 +86,7 @@
 						<input type="number" min="1" onblur="updateItemPrice(this.value,'<%=product.id %>')" class="quantity" value="<%=product.qty %>">
 					</div>
 					<h2 class="total-price">&#8358;<span class="totalItem" id="totalItemPrice-<%=product.id %>"><%=product.price.toLocaleString() %></span></h2>
-					<span class="remove" onclick="toggleRemoveDialog(<%=product.item.id %>)" style="cursor: pointer;">Remove from cart</span>
+					<span class="remove" onclick="toggleRemoveDialog('<%=product.id %>')" style="cursor: pointer;">Remove from cart</span>
 				</div>
 				<% }); -%>
 
@@ -210,7 +210,7 @@
 	<% products.forEach (product=> { -%>
 
 	<!-- remove dialog modal -->
-	<div class="modal fade" id="removeDialog-<%=product.item.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal fade" id="removeDialog-<%=product.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
 	<!--       <div class="modal-header">

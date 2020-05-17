@@ -23,6 +23,7 @@
 				notyf.success(res.message);
 				$(el).html(res.cart.totalItems);
 				this.flyToBasket(spId);
+				window.navigator.vibrate(200);
 			}
 		});
 	} 
@@ -188,9 +189,8 @@
 		let price = parseInt($("option[value="+el.value+"]:selected").attr("price"));
 		$(`#sp-total-price-${pID}`).html(price.toLocaleString());
 
-		//add Cart.add event to button
-
-		$(`#sp-btn-add-${pID}`).attr("onclick", `Cart.add(${el.value})`);
+		//add addToCart event to button
+		$(`#sp-btn-add-${pID}`).attr("onclick", `addToCart(${el.value})`);
 
 	}
 
