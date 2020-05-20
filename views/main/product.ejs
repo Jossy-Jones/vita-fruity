@@ -2,6 +2,8 @@
 <html lang="en"><!-- Basic -->
 <head>
    <% include includes/metaMain %>
+    <meta name="description" content="<%=product.name%> | <%=product.description%> "  />
+    <meta name="keywords" content="<%=site.keywords%>, <%=product.name%>, <%=product.description%>"/>   
 </head>
 
 
@@ -60,7 +62,7 @@
                             <div class="item-product">
                                 <div class="product-thumb">
                                     <a href="/online-store/products/<%=data.slug %>">
-                                        <img src="/img/products/<%=data.main_img %>">
+                                        <img  alt="<%=data.name %>" src="/img/products/<%=data.main_img %>">
                                     </a>
                                 </div>
                                 <div class="product-details">
@@ -79,7 +81,7 @@
             <div class="col-md-9 col-sm-8 col-xs-12">
                 <div class="purchase-details">
                     <div class="detail-img">
-                        <img src="/img/products/<%= product.main_img %>" id="productImg-<%=product.id %>">
+                        <img src="/img/products/<%= product.main_img %>" id="productImg-<%=product.id %>" alt="<%= product.name %>">
                     </div>
                     <br>
                     <div class="detail-info">

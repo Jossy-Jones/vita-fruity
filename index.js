@@ -62,7 +62,8 @@ app.locals = {
     site: {
         title: 'Vita Fruity',
         author: 'Clinton Nzedimma',
-        description: 'An ecommerce application',
+        description: "Vita Fruity is a healthy fruit brand.. We started working skeletally from home in 2018. We officially launched our outlet on July 28th 2019 in Delta Mall, Effurun. Delta State, Nigeria. We are the first fruit Truck in Delta State and it was born out of passion to encourage everyone to REFRESH THEIR LIFESTYLE through healthy eating.",
+        keywords : "vitafruity, warri, shoprite, delta mall, parfait, smoothie, juice ",
     	url :process.env.SITE_URL,
     	adminURL :`${process.env.SITE_URL}/dashboard`,
     	paystackPK : process.env.PAYSTACK_PK
