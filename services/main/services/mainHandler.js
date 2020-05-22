@@ -269,7 +269,8 @@ module.exports.Search = (req, res)=> {
 							products : products,
 							categories : categories,
 							query : req.query.s,
-							subProducts : sp
+							subProducts : sp,
+							extras : extras
 						});
 				});
 			});	
