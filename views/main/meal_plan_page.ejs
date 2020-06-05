@@ -161,6 +161,18 @@
 							<button type="button" onclick="initPayment()"  class="btn btn-checkout">PLACE ORDER</button>
 			</div>
 
+			<br>
+			<p>
+
+				<p><%=mealPlan.description%></p>
+
+				<b>PRICE:</b> &#8358;<%=mealPlan.price.toLocaleString() %>
+			 </p>
+
+			 <p>
+			 	<b><i class="fa fa-eye" style="margin-right: 3px"></i><a href="/docs/<%=mealPlan.slug%>.pdf" target="_blank">View meal plan</a></b>
+			 </p>	
+
 
 		</div>
 		</div>
