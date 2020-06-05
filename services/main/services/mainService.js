@@ -307,3 +307,81 @@ module.exports.pay = (req, res) => {
 		res.json({status: false, message : `payment failed`});
 	});
 }
+
+
+
+module.exports.submitMealPlanOrder = (req, res) => {
+	let e = null;
+	if (req.body.firstName.trim() == '' || req.body.firstName.length == 0) {
+		e = "Your FIRST NAME should not be empty !";
+	} else if(req.body.lastName.trim() == '' || req.body.lastName.length == 0) {
+		e = "Your LAST NAME should not be empty !";
+	} else if(!validator.isEmail(req.body.email)){
+		e = "Please enter a valid EMAIL !";
+	} else if(req.body.phone.trim() == '' || req.body.phone.trim().length == 0){
+		e = "PHONE NUMBER is required !";
+	}else if (req.body.phone.trim() && req.body.phone.trim().length != 11) {
+		e = "Please enter valid PHONE NUMBER";
+	}else if (req.body.address.trim().length == 0) {
+		e = "You must fill your RESIDENTIAL ADDRESS";
+	}  else if (!helpers.pickupTimeRangeIsValid(req.body.pickupTime)) {
+ 		e = "Please pick time between 9:00am & 8:00pm";
+ 	}
+
+
+	
+	if (e == null) {
+		let cart = new Cart(req.session.cart ? req.session.cart : {});
+
+		let MealPlanOrder = module.exports = function(arg) {
+				this.data = arg;		
+		}; 
+
+		/*console.log(Order);*/
+
+			req.session.meal_plan_order = new MealPlanOrder(req.body);		
+	 		req.session.save();
+
+	 		/*console.log(req.session.order);*/
+
+	 		if (req.session.meal_plan_order) {
+	 			return res.json({status : true, message : "temporarily saved customer details" });	
+	 		}
+
+	}  else {
+		console.log(e);
+		return res.json({status : false, message : e });
+	}
+
+}
+
+
+
+module.exports.payMealPlan = (req, res) => {
+
+	paystackPayment.init(req.body.reference, process.env.PAYSTACK_SK)
+	.then(resp => {
+		//console.trace(resp.data.data);
+		// success
+		utilOrder.saveMealPlanOrder(req.session.meal_plan_order.data, resp.data.data.amount, req.body.reference)
+		.then ((key)=>{
+			//empty cart
+
+			let Order = module.exports = function(k) {
+					this.key = k;		
+			}; 
+
+			req.session.order = new Order(key);
+			req.session.cart = null;
+			req.session.save();
+
+			return res.json({status : true, message : "Transaction successful" });
+		}).catch((r)=>{
+			console.log(r);
+		});
+
+
+	}).catch(resp => {
+		res.json({status: false, message : `payment failed`});
+	});
+}

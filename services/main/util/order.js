@@ -79,3 +79,36 @@ module.exports.saveCustomerDetails = (session, cart, txn_ref = null) => {
 		});
 	});
 }	
+
+
+
+module.exports.saveMealPlanOrder = (sessionData, amt,  txn_ref = null) => {
+	let mealKey = uuid().toUpperCase().slice(0, 5);
+
+	return new Promise ((resolve, reject)=> {
+		let order =  {
+			id : null,
+			amount : amt/100,
+			meal_plan_slug : sessionData.meal_plan_slug,
+			meal_plan_name : sessionData.meal_plan_name,
+			meal_key: mealKey,
+			customer_name : `${sessionData.firstName} ${sessionData.firstName.toUpperCase()}`,
+			customer_phone : `${sessionData.phone}`,
+			customer_email : `${sessionData.email}`,
+			address : sessionData.address,
+			allergies : sessionData.allergies,
+			expectant_mum : (sessionData.expectant_mum) ? sessionData.expectant_mum : null,
+			add_info : (sessionData.addInfo) ? sessionData.addInfo : null,
+			pickup_time : sessionData.pickupTime,
+			time_added : Date.now(),
+			start_time : new Date(sessionData.start_time).getTime(),
+			txn_ref : txn_ref		
+		}
+
+
+		db.query("INSERT INTO meal_plan_orders SET ?", order, (err, isInserted)=> {
+				if (err) reject(err);				
+				if (isInserted) resolve(mealKey);
+		});
+	});
+}

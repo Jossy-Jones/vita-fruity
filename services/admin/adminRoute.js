@@ -68,6 +68,12 @@ route.get('/orders/new', adminMiddleware.isLoggedIn, dashboardHandler.NewOrders)
 
 route.get('/orders/delivered', adminMiddleware.isLoggedIn, dashboardHandler.DeliveredOrders);
 
+route.get('/orders/meal-plan', adminMiddleware.isLoggedIn, dashboardHandler.MealPlanOrderList);
+
+
+route.get('/orders/meal-plan/:meal_key', adminMiddleware.isLoggedIn, dashboardHandler.MealPlanOrder);
+
+
 route.get("/logout", adminMiddleware.logout);
 
 //error 404

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include includes/metaMain %>
+</head>
+<body>
+
+
+
+
+
+<!-- header starts here -->
+<% include includes/header %>
+<!-- header ends here -->
+
+
+
+            <style type="text/css">
+                /* page css */
+                    span.price {
+                        font-size: 18px;
+                    }
+
+                    .product {
+                        margin-top: 3%;
+                        margin-bottom: 3%;
+                    }
+
+                    #customer-details {
+                        color: #30363d;
+                    }
+            </style>
+
+            <!-- cards view for dashboard to explain main info  -->
+
+            <div align="center"><h2>Order info</h2></div>
+            <br>
+           <!--  <h6><%= key %></h6> -->
+            <br>
+    
+        <div class="row" style=" width:98%; overflow-x: hidden; margin:auto;">
+            <div class="col-12">
+                       
+                <div class="card text-center">
+                  <div class="card-header">
+                  </div>
+                  <div class="card-body">
+                    <div class="tab-content" id="pills-tabContent">
+                        <!-- Customer details tab -->
+                      <div class="tab-pane fade show active" id="customer-details" role="tabpanel" aria-labelledby="customer-details-tab">
+                          <div class="customer-details-content">
+                             <div align="center"><h4>Customer Information<br></h4></div>
+
+                            <div class="row">
+                                <div class="col-sm-3 col-md-2 col-5">
+                                    <label style="font-weight:bold;">Order number</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                   <%=order.meal_key%>
+                                </div>
+                            </div>
+                            <hr />
+
+                            <div class="row">
+                                <div class="col-sm-3 col-md-2 col-5">
+                                    <label style="font-weight:bold;">Meal Plan</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                   <%=order.meal_plan_name%>
+                                </div>
+                            </div>
+                            <hr />
+
+
+
+
+                            <div class="row">
+                                
+                                <div class="col-sm-3 col-md-2 col-5">
+                                    <label style="font-weight:bold;">Name</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    <%=order.customer_name%>
+                                </div>
+                            </div> 
+
+                            <hr />
+                            <div class="row">
+                                <div class="col-sm-3 col-md-2 col-5">
+                                    <label style="font-weight:bold;">Phone</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    <%=order.customer_phone%>
+                                </div>
+                            </div>
+
+
+                             <hr />
+                            <div class="row">
+                                <div class="col-sm-3 col-md-2 col-5">
+                                    <label style="font-weight:bold;">Email</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                     <%=order.customer_email%>
+                                </div>
+                            </div>
+
+
+                            <hr />
+                            <div class="row">
+                                <div class="col-sm-3 col-md-2 col-5">
+                                    <label style="font-weight:bold;">Address</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    <%=order.address%>
+                                </div>
+                            </div>
+
+                       
+                            <hr />
+                            <div class="row">
+                                <div class="col-sm-3 col-md-2 col-5">
+                                    <label style="font-weight:bold;">Allergies</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    <%=order.allergies%>
+                                </div>
+                            </div>                       
+
+
+                       
+                            <hr />
+                            <div class="row">
+                                <div class="col-sm-3 col-md-2 col-5">
+                                    <label style="font-weight:bold;">Preferred Start Date</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    <%=helpers.formatTime(order.start_time, "DD-MMM-YYYY")%>
+                                </div>
+                            </div>           
+
+                            <hr />
+                            <div class="row">
+                                <div class="col-sm-3 col-md-2 col-5">
+                                    <label style="font-weight:bold;">Preferred  Daily Pickup Time</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    <%=order.pickup_time%>
+                                </div>
+                            </div>     
+
+
+                            <hr />
+                            <div class="row">
+                                <div class="col-sm-3 col-md-2 col-5">
+                                    <label style="font-weight:bold;">Additional info</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    <%=order.add_info%>
+                                </div>
+                            </div>
+
+
+                            <!-- <hr/> -->
+
+
+
+                            <!-- Payment info -->
+                           <br><br> <div align="center"><h4>Payment Information<br></h4></div>
+
+                            <div class="row">
+                                <div class="col-sm-3 col-md-2 col-5">
+                                    <label style="font-weight:bold;">Amount paid</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                   &#8358;  <%=order.amount.toLocaleString()%>
+                                    <% if (order.zone_desc) { -%>
+                                      for items & &#8358;<%=order.zone_price %> for delivery <br>
+                                      Total: &#8358;<%=(order.amount + order.zone_price).toLocaleString()%>
+                                    <% } -%>
+                                      
+                                   
+                                </div>
+                            </div>
+
+
+                          </div>
+                        </div>
+
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+        </div>
+
+
+
+
+
+
+<!-- footer starts here -->
+<% include includes/footer %>
+<!-- footer ends here -->
+
+<script type="text/javascript">
+
+   function markAsDelivered(arg) {
+    let deliveredBtn = $("#deliveredBtn");
+    let deliveredAlert = $("#deliveredAlert");
+
+    $.post(
+      '/dashboard/json/order/add/delivered',
+       {order_key: arg}, 
+       (res)=> {
+        console.log(res);
+        if (res.status === true) {
+          $.toast({
+              text: '<h6>Order set as delivered</h6>',
+              showHideTransition: 'slide',
+              loader:false,
+              icon: 'success',
+              position: "top-right"
+          });
+
+          deliveredBtn.hide();
+          deliveredAlert.show();
+        }
+    });
+  }
+
+  
+</script>
+
+</body>
+</html>

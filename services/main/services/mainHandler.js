@@ -1,3 +1,4 @@
+const moment = require('moment');
 const db = require('../../../database/config');
 const Cart = require('../../../models/cart');
 
@@ -29,6 +30,33 @@ module.exports.ReturnPolicy = (req, res)=> {
 module.exports.DetoxMealPlan = (req, res)=> {
 	res.render("main/detox_meal_plan", {pageTitle: "Detox Meal Plan - Vita Fruity."});
 }
+
+module.exports.MealPlan = (req, res)=> {
+
+	db.query("SELECT * FROM meal_plans WHERE slug = ? ", req.params.slug, (err, mealPlan)=> {
+		if (err) { throw err;}
+
+		if (mealPlan.length > 0) {
+			mealPlan = mealPlan[0];
+			res.render("main/meal_plan_page", 
+					{
+						pageTitle: `${mealPlan.name} - Meal Plan - Vita Fruity.`,
+						mealPlan: mealPlan,
+						dt : {
+							min: moment(new Date).format("YYYY-MM-DD"),
+							max: moment(new Date).add(1, 'M').format("YYYY-MM-DD"),
+
+						}
+					}
+				);
+		}else {
+			res.redirect("/404");
+		}	
+
+	})
+
+}
+
 
 
 /*

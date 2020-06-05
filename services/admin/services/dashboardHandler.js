@@ -257,3 +257,43 @@ module.exports.DeliveredOrders = (req, res) => {
 	});
 
 }
+
+
+module.exports.MealPlanOrderList = (req, res) => {
+
+	db.query("SELECT * FROM meal_plan_orders ORDER BY time_added DESC" , (err, orders)=>{	
+			if (err) { throw new Error (err);}
+
+			res.render("dashboard/meal_plan_order_list",
+			 {
+			 	pageTitle:`Meal Plan Orders`,
+			 	orders : (orders.length > 0) ? orders : null
+			 });				
+	});
+
+}
+
+// Meal Plan Orders
+module.exports.MealPlanOrder = (req, res) => {
+
+	db.query("SELECT * FROM meal_plan_orders WHERE meal_key = ?", req.params.meal_key , (err, order)=>{	
+			if (err) { throw new Error (err);}
+
+			if (order.length > 0) {
+				order = order[0];
+
+				res.render("dashboard/meal_plan_order_page",
+				 {
+				 	pageTitle:`${order.meal_key} - Meal Plan Orders`,
+				 	order : order,
+				 	key : order.meal_key
+				 });	
+
+			} else {
+				res.redirect("/dashboard/404");
+			}
+
+			
+	});
+
+}

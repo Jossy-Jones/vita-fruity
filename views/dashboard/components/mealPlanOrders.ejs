@@ -15,9 +15,12 @@
 
                         <thead>
                             <th scope="col">Order Number</th>
-                            <th scope="col">Buyer name</th>
+                            <th scope="col">Meal Plan</th>
+                            <th scope="col">Customer Name</th>
                             <th scope="col">Amount</th>
-                            <th scope="col">Order Time</th>
+                            <th scope="col">Preferred Start Time</th>
+                            <th scope="col">Ordered On</th>
+                            
                         </thead>
                         <%}%>
                         <tbody>
@@ -25,11 +28,12 @@
 
 <% orders.forEach(order => { -%>
 
-                            <tr onclick="window.location.href='http://localhost:7171/dashboard/customer-order/<%=order.order_key%>'">
-                                <td><%=order.order_key%></td>
-                                <td><%=order.customer_name%></td>
-                                
+                            <tr onclick="window.location.href='http://localhost:7171/dashboard/orders/meal-plan/<%=order.meal_key%>'">
+                                <td><%=order.meal_key%></td>
+                                <td><%=order.meal_plan_name%></td>
+                                <td><%=order.customer_name%></td>                            
                                 <td>&#8358;<%=order.amount.toLocaleString()%></td>
+                                <td><%=helpers.formatTime(order.start_time, "DD-MMM-YYYY")%></td>
                                 <td> <%=helpers.formatTime(order.time_added, "DD-MMM-YYYY hh:mm A")%></td>
             
                             </tr>

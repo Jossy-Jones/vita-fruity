@@ -35,6 +35,7 @@ route.get("/online-store", mainHandler.OnlineStore);
 route.get("/online-store/products/:slug", mainHandler.Product);
 route.get("/online-store/categories/:slug", mainHandler.Category);
 route.get("/online-store/search", mainHandler.Search);
+route.get("/meal-plan/:slug", mainHandler.MealPlan);
 
 //static routes
 route.get("/contact", mainHandler.Contact);
@@ -43,6 +44,7 @@ route.get("/services", mainHandler.ServicePage);
 route.get("/return-policy", mainHandler.ReturnPolicy);
 route.get("/privacy-policy", mainHandler.PrivacyPolicy);
 route.get("/meal-plan/detox", mainHandler.DetoxMealPlan);
+
 
 
 route.get('/*' ,(req, res) => {
@@ -76,8 +78,10 @@ route.post("/json/cart/delete", mainService.removeCartItem);
 //order
 route.post("/json/order/init", mainService.initOrder);
 route.post("/json/order/submit", mainService.submitOrder);
+route.post("/json/order/meal-plan/submit", mainService.submitMealPlanOrder);
 
 //checkout
 route.post("/json/checkout/pay", mainService.pay);
+route.post("/json/checkout/meal-plan/pay", mainService.payMealPlan);
 
 module.exports =  route;
