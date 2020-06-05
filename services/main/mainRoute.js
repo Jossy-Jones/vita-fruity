@@ -26,6 +26,15 @@ route.get("/test", (req, res)=> {
 
 });
 
+
+//static routes
+route.get("/contact", mainHandler.Contact);
+route.get("/about-us", mainHandler.AboutPage);
+route.get("/services", mainHandler.ServicePage);
+route.get("/return-policy", mainHandler.ReturnPolicy);
+route.get("/privacy-policy", mainHandler.PrivacyPolicy);
+route.get("/meal-plan/detox", mainHandler.DetoxMealPlan);
+
 //dynamic routes
 route.get("/", mainHandler.Index);
 route.get("/cart", mainHandler.Cart);
@@ -37,13 +46,7 @@ route.get("/online-store/categories/:slug", mainHandler.Category);
 route.get("/online-store/search", mainHandler.Search);
 route.get("/meal-plan/:slug", mainHandler.MealPlan);
 
-//static routes
-route.get("/contact", mainHandler.Contact);
-route.get("/about-us", mainHandler.AboutPage);
-route.get("/services", mainHandler.ServicePage);
-route.get("/return-policy", mainHandler.ReturnPolicy);
-route.get("/privacy-policy", mainHandler.PrivacyPolicy);
-route.get("/meal-plan/detox", mainHandler.DetoxMealPlan);
+
 
 
 
