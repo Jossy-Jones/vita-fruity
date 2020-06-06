@@ -282,13 +282,25 @@ module.exports.MealPlanOrder = (req, res) => {
 			if (order.length > 0) {
 				order = order[0];
 
-				res.render("dashboard/meal_plan_order_page",
-				 {
-				 	pageTitle:`${order.meal_key} - Meal Plan Orders`,
-				 	order : order,
-				 	key : order.meal_key
-				 });	
 
+			db.query("SELECT * FROM meal_plans WHERE slug = ? " , order.meal_plan_slug, (err, mealPlan)=>{
+				if (err) { throw new Error (err);}
+
+				if (mealPlan.length > 0 ) {
+					mealPlan = mealPlan[0];
+					res.render("dashboard/meal_plan_order_page",
+					 {
+					 	pageTitle:`${order.meal_key} - Meal Plan Orders`,
+					 	order : order,
+					 	key : order.meal_key,
+					 	mealPlan : mealPlan
+					 });	
+				}
+
+
+
+
+			});
 			} else {
 				res.redirect("/dashboard/404");
 			}

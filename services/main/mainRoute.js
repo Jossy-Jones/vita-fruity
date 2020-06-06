@@ -33,7 +33,7 @@ route.get("/about-us", mainHandler.AboutPage);
 route.get("/services", mainHandler.ServicePage);
 route.get("/return-policy", mainHandler.ReturnPolicy);
 route.get("/privacy-policy", mainHandler.PrivacyPolicy);
-route.get("/meal-plan/detox", mainHandler.DetoxMealPlan);
+
 
 //dynamic routes
 route.get("/", mainHandler.Index);
@@ -45,6 +45,8 @@ route.get("/online-store/products/:slug", mainHandler.Product);
 route.get("/online-store/categories/:slug", mainHandler.Category);
 route.get("/online-store/search", mainHandler.Search);
 route.get("/meal-plan/:slug", mainHandler.MealPlan);
+route.get("/meal-plan/detox/:slug", mainHandler.DetoxMealPlan);
+
 
 
 

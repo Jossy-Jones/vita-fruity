@@ -2,6 +2,7 @@
 <html lang="en"><!-- Basic -->
 <head>
    <% include includes/metaMain %>
+   <link rel="stylesheet" type="text/css" href="css/toggle-switch.css">
 </head>
 
 
@@ -11,31 +12,325 @@
 	<!-- Start header -->
     <% include includes/header %>
 	<!-- End header -->
+
+<style type="text/css">
+
+
+	.checkoutContentWrapper {
+		margin: auto;
+		margin-top: 7vh;
+		margin-bottom: 20vh;
+	}
+
+.toggleSwitch input:checked ~ span:before {
+    border-color: #f1ab56;
+    box-shadow: inset 0 0 0 30px #f1ab56;
+}
+
+.dialog-btn {
+	border: 0px;
+}	
+
+.btn-checkout {
+	background: #d2740b;
+	color: #fff;
+}
+
+.btn-checkout:hover {
+	background: #985307
+}
+
+
+</style>	
+
 	
 	<div class="all-page-title page-breadcrumb">
 		<div class="container text-center">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1>Detox Meal Plan</h1>
+					<h1><%=mealPlan.name %></h1>
 					<div class="bread-crumb white">
-						<a class="" href="/">Home</a>
-						<span>Detox Meal Plan</span>
+						<a class="" href="index.html">Home</a>
+						<a href="online-store.html">Detox Plan</a> 
+						<span><%=mealPlan.name %></span>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
+
+	<div class="container">
+		<p>
+			<h1><%=mealPlan.description%></h1>
+		</p>
+	</div>
+
 		<div class="container checkout">
-			<h1>
-				We are currently working on it
-				
-			</h1>
+<!-- customer details -->
+		<div class="col-md-7 col-sm-7 col-xs-12 customer-details">
+			<h2>Customer details</h2>	
+			<h4>All asterisked (*) fields are required.</h4>
+
+			<form id="customerDetails">
+				<div class="row">
+					<div class="form-group col-md-6 col-sm-6 col-xs-12">
+						<input type="text" class="form-control"  id="firstName" placeholder="First Name *">
+					</div>
+
+					<div class="form-group col-md-6 col-sm-6 col-xs-12">
+						<input type="text" class="form-control" id="lastName" placeholder="Last Name *">
+					</div>
+
+
+				</div>	
+
+				<div class="row">
+					<div class="form-group col-md-6 col-sm-6 col-xs-12">
+						<input type="email" name="email" class="form-control" id="email" placeholder="Email *">
+					</div>
+
+					<div class="form-group col-md-6 col-sm-6 col-xs-12">
+						<input type="text" class="form-control"  id="phone" placeholder="Phone (e.g. 08023456789) *" value="" maxlength="11">
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-12">
+						<input type="text" class="form-control" id="address" placeholder="Residential Address *">
+					</div>
+
+					<br><br>
+					<div class="row">
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="form-group col-12">
+						<input type="text" class="form-control" id="allergies" placeholder="Allergies *">
+					</div>
+
+					<br><br>
+					<div class="row">
+					</div>
+				</div>
+
+
+
+				<div class="row">
+					<div class="col-6">
+							<div class="form-group">
+								 <label for="pickup_time">Proposed Start Date *</label>
+								<input type="date" id="start_time"  class="form-control" min="<%=dt.min%>" max="<%=dt.max%>" required>
+							</div>
+					</div>						
+					<div class="col-6">
+							<div class="form-group">
+								 <label for="pickup_time">Preferred Pickup Time *</label>
+								<input type="time" id="pickup_time"  min="09:00" max="20:00" step="300" class="form-control" required>
+							</div>
+					</div>							
+				</div>
+
+
+				<div class="row">
+					<div class="col-7">
+					  <div class="form-group">
+					  	<label for="expectant_mum">Are you an expectant mother?</label>
+					    <select id="expectant_mum" class="form-control">
+					    	<option value="0" selected>NO</option>
+					    	<option value="1">YES</option>
+					    </select>
+					  </div>
+					</div>
+				</div>	
+
+
+
+
+				<div class="row">
+					<div class="col-12">
+					  <div class="form-group">
+					    <label for="exampleTextarea">Additional Information (optional)</label>
+					    <textarea class="form-control" id="addInfo" rows="12"></textarea>
+					  </div>
+					</div>
+				</div>	
+
+
+				<input style="display: none;" type="text" id="meal_plan_slug" value="<%=mealPlan.slug%>">
+				<input style="display: none;" type="text" id="meal_plan_name" value="<%=mealPlan.name%>">						
+
+			</form>
+
+			<div class="checkout-btn-wrapper">
+							<button type="button" onclick="initPayment()"  class="btn btn-checkout">PLACE ORDER</button>
+			</div>
+
+			<br>
+			<p>
+
+
+				<b>PRICE:</b> &#8358;<%=mealPlan.price.toLocaleString() %>
+			 </p>
+
+			 <p>
+			 	<b><i class="fa fa-eye" style="margin-right: 3px"></i><a href="/docs/detox-plan.pdf" target="_blank">View meal plan</a></b>
+			 </p>	
+
+
+		</div>
 		</div>
 
 
 
 
  <% include includes/footer %>
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+
+ <script type="text/javascript">
+
+  $.busyLoadSetup({
+    background: "rgba(237, 143, 32, 0.98)",
+    spinner: "circles",
+    animation: "slide",
+    text : "please wait",
+    textPosition:"bottom",
+    textMargin: "3rem"
+  }); 
+
+ 	function submitOrder() {
+ 		return new Promise((resolve, reject)=>{
+
+			let formData = {
+				firstName : $('#firstName').val(),
+				lastName : $('#lastName').val(),
+				email : $('#email').val(),
+				phone : $('#phone').val(),
+				address : $('#address').val(),
+				addInfo : $("#addInfo").val(),
+				allergies : $("#allergies").val(),
+				expectant_mum : $('#expectant_mum option:selected').val(),
+				start_time : $("#start_time").val(),
+				pickupTime : $("#pickup_time").val(),
+				meal_plan_slug : $("#meal_plan_slug").val(),
+				meal_plan_name : $("#meal_plan_name").val()
+			}
+
+			console.log(formData);
+
+	 		$.ajax({
+	 			url: '/json/order/meal-plan/submit',
+	 			type: 'POST',
+	 			data: formData
+	 		})
+	 		.done((res) =>{
+	 			if (res.status == true) {
+	 				resolve(res);
+	 			} else {
+	 				reject(res);
+	 			}
+	 		}); 
+ 			
+ 		});
+ 	} 	
+
+  	function togglePay() {
+
+		 var handler = PaystackPop.setup({ 
+		        key: '<%=site.paystackPK%>', 
+		        email: `${$("#email").val().trim()}`, 
+		        amount: <%= (mealPlan.price  * 100) %>, 
+		        metadata: {
+		            custom_fields: [
+		                {
+		                    display_name: `${$("#lastName").val().trim().toUpperCase()} ${$("#firstName").val().trim()}` 
+		                }
+		            ]
+		        },
+		        callback: function (response) {
+		            $.busyLoadFull("show");  
+ 		
+		            $.post("/json/checkout/meal-plan/pay", {
+
+		            	reference:response.reference
+		            }, function(res){
+
+
+				          
+		                if(res.status == true){
+
+							setTimeout(()=> {
+								$.busyLoadFull("hide");
+							}, 1800);
+
+
+							setTimeout(()=> {
+								Swal.fire(
+								  'Payment received',
+								  'Please click to continue',
+								  'success'
+								).then(()=> {
+									setTimeout(()=> {
+										window.open('/checkout/success', '_blank').focus();
+										// window.location.href = '/online-store';
+									}, 500);
+								})
+							}, 1900);         	
+
+		                }
+		                else{
+							setTimeout(()=> {
+								$.busyLoadFull("hide");
+								Swal.fire({
+								  icon: 'error',
+								  title: 'Payment failed',
+								  text: 'Something went wrong with your payment.Try again'
+								})
+							}, 1800);		                	  	
+		                }
+		            });
+         
+		        },
+		        onClose: function () {
+		            //when the user close the payment modal
+		            alert('Transaction cancelled');
+		            reject('Transaction cancelled'); 
+		            
+		        }
+		    });
+		    handler.openIframe(); //open the paystack's payment modal
+
+ 	}	
+
+
+
+
+ 	function initPayment() {
+ 			
+	 	let notyf = new Notyf({
+	 		duration:3000,
+	 		  position: {
+	    		x: 'right',
+	    		y: 'bottom',
+	  		} 
+	  	});
+
+ 		submitOrder().then(res => {
+ 			togglePay();
+
+ 		}).catch(res =>{
+ 			// CHANGE HERE TO res.message
+ 			console.log(res);
+ 			notyf.error(res.message);
+ 		});
+
+
+ 
+
+ 	}
+
+ </script>
 </body>
 </html>
