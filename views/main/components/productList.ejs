@@ -156,7 +156,7 @@
                                             <option selected>- Select <%=product.name  %>-</option>
                                             <% subProducts.filter(x => x.product_id === product.id).forEach(sp=>{ %>
 
-                                            <option price="<%=sp.price %>"> 
+                                            <option price="<%=sp.price %>" value="<%=sp.id %>"> 
                                               <% if (sp.name == "*") { -%>
                                                 <%=product.name %>
                                               <% } else { -%>
