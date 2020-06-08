@@ -58,6 +58,7 @@ app.use(express.static(path.join(__dirname, "public"), staticCacheOptions));
 app.use("/",express.static(path.join(__dirname, "public/main"), staticCacheOptions));
 
 
+
 app.locals = {
     site: {
         title: 'Vita Fruity',
