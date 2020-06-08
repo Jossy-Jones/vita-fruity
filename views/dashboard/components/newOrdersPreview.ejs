@@ -25,7 +25,7 @@
 
 <% orders.forEach(order => { -%>
 
-                            <tr onclick="window.location.href='http://localhost:7171/dashboard/customer-order/<%=order.order_key%>'">
+                            <tr onclick="window.location.href='<%=site.adminURL%>/customer-order/<%=order.order_key%>'">
                                 <td><%=order.order_key%></td>
                                 <td><%=order.customer_name%></td>
                                 
