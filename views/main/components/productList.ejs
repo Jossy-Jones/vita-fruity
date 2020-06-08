@@ -183,7 +183,15 @@
                                       <label class="form-check-label" for="inlineCheckbox1"><%=extra.name%> <small style="font-size: 10px; color: #ed8f20">(+  &#8358;<%=extra.price%>)</small></label>
                                     </div>  
                                 <% }) -%>
-                            <% } -%>                            
+                            <% } -%>   
+
+                            <div align="right">
+                              <% if (product.description !="N/A") { -%>
+                              <p> <small><%=product.description %></small></p>
+                              <% }  -%>
+                                
+                              
+                            </div>                         
 
                            </div>
 
