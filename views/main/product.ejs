@@ -86,10 +86,18 @@
                 <div class="purchase-details">
                     <div class="detail-img">
                         <img src="/img/products/<%= product.main_img %>" id="productImg-<%=product.id %>" alt="<%= product.name %>">
+                            
+                          <% if (product.description != "N/A") { -%>
+                            <p><small style="color: #ed8f20">(<%=product.description  %>)</small></p>
+                        <% }  -%>                           
+                        
                     </div>
                     <br>
                     <div class="detail-info">
                         <h2 class="detail-title"><%=product.name %></h2>
+
+
+
                      <% if (subProducts.filter(x => x.product_id === product.id).length === 1) { -%>
 
                             <% subProducts.filter(x => x.product_id === product.id).forEach(sp=>{ %>
