@@ -129,12 +129,14 @@ module.exports.createProduct = async (req, res) => {
 
 module.exports.modifyProduct = async (req, res) => {
 	let productId = req.body.id;
-	let imgName =   (req.body.chkImg === 'IMAGE_CHANGED') ? req.body.images : req.body.chkImg;
+	let imgName =   (req.body.chkImg === "IMAGE_CHANGED") ? req.body.images : req.body.chkImg;
 	let productName = req.body.name;
 	let categoryId = parseInt(req.body.category);
 	let price = parseInt(req.body.price);
 	let description = req.body.description;
 
+
+	console.trace(req.body.images);
 
 	let product = { 
 		name: productName,
@@ -207,6 +209,7 @@ module.exports.modifyCategory = (req, res)=> {
 	let imgName =   (req.body.chkImg === 'IMAGE_CHANGED') ? req.body.images : req.body.chkImg;
 	let categoryName = req.body.name;
 	let categoryId = req.body.id;
+
 
 	let category = {
 		name : categoryName,

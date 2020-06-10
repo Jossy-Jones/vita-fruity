@@ -30,7 +30,7 @@ const uploadFiles = upload.array(formDataName, 10); // limit to 10 images
 
 
 module.exports.uploadImages = (req, res, next) => {
-  if (req.body.chkImg === 'IMAGE_CHANGED') return next();
+  
 
   uploadFiles(req, res, err => {
     if (err instanceof multer.MulterError) { // A Multer error occurred when uploading.
@@ -50,8 +50,6 @@ module.exports.uploadImages = (req, res, next) => {
 
 module.exports.resizeImages = async (req, res, next) => {
   if (!req.files) return next();
-   if (req.body.chkImg === 'IMAGE_CHANGED') return next();
-
 
   let publicSubPath = req.session.uploadPath; // desired public path
   let imgQuality = req.session.imgQuality;
@@ -69,6 +67,8 @@ module.exports.resizeImages = async (req, res, next) => {
         .toFile(`public/${publicSubPath}/${newFilename}`);
 
       req.body.images.push(newFilename);
+
+      console.log("new image here=>"+ req.body.images);
     })
   );
 
