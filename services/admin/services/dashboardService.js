@@ -139,7 +139,6 @@ module.exports.modifyProduct = async (req, res) => {
 	let product = { 
 		name: productName,
 		main_img: imgName,
-		price :  price,
 		category_id : categoryId, 
 		slug : slug(productName.toLowerCase()),
 		description : description,
@@ -149,8 +148,9 @@ module.exports.modifyProduct = async (req, res) => {
 	let status = false;
 	let message = null;
 
-	 db.query("SELECT * FROM products WHERE  name = ?", [productName], (err, row)=> {
+	console.log(product);
 
+	 db.query("SELECT * FROM products WHERE  name = ?", [productName], (err, row)=> {
 
 	 	const oldImg = row[0].main_img; // old image name
 
