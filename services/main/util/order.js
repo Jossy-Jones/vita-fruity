@@ -20,9 +20,9 @@ module.exports.saveCustomerDetails = (session, cart, txn_ref = null) => {
 			shipping_method : (session.order.shippingMethod) ? session.order.shippingMethod : null,
 			pickup_time : session.order.pickupTime,
 			time_added : Date.now(),
-			zone_name : session.order.zone_name ,
-			zone_desc :  session.order.zone_desc ,
-			zone_price :  session.order.zone_price 			
+			zone_name : (session.order.zone_name) ? session.order.zone_name : null ,
+			zone_desc :  (session.order.zone_desc) ? session.order.zone_desc : null ,
+			zone_price :  (session.order.zone_price) ? 	session.order.zone_price : null		
 		}
 		let cartProducts = cart.getItemsForOrder(session.order.key);
 		let cartExtras  = (cart.getExtraOrders().length > 0) ? cart.getExtraOrders() : [];

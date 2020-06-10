@@ -164,7 +164,7 @@ module.exports.updateQty = (req, res) => {
 
 
 module.exports.initOrder= (req, res) => {
-	let Order = module.exports = function(s, p, z) {
+	let Order = module.exports = function(s, p, z = null) {
 	     this.shippingMethod = s;
 	     this.pickupTime = p;
 
@@ -175,7 +175,7 @@ module.exports.initOrder= (req, res) => {
 	     this.zone_price = 0;
 
 
-	     if (z.length > 0 ) {
+	     if (z) {
 	     	console.log("Zone Condition met");
 
 	     	 z =  cryptr.decrypt(z);
@@ -195,10 +195,12 @@ module.exports.initOrder= (req, res) => {
 
 	let shippingMethod = req.body.shippingMethod;
  	let pickupTime = req.body.pickupTime;
- 	let zoneData= req.body.zone;
+ 	let zoneData = (parseInt(req.body.zone) != 0) ? req.body.zone : null;
 
  	let e = null; // error
  	let status = false;
+
+ 	console.log(zoneData);
 
  	if (!asm.includes(shippingMethod)) {
  		e = "Invalid shipping method";
