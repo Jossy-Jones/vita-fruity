@@ -92,7 +92,7 @@
                 <div class="item col-xs-3 special-grid col-lg-3 <%=categories.find(category => category.id == product.category_id).slug %>">
                     <div class="thumbnail card">
                         <div class="img-event" id="img-container-<%= product.id %>">
-                            <img class="group list-group-image img-fluid" src="/img/products/<%= product.main_img %>" alt="<%= product.name %>" id="productImg-<%= product.id %>"/>
+                            <img style="height: 175px; width:100%" class="group list-group-image img-fluid" src="/img/products/<%= product.main_img %>" alt="<%= product.name %>" id="productImg-<%= product.id %>"/>
                         </div>
                         <div class="caption card-body">
                             <h4 class="" style=" font-weight: 700; max-width: 120%;" align="center" title="<%= product.name %>">

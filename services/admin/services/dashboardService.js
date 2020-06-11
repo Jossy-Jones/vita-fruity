@@ -150,11 +150,18 @@ module.exports.modifyProduct = async (req, res) => {
 	let status = false;
 	let message = null;
 
-	console.log(product);
 
 	 db.query("SELECT * FROM products WHERE  name = ?", [productName], (err, row)=> {
 
-	 	const oldImg = row[0].main_img; // old image name
+	 	if (err) { throw new err; }
+
+	 	if (row.length > 0) {
+	 	  const oldImg = row[0].main_img; // old image name
+	 	}	
+
+	 	
+
+
 
   		if (row.length > 0 && row[0].id != productId) {
   			message = "Choose another product name";
@@ -218,8 +225,13 @@ module.exports.modifyCategory = (req, res)=> {
 	}
 
 	 db.query("SELECT * FROM categories WHERE id = ?", [categoryId], (err, row)=> {
-	 	console.log (row[0].main_img);
-	 	const oldImg = row[0].main_img; // old image name
+	 	if (err) { throw new err; }
+	 	
+	 	if (row.length > 0) {
+	 	  const oldImg = row[0].main_img; // old image name
+	 	}	
+
+	 	
 
   		if (row.length > 0 && row[0].id != categoryId) {
   			message = "Choose another category name";

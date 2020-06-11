@@ -61,7 +61,10 @@ module.exports.resizeImages = async (req, res, next) => {
       const newFilename = `vitafruity-${uuid()}.jpeg`;
 
       await sharp(file.buffer)
-        .resize(640, 320)
+        .resize({
+          fit: sharp.fit.contain,
+          width: 460
+        })
         .toFormat("jpeg")
         .jpeg({ quality: imgQuality })
         .toFile(`public/${publicSubPath}/${newFilename}`);
