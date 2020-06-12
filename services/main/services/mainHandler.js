@@ -208,7 +208,7 @@ module.exports.OnlineStore = (req, res)=> {
 
 
 		db.query("SELECT * FROM products ORDER BY RAND()", (err, products)=>{
-			db.query("SELECT * FROM sub_products ",  (err, sp)=> {
+			db.query("SELECT * FROM sub_products",  (err, sp)=> {
 				db.query("SELECT * FROM extras",  (err, extras)=> {	
 					res.render("main/store", 
 						{
