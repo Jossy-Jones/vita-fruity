@@ -116,11 +116,22 @@ module.exports.Index = (req, res)=> {
 		db.query("SELECT * FROM products ORDER BY RAND()", (err, products)=>{
 			db.query("SELECT * FROM sub_products ",  (err, sp)=> {
 
-				db.query("SELECT * FROM extras",  (err, extras)=> {				
+				db.query("SELECT * FROM extras",  (err, extras)=> {	
+
+
+					let p = [];	
+					for (var i = 1; i < products.length; i++) {
+						let productHasSubProduct = sp.find(x => x.product_id === products[i].id);
+
+						if (productHasSubProduct) {
+							p.push(products[i]);	
+						}
+					}
+
 					res.render("main/index", 
 						{
 							pageTitle : "Vita Fruity. Healthy Food, Made Fresh Daily", 
-							products :  products,
+							products :  p,
 							categories : categories,
 							extras : extras,
 							subProducts : sp
@@ -210,14 +221,29 @@ module.exports.OnlineStore = (req, res)=> {
 		db.query("SELECT * FROM products ORDER BY RAND()", (err, products)=>{
 			db.query("SELECT * FROM sub_products",  (err, sp)=> {
 				db.query("SELECT * FROM extras",  (err, extras)=> {	
+
+					let p = [];	
+					for (var i = 1; i < products.length; i++) {
+						let productHasSubProduct = sp.find(x => x.product_id === products[i].id);
+
+						if (productHasSubProduct) {
+							p.push(products[i]);	
+						}
+					}
+
+					
+					
+				
+
 					res.render("main/store", 
 						{
 							pageTitle : "Online store -  Vita Fruity. Healthy Food, Made Fresh Daily", 
-							products :  products,
+							products :  p,
 							categories : categories,
 							extras : extras,
 							subProducts : sp
 						});
+
 				});	
 			});
 		});
@@ -245,6 +271,7 @@ module.exports.Product = (req, res)=> {
 			db.query("SELECT * FROM products WHERE slug = ?" ,req.params.slug, (err, product)=>{
 				db.query("SELECT * FROM extras WHERE category_id = ?", product[0].category_id, (err, extras)=> {
 					db.query("SELECT * FROM sub_products", (err, sp)=> {
+
 						res.render("main/product", 
 							{
 								pageTitle : `${product[0].name.toUpperCase()} - Vita Fruity. Healthy Food, Made Fresh Daily`, 
@@ -285,10 +312,20 @@ module.exports.Category = (req, res)=> {
 
 				db.query("SELECT * FROM extras",  (err, extras)=> {	
 
+
+					let p = [];	
+					for (var i = 1; i < products.length; i++) {
+						let productHasSubProduct = sp.find(x => x.product_id === products[i].id);
+
+						if (productHasSubProduct) {
+							p.push(products[i]);	
+						}
+					}					
+
 					res.render("main/categories", 
 						{
 							pageTitle : `${category.name.toUpperCase()} - Vita Fruity. Healthy Food, Made Fresh Daily`, 
-							products : products,
+							products : p,
 							category : category,
 							categories : categories,
 							extras : extras,
@@ -319,10 +356,21 @@ module.exports.Search = (req, res)=> {
 		db.query("SELECT * FROM products WHERE name LIKE N? " , ['%'+req.query.s+'%'], (err, products)=>{
 			db.query("SELECT * FROM sub_products ",  (err, sp)=> {
 				db.query("SELECT * FROM extras",  (err, extras)=> {	
+
+
+					let p = [];	
+					for (var i = 1; i < products.length; i++) {
+						let productHasSubProduct = sp.find(x => x.product_id === products[i].id);
+
+						if (productHasSubProduct) {
+							p.push(products[i]);	
+						}
+					}
+
 					res.render("main/search", 
 						{
 							pageTitle : `${req.query.s} - Search - Vita Fruity. Healthy Food, Made Fresh Daily`,
-							products : products,
+							products : p,
 							categories : categories,
 							query : req.query.s,
 							subProducts : sp,
