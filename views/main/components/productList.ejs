@@ -107,13 +107,7 @@
 
                                  <div align="center">
                                     <p class="lead text-success" style="font-weight: 700">
-                                        &#8358;<% if (subProducts.find(x => x.product_id === product.id)) { -%><%= subProducts.find(x => x.product_id === product.id).price %>
-                                        <% } else { -%>
-                                          
-                                        <% } -%>
-                                       
-                                        
-                              
+                                        &#8358;<%= subProducts.find(x => x.product_id === product.id).price %>
                                     </p>
                                 </div> 
 
