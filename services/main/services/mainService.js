@@ -50,6 +50,7 @@ module.exports.addToCart = (req, res)=> {
 					if (product.length > 0 ) {
 						cart.add(sp[0], product[0], ordereredExtras);
 						req.session.cart = cart;
+						req.session.save();
 						return res.json({
 							status: true, 
 							message: `${product[0].name} ${spName}  has been added to cart`, 

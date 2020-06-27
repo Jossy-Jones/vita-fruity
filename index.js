@@ -32,7 +32,7 @@ app.use(session({
 	saveUninitialized: true,
 	store: new MySQLStore(MySQLStoreOptions),
 	cookie: { 
-		 secure: process.env.NODE_ENV == "production" ? true : false ,
+		 secure: false , //false for now in development
 		 maxAge: 24 * 60 * 60 * 1000,  // 1 day
 		 sameSite: false
 	}
