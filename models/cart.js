@@ -95,6 +95,8 @@ module.exports = function Cart(cart) {
 
           console.log(oldPricePerProduct);  
 
+
+        // cart.totalItems -=  cart.items[id].qty;  
         cart.totalPrice -=  ((oldPricePerProduct * cart.items[id].qty) + sumOfItemExtrasPrice); 
 
 
@@ -105,6 +107,7 @@ module.exports = function Cart(cart) {
 
         console.log("cartItem[id]Price =>"+cart.items[id].price);
 
+        // cart.totalItems +=  cart.items[id].qty;
         cart.totalPrice += cart.items[id].price; 
 
         console.log("totalPrice =>"+cart.totalPrice);
