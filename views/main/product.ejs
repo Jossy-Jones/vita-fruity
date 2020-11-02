@@ -105,15 +105,26 @@
                                     <!-- <span class="product-label">Fresh Pocket</span> -->
                                     <span class="product-price">&#8358;<%= sp.price.toLocaleString() %></span>
                                 </div>
-                                <input type="number" class="quantity" min="1" value="1" onblur="updateItemPrice(this.value,<%=sp.id %>)">
+                               <!-- <input type="number" class="quantity" min="1" value="1" onblur="updateItemPrice(this.value,<%=sp.id %>)">-->
 
 
                                 <div class="total-price">
                                     <button onclick="addToCart(<%= sp.id %>)">Add to Cart</button>
-                                    <h2 id="totalItemPrice-<%=sp.id %>">&#8358;<%= sp.price.toLocaleString() %></h2>
+                                     <!--<h2 id="totalItemPrice-<%=sp.id %>">&#8358;<%= sp.price.toLocaleString() %> </h2>-->
                                 </div>
                             <%})  %> 
-
+    
+                         <% if (flavours.length > 0) { -%>
+                         <h3>Choose Flavour</h3>
+                              <select class="custom-select" style="" id="flavour-<%=product.id %>"  >
+                                <% flavours.forEach(flavour=> { -%>
+                                  <div class="form-check form-check-inline">
+                                      <option class="form-check-input" onchange="this.setAttribute('selected', true)" value="<%=flavour.id%>"><%=flavour.name%> </option>
+                                      
+                                    </div>  
+                                <% }) -%>
+                                </select>
+                         <% } %>
                         
                     <% } else if(subProducts.filter(x => x.product_id === product.id).length > 1)  { -%>
                                 <div class="menu-label">
@@ -207,7 +218,13 @@
      var extras = [];   
 
      function addToCart (id) {
-        Cart.add(id, extras);
+
+        let flavourId = null;
+        try {
+            flavourId = $(`#flavour-<%=product.id%>`).find(":selected").val(); 
+        } catch (e) {   }
+
+        Cart.add(id, extras, flavourId);
         console.trace(extras);
      }
 
@@ -241,10 +258,11 @@
 
 
     function updateItemPrice(qty, id) {
-        console.trace(qty);
         Cart.getItemById(id).then(res=> {
             let price = qty * res.data.item.price;
             $(`#totalItemPrice-${id}`).html(price.toLocaleString());
+
+            console.log(price);
 
             Cart.updateQtyById(id, qty).then(res => {
                 updateTotalPrice();

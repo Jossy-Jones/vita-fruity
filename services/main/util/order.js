@@ -24,14 +24,20 @@ module.exports.saveCustomerDetails = (session, cart, txn_ref = null) => {
 			zone_desc :  (session.order.zone_desc) ? session.order.zone_desc : null ,
 			zone_price :  (session.order.zone_price) ? 	session.order.zone_price : null		
 		}
+
+		
+		 // Cart products array to be sent to `product_orders` table
 		let cartProducts = cart.getItemsForOrder(session.order.key);
+
+		
+		 // Cart extras array to be sent to `extra_orders` table
 		let cartExtras  = (cart.getExtraOrders().length > 0) ? cart.getExtraOrders() : [];
 
 		db.query("INSERT INTO all_orders SET ?", details, (err, orderInsert)=>{
 			if (err) {
 				reject("Couldnt insert customer details");
 			}else {
-				db.query("INSERT INTO product_orders (id, order_key, product_order_key, product_id, sub_product_id, time_added, price, qty, discount_code, discount_percent) VALUES ? ", [cartProducts],(err, productOrderInsert)=> {
+				db.query("INSERT INTO product_orders (id, order_key, product_order_key, product_id, sub_product_id, time_added, price, qty, discount_code, discount_percent, flavour_name) VALUES ? ", [cartProducts],(err, productOrderInsert)=> {
 					if (err) {
 						reject("Couldnt insert products orders from cart");
 					} else {

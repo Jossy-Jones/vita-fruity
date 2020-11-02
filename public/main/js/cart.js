@@ -5,7 +5,7 @@
  function Cart(el) {				
 
  	
-	this.add = (spId, extras = []) => {
+	this.add = (spId, extras = [], flavourId = null) => {
 	 	let notyf = new Notyf({
 	 		duration:3000,
 	 		  position: {
@@ -16,7 +16,7 @@
 
 		$.post(
 			'/json/cart/add', 
-			{id: spId, extras: extras}, 
+			{id: spId, extras: extras, flavourId: flavourId}, 
 			(res)=> {
 			console.log(res);
 			if (res.status == true) {
@@ -190,7 +190,7 @@
 		$(`#sp-total-price-${pID}`).html(price.toLocaleString());
 
 		//add addToCart event to button
-		$(`#sp-btn-add-${pID}`).attr("onclick", `addToCart(${el.value})`);
+		$(`#sp-btn-add-${pID}`).attr("onclick", `addToCart(${el.value}, ${pID})`);
 
 	}
 

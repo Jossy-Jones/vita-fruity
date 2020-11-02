@@ -37,6 +37,11 @@ app.use(session({
 		 sameSite: false
 	}
 }));
+
+
+app.use(compression());
+app.use(minify());
+
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 
@@ -44,8 +49,6 @@ app.set("views", path.join(__dirname, "views"));
 app.set('view engine', 'ejs');
 
 
-app.use(compression());
-app.use(minify());
 
 const staticCacheOptions = {
 	maxAge: 24 * 60 * 60 * 1000 // 1 day

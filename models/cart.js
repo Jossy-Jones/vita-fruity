@@ -10,7 +10,7 @@ module.exports = function Cart(cart) {
     this.sumOfExtrasPrice = 0;
     this.productOrderKey = null;
 
-    this.add = function(item, superItem, extras = []) {
+    this.add = function(item, superItem, extras = [], flavour = null) {
 
         // `id` is a random generated string used to identify an item added to the cart
         //  The`id` does not represent the product, sub product or extra id in the database
@@ -18,9 +18,11 @@ module.exports = function Cart(cart) {
 
         let productOrderKey = null;
 
-        console.trace("superItems=>"+superItem);
+        // console.trace("superItems=>"+superItem);
 
-        if (extras.length > 0) {
+        console.log("=>extras=>"+extras);
+
+        if (extras != null && extras.length > 0) {
             this.sumOfExtrasPrice = extras.reduce((a, {price}) => a + price, 0);
             productOrderKey = uuid().toUpperCase().slice(0, 4);
 
@@ -38,14 +40,14 @@ module.exports = function Cart(cart) {
                 item: item, 
                 superItem: superItem, 
                 extras: extras, 
+                flavour : flavour,
                 qty: 0, 
                 price: 0,
                 id : id
             };
         }
 
-        if (extras.length > 0 ) {
-            
+        if (extras != null && extras.length > 0 ) {
             cartItem.item.product_order_key = this.productOrderKey;
         }   
 
@@ -76,8 +78,6 @@ module.exports = function Cart(cart) {
     };
 
     this.setQty = function (id, qty) {
-
-
         let sumOfItemExtrasPrice = 0;
 
         let sumOfItemExtrasPriceWithQty = 0;
@@ -130,8 +130,6 @@ module.exports = function Cart(cart) {
         for (let i = 0; i < arrayOfItems.length; i++) {
           if (arrayOfItems[i].id == id) {
             item = arrayOfItems[i];
-
-            console.trace("DODO=>"+item.price);
             break;
           }
         }
@@ -142,10 +140,14 @@ module.exports = function Cart(cart) {
     this.getItemsForOrder = function(order_key, discount_code = null, discount_percent = null) {
         let items = this.getItems();
         let arr  = [];   
+        let flavourName = null;
         for (var i = 0; i < items.length; i++) {
             arr[i] = []
 
             let productOrderKey = (items[i].item.product_order_key) ? items[i].item.product_order_key : null;
+
+            flavourName = (items[i].flavour && items[i].flavour.name) ? items[i].flavour.name :null;
+
 
             arr[i].push(null);
             arr[i].push(order_key);
@@ -157,6 +159,7 @@ module.exports = function Cart(cart) {
             arr[i].push(items[i].qty);
             arr[i].push(discount_code);
             arr[i].push(discount_percent);
+            arr[i].push(flavourName);
         }       
         return arr;
     }

@@ -1,9 +1,18 @@
 //Product list functions
 
-var extras = [];   
+var extras = []; 
 
-function addToCart (id) {
-    Cart.add(id, extras);
+var flavours = [];
+
+function addToCart (spId, pId) {
+    let flavourId = null;
+    try {
+        flavourId = $(`#flavour-${pId}`).find(":selected").val(); 
+    } catch (e) {   }
+
+    console.log(flavourId);
+
+    Cart.add(spId, extras, flavourId);
     console.trace(extras);
     extras = [];
 }
@@ -21,4 +30,8 @@ function addExtras (val) {
 
     extras = arr.filter(onlyUnique);
     console.log(extras);   
+}
+
+function chooseFlavour (productId, flavourId) {
+
 }

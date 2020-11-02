@@ -25,6 +25,10 @@ module.exports.addToCart = (req, res)=> {
 
 	let extrasId = [];
 
+	const flavourId = req.body.flavourId || 0;
+
+	let flavour = null;
+
 
 	if (req.body.extras) {
 		//parsing extras  to integer
@@ -44,42 +48,48 @@ module.exports.addToCart = (req, res)=> {
 
 			db.query("SELECT * FROM extras WHERE id IN (?)", [extrasId], (err, extras)=>{
 
-				//if extras exists
-				if (req.body.extras) {
-					ordereredExtras = extras;
-					if (product.length > 0 ) {
-						cart.add(sp[0], product[0], ordereredExtras);
-						req.session.cart = cart;
-						req.session.save();
-						return res.json({
-							status: true, 
-							message: `${product[0].name} ${spName}  has been added to cart`, 
-							product : product,
-							cart : cart.getData()
-						});
-					}else { 
-						res.json({status: false, product :  [] }); 
-					}	
-				}
+				db.query("SELECT * FROM flavours WHERE id = ?", flavourId, (err, flavours)=>{ 
 
-				//if no extras
-				if (!req.body.extras) {
-					if (product.length > 0 ) {
-						cart.add(sp[0], product[0]);
-						req.session.cart = cart;
-						req.session.save();
-						return res.json({
-							status: true, 
-							message: `${product[0].name} ${spName}  has been added to cart`, 
-							product : product,
-							cart : cart.getData()
-						});
-					}else { 
-						res.json({status: false, product :  [] }); 
-					}						
-				}
+					if(flavours && flavours.length > 0 ){
+						flavour = flavours[0];
+					} 
 
+					//if extras exists
+					if (req.body.extras) {
+						ordereredExtras = extras || null;
+						if (product.length > 0 ) {
+							cart.add(sp[0], product[0], ordereredExtras, flavour);
+							req.session.cart = cart;
+							req.session.save();
+							return res.json({
+								status: true, 
+								message: `${product[0].name} ${spName}  has been added to cart`, 
+								product : product,
+								cart : cart.getData()
+							});
+						}else { 
+							res.json({status: false, product :  [] }); 
+						}	
+					}
 
+					//if no extras
+					if (!req.body.extras) {
+						if (product.length > 0 ) {
+							cart.add(sp[0], product[0], [] ,flavour);
+							req.session.cart = cart;
+							req.session.save();
+							return res.json({
+								status: true, 
+								message: `${product[0].name} ${spName}  has been added to cart`, 
+								product : product,
+								cart : cart.getData()
+							});
+						}else { 
+							res.json({status: false, product :  [] }); 
+						}						
+					}
+
+				});
 			});							
 		});
 

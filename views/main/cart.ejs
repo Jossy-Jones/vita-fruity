@@ -71,7 +71,7 @@
 							
 						</h2>
 						<p class="price-tag">Price: <span class="price">&#8358;<%=product.item.price.toLocaleString() %></span></p>
-						<% if (product.extras.length > 0) { -%>
+						<% if (product.extras && product.extras.length > 0) { -%>
 
 								<p>
 									<b>Extras </b>: <br>
@@ -79,11 +79,18 @@
 										<%=extra.name%> - <span>&#8358;<%=extra.price.toLocaleString() %></span> 
 										<br>
 									<% }) -%>
-									
 								</p>
-
 						<% } %>
-					
+
+
+
+	<% if (product.flavour) { -%>
+							<p>
+							<b>Type</b>: <br>
+						<%=product.flavour.name%>
+								</p>
+	<%  }%>
+
 						<input type="number" min="1" onblur="updateItemPrice(this.value,'<%=product.id %>')" class="quantity" value="<%=product.qty %>">
 					</div>
 					<h2 class="total-price">&#8358;<span class="totalItem" id="totalItemPrice-<%=product.id %>"><%=product.price.toLocaleString() %></span></h2>
