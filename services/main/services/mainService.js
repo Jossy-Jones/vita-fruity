@@ -278,8 +278,6 @@ module.exports.submitOrder = (req, res) => {
 
 		}; 
 
-		/*console.log(Order);*/
-
 			req.session.order = new Order(req.body, req.session);		
 	 		req.session.save();
 

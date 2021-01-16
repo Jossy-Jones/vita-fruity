@@ -347,3 +347,18 @@ module.exports.deleteSubProduct = (req, res) => {
 	  }
 	});
 }
+
+
+module.exports.deleteProduct = (req, res) => {
+	db.query('DELETE FROM `products` WHERE id = ? ', [req.body.id], (err, isDeleted)=> {
+		db.query('DELETE FROM `sub_products` WHERE product_id = ? ', [req.body.id], (err, isDeleted)=> {
+			if (err) throw new Error(err);
+
+			if (isDeleted) {
+				res.json({message:"Product deleted", status:true});
+			}
+		});
+
+	});
+}
+

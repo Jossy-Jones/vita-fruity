@@ -90,6 +90,7 @@ route.post('/json/order/add/delivered',  dashboardService.setOrderAsDelivered);
 route.post('/json/product/sub/create',  dashboardService.createSubProduct);
 route.post('/json/product/sub/modify',  dashboardService.modifySubProduct);
 route.post('/json/product/sub/delete',  dashboardService.deleteSubProduct);
+route.post('/json/product/delete',  dashboardService.deleteProduct);
 
 route.post('/json/add-category', 
 	adminMiddleware.protectEndpoint,

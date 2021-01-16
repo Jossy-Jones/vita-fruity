@@ -36,8 +36,9 @@
         background-color: transparent;
     }
 
-    .modal {
+   .modal {
         padding: 0px !important;
+        height: 40%;
     }
 
 </style>
@@ -133,6 +134,11 @@
                         <!-- Send button -->
                         <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="button" onclick="edit()">Save changes</button>
 
+                                <p>
+                            No longer offering this product ?<br>
+
+                             <button id="del-btn" class="btn btn-outline-danger btn-rounded btn-block z-depth-0 my-4 waves-effect" type="button" onclick="toggleDeletePopup()">Remove</button>   
+                        </p>
 
                         <input type="text" name="chkImg" style="display: none;" value="<%=product.main_img %>">
 
@@ -181,6 +187,25 @@
   </div>
 </div>
 
+
+
+<div id="delModal" class="modal">
+
+
+      <div class="modal-body">
+        <br>
+        <p>Are you sure you want to remove this product?</p>
+      </div>
+
+      <div align="center">
+        <a  class="btn btn-success" onclick="deleteProduct(<%=product.id%>)">Yes</a>
+
+        <a href="#modal" rel="modal:close" class="btn btn-danger">No</a> 
+      </div>
+
+
+</div>
+
 <!-- footer starts here -->
 <% include includes/footer %>
 <!-- footer ends here -->
@@ -199,6 +224,10 @@ $("#img-input").change(function () {
 
 function popupSubProductsModal(){
     $("#spModal").modal("show");
+}
+
+function toggleDeletePopup() {
+    $("#delModal").modal("show");
 }
 
 
@@ -260,8 +289,58 @@ function edit() {
             } 
         }
     });  
-
 }
+
+
+ function deleteProduct(arg) {
+    $("#delete-btn").attr("disabled", true);
+
+    $.ajax({
+        url : "<%= site.adminURL%>/json/product/delete",
+        type:"POST",
+        data : {id : arg},      
+        success : (res)=>{
+            console.log(res);
+
+            if(res.status == false) {
+                 $.toast({
+                    text: `<h6>${res.message}</h6>`,
+                    showHideTransition: 'fade',
+                    icon: 'error',
+                    position: "top-right",
+                    loader:false
+                });
+
+                 setTimeout(()=>{ 
+                     $("#delete-btn").attr("disabled", false);
+                    }, 1500);
+            }
+
+
+
+            if(res.status == true) {
+                $.toast({
+                    text: `<h6>${res.message}</h6>`,
+                    showHideTransition: 'slide',
+                    loader:false,
+                    icon: 'success',
+                    position: "top-right"
+                });
+
+
+                    setTimeout(()=>{ 
+
+                     console.log("successful");
+                     window.location.href = "<%= site.adminURL%>/products";
+
+                    }, 2000);
+
+            } 
+        
+        }
+    })
+}
+
    
 </script>
 
