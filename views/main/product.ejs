@@ -11,6 +11,12 @@
 </head>
 
 
+<style>
+.vf-btn{
+    cursor: pointer !important;
+}
+
+</style>
 
 
 <body>
@@ -109,7 +115,7 @@
 
 
                                 <div class="total-price">
-                                    <button onclick="addToCart(<%= sp.id %>)">Add to Cart</button>
+                                    <button class="vf-btn" onclick="addToCart(<%= sp.id %>)">Add to Cart</button>
                                      <!--<h2 id="totalItemPrice-<%=sp.id %>">&#8358;<%= sp.price.toLocaleString() %> </h2>-->
                                 </div>
                             <%})  %> 
@@ -146,7 +152,7 @@
                             <%})  %> 
 
                             <div class="total-price">
-                            <button id="cartAddBtn" onclick="addToCart(<%=subProducts.find(x => x.product_id === product.id).id%>)" >Add to Cart
+                            <button class="vf-btn" id="cartAddBtn" onclick="addToCart(<%=subProducts.find(x => x.product_id === product.id).id%>)" >Add to Cart
                             </button>
                             <!-- <h2 id="totalItemPrice-<%=subProducts.find(x => x.product_id === product.id).id %>">&#8358;<%= subProducts.find(x => x.product_id === product.id).price.toLocaleString() %></h2> -->
 
