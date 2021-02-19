@@ -208,7 +208,7 @@
 									
 								</div>
 								<div class="checkout-btn-wrapper">
-									<button type="button" onclick="this.classList.toggle('button--loading'); proceed(); "  class="btn btn-checkout"> <span class="button--text">CHECKOUT</span></button>
+									<button type="button" onclick= proceed()  class="btn btn-checkout"> <span class="button--text">CHECKOUT</span></button>
 								</div>
 							</form>
 						</div>
@@ -370,7 +370,7 @@
 
  	function proceed() {
  		// submit shipping method and pickup_time
-
+		$('.btn-checkout').addClass('button--loading');
  		let e = null;
 
 	 	let notyf = new Notyf({
@@ -411,6 +411,7 @@
 
 
  		if (e) {
+			$('.btn-checkout').removeClass('button--loading');
  			notyf.error(e);
  			throw new Error(e);
  		}
