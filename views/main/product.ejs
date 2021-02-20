@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-<html lang="en"><!-- Basic -->
+<html lang="en">
 <head>
    <% include includes/metaMain %>
     <meta name="description" content="<%=product.name%>  "  />
     <meta name="keywords" content="<%=site.keywords%>, <%=product.name%>, <%=product.description%>"/>
+
     <!-- Facebook and Twitter integration -->
+    <meta property="og:type" content="og:product"/>
     <meta property="og:title" content="<%=pageTitle %>"/>
-    <meta property="og:image" content="/img/products/<%=product.main_img %>"/>
+    <meta property="og:image" content="https://vitafruity.com.ng/img/products/<%=product.main_img %>"/>
+    <meta property="og:url"   content="https://vitafruity.com.ng/online-store/products/<%=product.slug %>" />
+    <meta name="og:description" content="<%=pageTitle %>"  />
+    <meta property="product:price:currency" content="NGN"/>
+     <meta property="product:price:amount" content="<%= subProducts.find(x => x.product_id === product.id).price %>"/>
 
 </head>
 
