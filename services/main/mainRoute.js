@@ -9,6 +9,8 @@ const mainHandler = require("../main/services/mainHandler");
 
 const mainService = require("../main/services/mainService");
 
+const mainWorker = require("../main/services/mainWorker");
+
 const Cart = require('../../models/cart');
 
 
@@ -67,9 +69,13 @@ route.post("/test", (req, res)=> {
 	// 	console.log("failed");
 	// });
 
-	let cart = new Cart (req.session.cart ? req.session.cart : {});
-	console.log(cart);
-	res.json(cart.totalPrice);
+	// let cart = new Cart (req.session.cart ? req.session.cart : {});
+	// console.log(cart);
+	// res.json(cart.totalPrice);
+
+	res.json({
+		zones :req.session.zones
+	});
 });
 
 //cart
@@ -88,5 +94,9 @@ route.post("/json/order/meal-plan/submit", mainService.submitMealPlanOrder);
 //checkout
 route.post("/json/checkout/pay", mainService.pay);
 route.post("/json/checkout/meal-plan/pay", mainService.payMealPlan);
+
+
+// Workers
+route.post("/api/workers/zones", mainWorker.LocationZoneStore)
 
 module.exports =  route;

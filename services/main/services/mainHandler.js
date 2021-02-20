@@ -1,6 +1,7 @@
 const moment = require('moment');
 const db = require('../../../database/config');
 const Cart = require('../../../models/cart');
+const helpers = require('../../../helpers/helpers');
 
 /*
 * Static handlers below
@@ -154,19 +155,28 @@ module.exports.Index = (req, res)=> {
 module.exports.Cart = (req, res)=> {
 	let cart = new Cart(req.session.cart ? req.session.cart : {});
 	let products = (req.session.cart) ? cart.getItems() :  [];
+	let zones =  (req.session.zones) ? req.session.zones : [];
+	let zoneDataCrypt =  (req.session.zoneDataCrypt) ? req.session.zoneDataCrypt : false;
 
-	console.log(products);
 
+		db.query("SELECT * FROM zones", (err, zones) => {
+			if(!zoneDataCrypt) {
+				for (let i = 0; i < zones.length; i++) {
+					zoneDataCrypt[i] = helpers.encrypt([zones[i].name, zones[i].description, zones[i].price]);
+				}
+				req.session.zoneDataCrypt = zoneDataCrypt
+				req.session.save();
+			}
 
-	db.query("SELECT * FROM zones", (err, zones) => {
-		return res.render("main/cart", 
-			{
+			return res.render("main/cart", {
 				pageTitle : "Cart - Vita Fruity. Healthy Food, Made Fresh Daily", 
 				products : products,
 				totalPrice : cart.totalPrice,
-				zones : zones
+				zones : zones,
+				zoneDataCrypt: zoneDataCrypt
 			});
-	});
+		});
+	
 
 }
 

@@ -208,8 +208,17 @@
 		$(".category-list-item").css('background', function () {
 		    let bg = ('url(' + $(this).data("image-src") + ') no-repeat center center fixed');
 		    return bg;
-		}); 
+		});
 
+		function zoneWorker () {
+			$.post("/api/workers/zones", {}, function(res){
+				if(res.status == false) {
+					zoneWorker();
+				}
+			});
+		}
 
-		    	
+		window.onload = function() {
+			zoneWorker();
+		} 
      </script>

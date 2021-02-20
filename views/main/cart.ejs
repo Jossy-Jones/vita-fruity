@@ -189,8 +189,8 @@
 								    <label for="zones">Delivery zones</label>
 								    <select class="form-control" id="zones" name="zone" onchange="zoneChange(this)">
 								    	<option price="0" value="null">--Select delivery zone--</option>
-								    <% zones.forEach(zone => { -%>
-								    <% let z = helpers.encrypt([zone.name, zone.description,zone.price]);  %>
+								    <% zones.forEach((zone, idx)=> { -%>
+								    <% let z = zoneDataCrypt[idx]  %>
 								    	 <option zone-id="<%=zone.id %>" id="zone-<%=z%>" price="<%=zone.price %>" value="<%=z %>" ><%=zone.description %></option>
 								    	
 								    <% }) -%>
