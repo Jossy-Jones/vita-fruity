@@ -10,10 +10,10 @@ function addToCart (spId, pId) {
         flavourId = $(`#flavour-${pId}`).find(":selected").val(); 
     } catch (e) {   }
 
-    console.log(flavourId);
+    //console.log(flavourId);
 
-    Cart.add(spId, extras, flavourId);
-    console.trace(extras);
+    Cart.add(spId, pId , extras, flavourId);
+    // console.trace(extras);
     extras = [];
 }
 

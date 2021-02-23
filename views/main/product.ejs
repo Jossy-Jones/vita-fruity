@@ -22,6 +22,17 @@
     cursor: pointer !important;
 }
 
+.spin-icon {
+		display: inline-block !important; 
+		animation:spin 1.0s infinite linear;
+	}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
 </style>
 
 
@@ -106,7 +117,7 @@
                     </div>
                     <br>
                     <div class="detail-info">
-                        <h2 class="detail-title"><%=product.name %></h2>
+                        <h2 class="detail-title" superItemId="<%=product.id %>" title="<%=product.name %>"><%=product.name %></h2>
 
 
 
@@ -121,7 +132,7 @@
 
 
                                 <div class="total-price">
-                                    <button class="vf-btn" onclick="addToCart(<%= sp.id %>)">Add to Cart</button>
+                                    <button class="vf-btn" id="cartBtn-<%=product.id%>" onclick="addToCart(<%= sp.id %>)">Add to Cart</button>
                                      <!--<h2 id="totalItemPrice-<%=sp.id %>">&#8358;<%= sp.price.toLocaleString() %> </h2>-->
                                 </div>
                             <%})  %> 
@@ -151,14 +162,14 @@
 
 
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input" name="spChoice" type="radio" id="checkbox-sp-<%=sp.id %>" price="<%=sp.price %>" value="<%=sp.id %>" onchange="handleChange(this, <%=sp.id %>)">
+                              <input class="form-check-input" name="spChoice" type="radio" id="checkbox-sp-<%=sp.id %>" price="<%=sp.price %>" value="<%=sp.id %>" onchange="handleChange(this, <%=sp.id %>)" itemId="<%=sp.id %>" title="<%=sp.name %>">
                               <label class="form-check-label" for="checkbox-sp-<%=sp.id %>"><%=sp.name %></label>
                             </div>
 
                             <%})  %> 
 
                             <div class="total-price">
-                            <button class="vf-btn" id="cartAddBtn" onclick="addToCart(<%=subProducts.find(x => x.product_id === product.id).id%>)" >Add to Cart
+                            <button class="vf-btn" id="cartBtn-<%=product.id%>" onclick="addToCart(<%=subProducts.find(x => x.product_id === product.id).id%>)" >Add to Cart
                             </button>
                             <!-- <h2 id="totalItemPrice-<%=subProducts.find(x => x.product_id === product.id).id %>">&#8358;<%= subProducts.find(x => x.product_id === product.id).price.toLocaleString() %></h2> -->
 
@@ -229,14 +240,16 @@
 
      var extras = [];   
 
-     function addToCart (id) {
+     function addToCart (spId) {
 
         let flavourId = null;
         try {
             flavourId = $(`#flavour-<%=product.id%>`).find(":selected").val(); 
         } catch (e) {   }
 
-        Cart.add(id, extras, flavourId);
+        let pId = "<%=product.id%>";
+
+        Cart.add(spId, pId, extras, flavourId);
         console.trace(extras);
      }
 
@@ -290,7 +303,7 @@
         // default sp id
         let initId = <%=subProducts.find(x => x.product_id === product.id).id%>;
 
-       let cartAddBtn = $("#cartAddBtn");
+       let cartAddBtn = $("#cartBtn-<%=product.id%>");
        let productPrice = $("#productPrice");
        let elPrice = parseInt(el.getAttribute("price"));
        
@@ -299,8 +312,8 @@
 
        //if id is not initial id, change button attribute
      
-            cartAddBtn.attr("onclick", `addToCart(${id})`);
-            productPrice.html(`&#8358;${elPrice.toLocaleString()}`);
+        cartAddBtn.attr("onclick", `addToCart(${id})`);
+        productPrice.html(`&#8358;${elPrice.toLocaleString()}`);
    }
 
     function onlyUnique(value, index, self) { 

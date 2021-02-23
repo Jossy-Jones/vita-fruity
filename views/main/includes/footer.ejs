@@ -197,6 +197,7 @@
 	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/busy-load/dist/app.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js" integrity="sha512-UNM1njAgOFUa74Z0bADwAq8gbTcqZC8Ej4xPSzpnh0l6KMevwvkBvbldF9uR++qKeJ+MOZHRjV1HZjoRvjDfNQ==" crossorigin="anonymous"></script>
 	<script src="/js/images-loded.min.js"></script>
 	<script src="/js/isotope.min.js"></script>
 	<script src="/js/baguetteBox.min.js"></script>
@@ -218,7 +219,33 @@
 			});
 		}
 
+		function initLocalCart() {
+			let cart = JSON.parse(localStorage.getItem("cart"));
+
+			if(!cart){
+				localStorage.setItem("cart", JSON.stringify({
+						items : {},
+						totalItems : 0
+				})); 
+			}
+		}
+
+		function syncLocalCart() {
+			let cart = JSON.parse(localStorage.getItem("cart"));
+
+			$.post(
+				'/api/workers/cart/sync', 
+				{localCart: cart},
+				(res)=> {
+					console.log(res);
+			});
+	
+		}
+
 		window.onload = function() {
 			zoneWorker();
+
+			initLocalCart();
+
 		} 
      </script>

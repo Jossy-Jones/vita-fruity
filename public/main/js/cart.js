@@ -5,7 +5,9 @@
  function Cart(el) {				
 
  	
-	this.add = (spId, extras = [], flavourId = null) => {
+	this.add = (spId, pId, extras = [], flavourId = null) => {
+		this.loaderVisibility("show", pId);
+
 	 	let notyf = new Notyf({
 	 		duration:3000,
 	 		  position: {
@@ -22,6 +24,7 @@
 			if (res.status == true) {
 				notyf.success(res.message);
 				$(el).html(res.cart.totalItems);
+				this.loaderVisibility("hide", pId);
 				this.flyToBasket(spId);
 				window.navigator.vibrate(200);
 			}
@@ -62,6 +65,18 @@
 			});
 
 		});
+	}
+
+	this.loaderVisibility = (status, pID) => {
+		if(status == "show") {
+			$(`#cartBtn-${pID}`).html('<i class="fa fa-spinner spin-icon" style="font-size:23px"></i>');
+			$(`#sp-btn-add-${pID}`).html('<i class="fa fa-spinner spin-icon" style="font-size:23px"></i>');
+		}
+		if(status == "hide") {
+			$(`#cartBtn-${pID}`).html("Add to cart");
+			$(`#sp-btn-add-${pID}`).html('ADD TO CART');
+		}
+		console.log(pID);
 	}
 
 

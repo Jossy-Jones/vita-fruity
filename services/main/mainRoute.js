@@ -74,7 +74,7 @@ route.post("/test", (req, res)=> {
 	// res.json(cart.totalPrice);
 
 	res.json({
-		zones :req.session.zones
+		cart : req.session.cart 
 	});
 });
 

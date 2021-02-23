@@ -29,6 +29,8 @@ module.exports.addToCart = (req, res)=> {
 
 	let flavour = null;
 
+	console.log(req.body.extras)
+
 
 	if (req.body.extras) {
 		//parsing extras  to integer
